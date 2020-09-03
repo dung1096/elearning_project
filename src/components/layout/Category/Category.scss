@@ -1,0 +1,53 @@
+@import "../../../styles//helpers/theme";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/function";
+// @import "../../styles/helpers/keyframe";
+@import "../../../styles/base/reset";
+@import "../../../styles/base/custom-bs";
+// @import "../../../styles/components/button";
+
+.category {
+  padding-top: 40px;
+  h1 {
+    @include text(fs("h4"), tc("textPrimary"), fw("fwBold"), 0.1);
+    padding: 10px;
+  }
+  &__item {
+    border: 1px solid bc("borderLightGrey");
+    border-radius: 4px;
+    margin: 10px;
+    padding: 0;
+    width: 100%;
+    img {
+      width: 100%;
+    }
+
+    a {
+      text-decoration: none;
+
+      h2 {
+        @include text(fs("h5"), tc("textPrimary"), fw("fwBold"), 0.05);
+        margin: 20px;
+        height: 40px;
+      }
+    }
+  }
+  @include responsive(rp("medium")) {
+    &__item {
+      a h2 {
+        @include text(fs("h6"), tc("textPrimary"), fw("fwBold"), 0.05);
+      }
+    }
+  }
+  span {
+    @include text(fs("h6"), tc("textSecondary"), fw("fwBold"), -0.02);
+    @include button(c("paper"), bc("borderBlue"), 300px);
+    padding: 13px 16px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    &:hover {
+      @include text(fs("h6"), tc("textDarkBlue"), fw("fwBold"), -0.02);
+    }
+  }
+}

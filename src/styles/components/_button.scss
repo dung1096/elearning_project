@@ -1,0 +1,50 @@
+.btn--blue {
+  @include text(fs("subtitle"), tc("textWhite"), fw("fwBold"), 0.05);
+  @include button(c("secondary"), bc("borderSecondary"), 5px);
+  padding: 1rem 2.5rem;
+
+  &:hover {
+    @include button(c("darkBlue"), bc("borderDarkBlue"), 5px);
+  }
+}
+.btn--white {
+  @include text(fs("subtitle"), tc("textSecondary"), fw("fwBold"), 0.1);
+  @include button(c("paper"), bc("borderLightGrey"), 5px);
+  padding: 1rem 2.5rem;
+  margin: 0 5px;
+  &:hover {
+    @include text(fs("subtitle"), tc("textDarkBlue"), fw("fwBold"), 0.1);
+    @include button(c("paper"), bc("borderGrey"), 5px);
+  }
+}
+.btn--yellow {
+  @include button(c("yellow"), transparent, 3px);
+  @include text(fs("body1"), tc("textDarkYellow"), fw("fwBold"), 0.01);
+}
+.btn--pink {
+  @include button(c("pink"), transparent, 3px);
+  @include text(fs("body1"), tc("textRed"), fw("fwBold"), 0.01);
+}
+
+.btn--config {
+  @include button(transparent, bc("borderWhite"), 3px);
+  @include text(fs("body2"), tc("textWhite"), fw("fwBold"), 0.01);
+  height: 4rem;
+  padding: 0 1.6rem;
+}
+
+.btn--red {
+  @include text(fs("subtitle"), tc("textWhite"), fw("fwBold"), 0.01);
+  @include button(c("red"), transparent, 5px);
+  padding: 1rem 2.5rem;
+
+  &:hover {
+    @include button(c("darkRed"), transparent, 5px);
+  }
+  &:active {
+    @include button(c("blackRed"), transparent, 5px);
+  }
+  &:focus {
+    outline: none;
+  }
+}

@@ -1,0 +1,55 @@
+//get color from bgColors Array
+@function c($color) {
+  @if map-has-key($map: $bgColor, $key: $color) {
+    @return map-get($map: $bgColor, $key: $color);
+  }
+  @warn ("This color doesn't exist");
+  @return "";
+}
+//get color from textColor Array
+@function tc($color) {
+  @if map-has-key($map: $textColor, $key: $color) {
+    @return map-get($map: $textColor, $key: $color);
+  }
+  @warn ("This color doesn't exist");
+  @return "";
+}
+//get color from borderColor Array
+@function bc($color) {
+  @if map-has-key($map: $borderColor, $key: $color) {
+    @return map-get($map: $borderColor, $key: $color);
+  }
+  @warn ("This color doesn't exist");
+  @return "";
+}
+
+//get font size from fontSize Array
+@function fs($font) {
+  @if map-has-key($map: $fontSize, $key: $font) {
+    @return map-get($map: $fontSize, $key: $font);
+  }
+  @warn ("This font doesn't exist");
+  @return "";
+}
+
+//get font weight from fontWeight Array
+@function fw($font) {
+  @if map-has-key($map: $fontWeight, $key: $font) {
+    @return map-get($map: $fontWeight, $key: $font);
+  }
+  @warn ("This font doesn't exist");
+  @return "";
+}
+
+//spacing
+@function spacing($num) {
+  @return $num * $spacing;
+}
+
+@function rp($breakpoint) {
+  @if map-has-key($map: $breakPoint, $key: $breakpoint) {
+    @return map-get($map: $breakPoint, $key: $breakpoint);
+  }
+  @warn ("This break point doesn't exist");
+  @return "";
+}

@@ -1,0 +1,36 @@
+.course {
+  h1 {
+    @include text(fs("h4"), tc("textPrimary"), fw("fwBold"), 0.1);
+    padding: 10px;
+    margin: 0;
+  }
+  padding-bottom: 30px;
+  .nav {
+    margin-top: 10px;
+    margin-left: 10px;
+    .nav-item {
+      position: relative;
+
+      .nav-link {
+        @include text(fs("subtitle"), tc("textGrey"), fw("fwBlack"), 0.05);
+        padding: 5px 20px 15px 1px;
+        border: none;
+
+        &.active {
+          color: tc("textPrimary");
+        }
+
+        &::after {
+          @include positionAbsolute(auto, auto, -1px, 0);
+          @include size(0, 3px);
+          content: "";
+          display: block;
+          background-color: c("darkGrey");
+        }
+        &.active::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+}
