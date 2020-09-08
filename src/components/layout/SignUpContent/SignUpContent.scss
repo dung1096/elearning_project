@@ -1,0 +1,43 @@
+@import "../../../styles//helpers/theme";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/function";
+// @import "../../styles/helpers/keyframe";
+@import "../../../styles/base/reset";
+@import "../../../styles/base/custom-bs";
+// @import "../../../styles/components/button";
+@import "../../../styles/components/form";
+
+.sign-up {
+  &__strenght {
+    &__box {
+      @include button(c("lightGrey-2"), none, 8px);
+      @include size(4.2rem, 4px);
+      margin-right: 2px;
+      margin-top: 8px;
+    }
+  }
+
+  .checkbox-text {
+    @include text(fs("subtitle"), tc("textDarkGrey"), fw("fwExtraLight"), 0.02);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding-left: 1rem;
+    line-height: 1.43;
+    text-align: left;
+  }
+
+  &__text {
+    margin-bottom: 1.6rem;
+    padding-bottom: 1.6rem;
+    text-align: center;
+    border-bottom: 1px solid bc("borderLightGrey-2");
+    p {
+      @include text(10px, tc("textDarkGrey"), fw("fwExtraLight"), 0.02);
+      line-height: 1.43;
+      a {
+        @include text(10px, tc("textBlue"), fw("fwExtraLight"), 0.02);
+        text-decoration: none;
+      }
+    }
+  }
+}
