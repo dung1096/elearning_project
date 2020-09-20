@@ -7,8 +7,17 @@ import Detail from "./pages/Detail/Detail";
 import SignUp from "./pages/SignUp/SignUp";
 import Login from "./pages/Login/Login";
 // import Profile from "./pages/Profile/Profile";
+import { useDispatch } from "react-redux";
+import { loginAction } from "./redux/actions/UserAction";
 
 function App() {
+  let dispatch = useDispatch();
+
+  const userFromLocal = localStorage.getItem("userLogin");
+  console.log(userFromLocal);
+  if (userFromLocal) {
+    dispatch(loginAction(JSON.parse(userFromLocal)));
+  }
   return (
     <BrowserRouter>
       <div className="App">

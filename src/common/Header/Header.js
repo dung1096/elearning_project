@@ -1,6 +1,7 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 // import { qlKhoaHocService } from "../../services/QuanLyKhoaHocService";
 
 export default function Header() {
@@ -17,6 +18,7 @@ export default function Header() {
   //       // console.log(err.response.status);
   //     });
   // }, []);
+  const propNguoidung = useSelector((state) => state.UserReducer.user);
 
   return (
     <header className="header animate__animated animate__fadeIn wow">
@@ -67,12 +69,22 @@ export default function Header() {
       </div>
 
       <div className="header__auth">
-        <NavLink to="login">
-          <button className="header__auth__login btn--white">Log in</button>
-        </NavLink>
-        <NavLink to="signup">
-          <button className="header__auth__signup btn--blue">Sign up</button>
-        </NavLink>
+        {propNguoidung ? (
+          <NavLink className="header__auth__success" to="profile">
+            <p>Hi, {propNguoidung.taiKhoan}</p>
+          </NavLink>
+        ) : (
+          <Fragment>
+            <NavLink to="login">
+              <button className="header__auth__login btn--white">Log in</button>
+            </NavLink>
+            <NavLink to="signup">
+              <button className="header__auth__signup btn--blue">
+                Sign up
+              </button>
+            </NavLink>
+          </Fragment>
+        )}
       </div>
     </header>
   );

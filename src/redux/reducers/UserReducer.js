@@ -1,6 +1,6 @@
 import { login } from "../types/UserType";
 
-let userLogin = {};
+let userLogin = null;
 let initialState = {
   user: userLogin,
 };

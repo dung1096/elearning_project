@@ -1,6 +1,5 @@
 import { userService } from "../../services/UserService";
-// import { login } from "../types/UserType";
-// import Home from "../../pages/Home/Home";
+import { login } from "../types/UserType";
 
 export const signUpAction = (values) => {
   return userService
@@ -13,26 +12,26 @@ export const signUpAction = (values) => {
     });
 };
 
-// export const loginAction = (user) => {
-//   console.log(user.taiKhoan);
-//   console.log(user.matKhau);
-//   return (dispatch) => {
-//     userService
-//       .dangNhap(user)
-//       .then((res) => {
-//         console.log(res.data);
-//         //Lưu thông tin vào localStorage
-//         localStorage.setItem("userLogin", JSON.stringify(res.data));
-//         //Lưu token vào localStorage
-//         localStorage.setItem("accessToken", res.data.accessToken);
+export const loginAction = (user) => {
+  console.log(user.taiKhoan);
+  console.log(user.matKhau);
+  return (dispatch) => {
+    userService
+      .dangNhap(user)
+      .then((res) => {
+        console.log(res.data);
+        //Lưu thông tin vào localStorage
+        localStorage.setItem("userLogin", JSON.stringify(res.data));
+        //Lưu token vào localStorage
+        localStorage.setItem("accessToken", res.data.accessToken);
 
-//         dispatch({
-//           type: login,
-//           user: res.data,
-//         });
-//       })
-//       .catch((err) => {
-//         console.log(err.response.data);
-//       });
-//   };
-// };
+        dispatch({
+          type: login,
+          user: res.data,
+        });
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  };
+};
