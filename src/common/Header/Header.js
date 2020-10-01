@@ -1,24 +1,18 @@
 import React, { Fragment } from "react";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
-// import { qlKhoaHocService } from "../../services/QuanLyKhoaHocService";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../redux/types/UserType";
 
 export default function Header() {
-  // let [dsKhoaHoc, setDSKhoaHoc] = useState([]);
-  // useEffect(() => {
-  //   qlKhoaHocService
-  //     .layDanhSachKhoaHoc()
-  //     .then((res) => {
-  //       console.log("dsKhoaHoc", res.data);
-  //       setDSKhoaHoc(res.data);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.response.data);
-  //       // console.log(err.response.status);
-  //     });
-  // }, []);
-  const propNguoidung = useSelector((state) => state.UserReducer.user);
+  let dispatch = useDispatch();
+  // const history = useHistory();
+  const propUser = useSelector((state) => state.UserReducer.userLogin);
+  const handleLogout = () => {
+    dispatch({ type: logout });
+    // history.push("/login");
+  };
+  // const propUser = useSelector((state) => state.UserReducer.user);
 
   return (
     <header className="header animate__animated animate__fadeIn wow">
@@ -68,11 +62,23 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="header__auth">
-        {propNguoidung ? (
-          <NavLink className="header__auth__success" to="profile">
-            <p>Hi, {propNguoidung.taiKhoan}</p>
-          </NavLink>
+      <div className="header__auth panel-menu-parent">
+        {propUser ? (
+          <div className="header__auth__success">
+            <p>Hi, {propUser.taiKhoan}</p>
+            <div className="panel-menu panel-menu--config">
+              <ul>
+                <li>
+                  <NavLink to="profile">Profile</NavLink>
+                </li>
+                <li>
+                  <NavLink to="login" onClick={handleLogout}>
+                    Logout
+                  </NavLink>
+                </li>
+              </ul>
+            </div>
+          </div>
         ) : (
           <Fragment>
             <NavLink to="login">
