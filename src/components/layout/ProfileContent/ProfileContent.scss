@@ -1,0 +1,96 @@
+@import "../../../styles//helpers/theme";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/function";
+// @import "../../styles/helpers/keyframe";
+@import "../../../styles/base/reset";
+// @import "../../../styles/base/custom-bs";
+// @import "../../../styles/components/button";
+@import "../../../styles/components/form";
+
+.profile {
+  margin: 3rem auto;
+  &__nav {
+    box-shadow: 1px 1px c("lightGrey-2") inset, 0 -1px c("lightGrey-2") inset;
+  }
+  &__avt {
+    margin: 3rem;
+
+    img {
+      @include size(13rem, 13rem);
+      border-radius: 50%;
+    }
+    h4 {
+      @include text(fs("subtitle"), tc("textDarkGrey"), fw("fwBold"), 0.02);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      min-height: 1.7rem;
+      text-align: center;
+      line-height: 1 !important;
+      margin: 2rem 0 3px;
+    }
+  }
+  ul li {
+    a {
+      @include text(fs("subtitle"), tc("textBlue"), fw("fwExtraLight"), 0.02);
+      padding: 3px 1.5rem;
+      line-height: 1.43;
+
+      &:hover,
+      &.active {
+        @include text(
+          fs("subtitle"),
+          tc("textWhite"),
+          fw("fwExtraLight"),
+          0.02
+        );
+        background: c("grey") !important;
+        border-color: bc("borderGrey-2");
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  &__content {
+    border: 1px solid bc("borderLightGrey-2");
+  }
+  &__header {
+    h3 {
+      @include text(fs("h4"), tc("textDarkGrey"), fw("fwBold"), 0.02);
+      line-height: 1;
+      margin: 2rem 0 3px;
+    }
+    p {
+      @include text(
+        fs("subtitle"),
+        tc("textDarkGrey"),
+        fw("fwExtraLight"),
+        0.02
+      );
+      margin-bottom: 1.5rem;
+      line-height: 2.5rem;
+    }
+  }
+  &__body {
+    box-shadow: 0 1px 0 0 c("lightGrey-2"), 0 -1px 0 0 c("lightGrey-2");
+    padding: 1rem 10rem;
+    h3 {
+      @include text(fs("subtitle"), tc("textDarkGrey"), fw("fwRegular"), 0.02);
+      padding-top: 1rem;
+      line-height: 1.43;
+    }
+    input {
+      @include text(fs("h6"), tc("textDarkGrey"), fw("fwRegular"), 0.02);
+      @include size(100%, 4.4rem);
+      @include button(c("white"), bc("borderGrey-2"), 2px);
+      padding: 1rem 12px;
+      line-height: 1.43;
+    }
+  }
+  &__footer {
+    button {
+      margin: 1rem 0 1.5rem;
+    }
+  }
+}

@@ -4,7 +4,7 @@ import "./LoginContent.scss";
 import { NavLink } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { loginAction } from "../../../redux/actions/UserAction";
+import {accountInformation, loginAction } from "../../../redux/actions/UserAction";
 // import { userService } from "../../../services/UserService";
 // import { login } from "../../../redux/types/UserType";
 import { useHistory } from "react-router-dom";
@@ -22,8 +22,9 @@ export const LoginContent = () => {
   const handleSubmit = (value) => {
     console.log("submit: ", value);
     // event.preventDefault();
-
     dispatch(loginAction(value));
+
+    
 
     history.replace("/home");
   };

@@ -18,7 +18,6 @@ export default function CourseList(props) {
     courseListAction(setDSKhoaHoc,propSearch);
   }, [propSearch]);
 
-  console.log("propSearchValue");
 
   const settings = {
     arrows: true,

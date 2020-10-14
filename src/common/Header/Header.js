@@ -10,6 +10,7 @@ export default function Header() {
   let dispatch = useDispatch();
   // const history = useHistory();
   const propUser = useSelector((state) => state.UserReducer.userLogin);
+  const propCart = useSelector((state) => state.CourseReducer.cart);
   const handleLogout = () => {
     dispatch({ type: logout });
     // history.push("/login");
@@ -20,7 +21,6 @@ export default function Header() {
   };
   let handleSubmit = (event) => {
     event.preventDefault();
-    console.log(searchValue.value);
     dispatch({ type: search, searchValue: searchValue.value });
   };
 
@@ -69,11 +69,39 @@ export default function Header() {
         </div>
       </nav>
 
+      {/* CART */}
       <div className="panel-menu-parent header__cart d-none d-md-flex">
-        <i className="fa fa-shopping-cart"></i>
+        <NavLink to="/cart">
+          <i className="fa fa-shopping-cart"></i>
+          <div className="cart-number">{propCart.length}</div>
+        </NavLink>
         <div className="panel-menu header__cart__content">
-          <p>Your cart is empty.</p>
-          <NavLink to="/">Keep shoping</NavLink>
+          {propCart ? (<Fragment>
+            {propCart.map((cartItem, index) => {
+            return (
+              <div key={index} className="cart-content__item">
+                <div className="row">
+                  <div className="col-sm-4  d-flex align-items-center">
+                    <img
+                      src={cartItem.hinhAnh}
+                      alt={cartItem.hinhAnh}
+                      className="img-fluid"
+                    ></img>
+                  </div>
+
+                  <div className="col-sm-8 d-flex align-items-center">
+                    <h3>{cartItem.tenKhoaHoc}</h3>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+          </Fragment>):(<Fragment>
+             <p>Your cart is empty.</p>
+          <NavLink to="/cart">Keep shoping</NavLink>
+          </Fragment>)}
+         
+          
         </div>
       </div>
 
@@ -84,10 +112,10 @@ export default function Header() {
             <div className="panel-menu panel-menu--config">
               <ul>
                 <li>
-                  <NavLink to="profile">Profile</NavLink>
+                  <NavLink to="/profile">Profile</NavLink>
                 </li>
                 <li>
-                  <NavLink to="login" onClick={handleLogout}>
+                  <NavLink to="/login" onClick={handleLogout}>
                     Logout
                   </NavLink>
                 </li>
@@ -96,10 +124,10 @@ export default function Header() {
           </div>
         ) : (
           <Fragment>
-            <NavLink to="login">
+            <NavLink to="/login">
               <button className="header__auth__login btn--white">Log in</button>
             </NavLink>
-            <NavLink to="signup">
+            <NavLink to="/signup">
               <button className="header__auth__signup btn--blue">
                 Sign up
               </button>

@@ -6,7 +6,8 @@ import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate";
 import Detail from "./pages/Detail/Detail";
 import SignUp from "./pages/SignUp/SignUp";
 import Login from "./pages/Login/Login";
-// import Profile from "./pages/Profile/Profile";
+import Cart, {  } from "./pages/Cart/Cart";
+import Profile from "./pages/Profile/Profile";
 import { useDispatch } from "react-redux";
 import { loginAction } from "./redux/actions/UserAction";
 
@@ -25,7 +26,8 @@ function App() {
         <HomeTemplate exact path="/detail/:maKhoaHoc" Component={Detail} />
         <HomeTemplate exact path="/signup" Component={SignUp} />
         <HomeTemplate exact path="/login" Component={Login} />
-        {/* <HomeTemplate exact path="/profile" Component={Profile} /> */}
+        <HomeTemplate exact path="/profile" Component={Profile} />
+         <HomeTemplate exact path="/cart" Component={Cart} />
         <HomeTemplate exact path="/" Component={Home} />
       </div>
     </BrowserRouter>

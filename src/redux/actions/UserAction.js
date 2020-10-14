@@ -36,3 +36,16 @@ export const loginAction = (user) => {
       });
   };
 };
+
+export const accountInformation = (user) => {
+  console.log(user.taiKhoan);
+  console.log(user.matKhau);
+  return userService
+    .thongTinTaiKhoan(user.taiKhoan)
+    .then((res) => {
+      console.log("info",res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+};
