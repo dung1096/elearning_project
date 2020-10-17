@@ -11,6 +11,10 @@ import Profile from "./pages/Profile/Profile";
 import { useDispatch } from "react-redux";
 import { loginAction } from "./redux/actions/UserAction";
 
+import UserManagement from "./pages/UserManagement/UserManagement";
+import CourseManagement from "./pages/CourseManagement/CourseManagement";
+import Auth from "./components/HOC/Auth";
+
 function App() {
   let dispatch = useDispatch();
 
@@ -28,6 +32,10 @@ function App() {
         <HomeTemplate exact path="/login" Component={Login} />
         <HomeTemplate exact path="/profile" Component={Profile} />
          <HomeTemplate exact path="/cart" Component={Cart} />
+
+         <Auth exact path="/admin" Component={UserManagement} />
+        <Auth exact path="/admin/user" Component={UserManagement} />
+        <Auth exact path="/admin/course" Component={CourseManagement} />
         <HomeTemplate exact path="/" Component={Home} />
       </div>
     </BrowserRouter>
