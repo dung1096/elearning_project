@@ -26,4 +26,26 @@ export const courseDetailAction = (props, setChiTietKhoaHoc) => {
   return setChiTietKhoaHoc;
 };
 
+export const handleInsertCourseAction = (values) => {
+  console.log(values);
+  return courseService
+    .themKhoaHoc(values)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+};
 
+export const handleDeleteCourseAction = (id) => {
+  console.log(id);
+  return courseService
+    .xoaKhoaHoc(id)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+};

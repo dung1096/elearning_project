@@ -49,3 +49,40 @@ export const accountInformation = (user) => {
       console.log(err.response.data);
     });
 };
+
+export const userListAction = (setDSNguoiDung) => {
+  userService
+    .layDanhSachNguoiDung()
+    .then((res) => {
+      console.log(res.data);
+      setDSNguoiDung(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+  return setDSNguoiDung;
+};
+
+export const handleInsertUserAction = (values) => {
+  console.log(values);
+  return userService
+    .themNguoiDung(values)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+};
+
+export const handleDeleteUserAction = (id) => {
+  console.log(id);
+  return userService
+    .xoaNguoiDung(id)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+};

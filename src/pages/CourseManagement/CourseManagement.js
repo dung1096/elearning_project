@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment } from "react";
-// import {
-//   courseListAction,
-//   handleDeleteCourseAction,
-// } from "../../redux/actions/CourseAction";
+import {
+  courseListAction,
+  handleDeleteCourseAction,
+} from "../../redux/actions/CourseAction";
 import { useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
@@ -14,7 +14,7 @@ const updateCourseSchema = yup.object().shape({
 });
 
 export default function CourseManagement() {
-  // let [dsKhoaHoc, setDSKhoaHoc] = useState([]);
+  let [dsKhoaHoc, setDSKhoaHoc] = useState([]);
 
   const propUser = useSelector((state) => state.UserReducer.userLogin);
   const parsedDate = () => {
@@ -32,9 +32,9 @@ export default function CourseManagement() {
     return date.toString();
   };
 
-  // useEffect(() => {
-  //   courseListAction(setDSKhoaHoc);
-  // }, []);
+  useEffect(() => {
+    courseListAction(setDSKhoaHoc);
+  }, [dsKhoaHoc]);
 
   const handleSubmit = (values) => {
     console.log(values);
@@ -44,9 +44,9 @@ export default function CourseManagement() {
     //  handleInsertAction(values);
   };
 
-  // const handleDelete = (id) => {
-  //   handleDeleteCourseAction(id);
-  // };
+  const handleDelete = (id) => {
+    handleDeleteCourseAction(id);
+  };
 
   return (
     <Fragment>
@@ -256,7 +256,7 @@ export default function CourseManagement() {
       </div>
 
       <div className="row">
-        {/* {dsKhoaHoc.map((khoaHoc, index) => {
+        {dsKhoaHoc.map((khoaHoc, index) => {
           return (
             <div className="col-sm-4 mb-5" key={index}>
               <div className="card">
@@ -329,7 +329,7 @@ export default function CourseManagement() {
                   <button
                     className="btn btn-danger ml-3 mb-3"
                     style={{ fontSize: "14px" }}
-                    // onClick={() => handleDelete(khoaHoc.maKhoaHoc)}
+                    onClick={() => handleDelete(khoaHoc.maKhoaHoc)}
                   >
                     Delete
                   </button>
@@ -337,7 +337,7 @@ export default function CourseManagement() {
               </div>
             </div>
           );
-        })} */}
+        })}
       </div>
     </Fragment>
   );
