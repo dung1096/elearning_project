@@ -3,6 +3,7 @@ import {
   courseListAction,
   handleDeleteCourseAction,
 } from "../../redux/actions/CourseAction";
+
 import { useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
@@ -17,6 +18,7 @@ export default function CourseManagement() {
   let [dsKhoaHoc, setDSKhoaHoc] = useState([]);
 
   const propUser = useSelector((state) => state.UserReducer.userLogin);
+  const propGroup = useSelector((state) => state.CourseReducer.group);
   const parsedDate = () => {
     let today = new Date();
     let dd = today.getDate();
@@ -33,7 +35,7 @@ export default function CourseManagement() {
   };
 
   useEffect(() => {
-    courseListAction(setDSKhoaHoc);
+    courseListAction(setDSKhoaHoc,"",propGroup);
   }, [dsKhoaHoc]);
 
   const handleSubmit = (values) => {

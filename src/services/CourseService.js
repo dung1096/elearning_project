@@ -3,10 +3,10 @@ import { domain,token } from "../config/setting";
 
 export class CourseService {
   // constructor() {}
-  layDanhSachKhoaHoc = (data) => {
+  layDanhSachKhoaHoc = (data,group) => {
     return Axios({
       url:
-        `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${data}&MaNhom=GP01`,
+        `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${data}&MaNhom=${group}`,
       method: "GET",
     });
   };
@@ -32,10 +32,28 @@ export class CourseService {
     });
   };
 
-  layKhoaHocTheoDanhMuc = () => {
+  layKhoaHocTheoDanhMuc = (data,group) => {
     return Axios({
-      url: "",
-      method: "",
+      url: `${domain}/api/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${data}&MaNhom=${group}`,
+      method: "GET",
+    });
+  };
+
+  dangKyKhoaHoc = ({maKhoaHoc,taiKhoan}) => {
+    return Axios({
+      url: `${domain}/api/QuanLyKhoaHoc/DangKyKhoaHoc`,
+      method: "POST",
+      data:{maKhoaHoc,taiKhoan},
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  };
+  
+  huyGhiDanh = ({taiKhoan,maKhoaHoc}) => {
+    return Axios({
+      url: `${domain}/api/QuanLyKhoaHoc/HuyGhiDanh`,
+      method: "POST",
+      data:{taiKhoan,maKhoaHoc},
+      headers: { Authorization: `Bearer ${token}` },
     });
   };
 

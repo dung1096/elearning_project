@@ -1,7 +1,8 @@
-import { search ,addToCart,deleteCart} from "../types/CourseType";
+import { search ,addToCart,deleteCart,setGroup} from "../types/CourseType";
 
 
 let searchValue = "";
+let group= "GP01"
 let cart = [];
 if (localStorage.getItem("cartItems")) {
   cart = JSON.parse(localStorage.getItem("cartItems"));
@@ -10,6 +11,7 @@ if (localStorage.getItem("cartItems")) {
 let initialState = {
   searchValue: searchValue,
   cart: cart,
+  group:group,
 };
 
 const CourseReducer = (state = initialState, action) => {
@@ -60,6 +62,10 @@ const CourseReducer = (state = initialState, action) => {
       //Lưu thông tin vào localStorage
       localStorage.setItem("cartItems", JSON.stringify(state.cart));
 
+      return { ...state };
+    }
+    case setGroup: {
+      state.group = action.group;
       return { ...state };
     }
 

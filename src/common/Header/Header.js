@@ -107,8 +107,8 @@ export default function Header() {
 
       <div className="header__auth panel-menu-parent">
         {propUser ? (
-          <div className="header__auth__success">
-            <p>Hi, {propUser.taiKhoan}</p>
+          <div className="header__auth__success d-flex align-items-center">
+            <p className="m-0">Hi, {propUser.taiKhoan}</p>
             <div className="panel-menu panel-menu--config">
               <ul>
                 <li>

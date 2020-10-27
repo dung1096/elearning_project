@@ -37,22 +37,27 @@ export const loginAction = (user) => {
   };
 };
 
-export const accountInformation = (user) => {
+export const accountInformation = (setUserInfo,user) => {
   console.log(user.taiKhoan);
-  console.log(user.matKhau);
-  return userService
-    .thongTinTaiKhoan(user.taiKhoan)
+  // console.log(user.matKhau);
+  userService
+    .thongTinTaiKhoan(user)
     .then((res) => {
       console.log("info",res.data);
+     setUserInfo(res.data);
+   
     })
     .catch((err) => {
       console.log(err.response.data);
     });
+    return setUserInfo;
 };
 
-export const userListAction = (setDSNguoiDung) => {
+
+
+export const userListAction = (group,setDSNguoiDung) => {
   userService
-    .layDanhSachNguoiDung()
+    .layDanhSachNguoiDung(group)
     .then((res) => {
       console.log(res.data);
       setDSNguoiDung(res.data);
@@ -79,6 +84,18 @@ export const handleDeleteUserAction = (id) => {
   console.log(id);
   return userService
     .xoaNguoiDung(id)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+};
+
+export const handleUpdateUserAction = (values) => {
+  console.log(values);
+  return userService
+    .capNhatThongTinNguoiDung(values)
     .then((res) => {
       console.log(res.data);
     })
