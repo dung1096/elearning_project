@@ -1,15 +1,15 @@
 import React, { useState, useEffect, Fragment } from "react";
 import {
+  accountInformation,
   handleDeleteUserAction,
   handleInsertUserAction,
   handleUpdateUserAction,
   userListAction,
 } from "../../redux/actions/UserAction";
-import { useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import "./UserManagement.scss";
-import { update } from "../../redux/types/UserType";
 
 const insertUserSchema = yup.object().shape({
   taiKhoan: yup.string().required("* Username cannot be empty!"),
@@ -18,7 +18,7 @@ const insertUserSchema = yup.object().shape({
     .string()
     .required("* Email cannot be empty!")
     .email("* Email is required!"),
-  soDt: yup
+  soDT: yup
     .string()
     .required("* Phone cannot be empty!")
     .matches(/^[0-9]+$/),
@@ -38,35 +38,37 @@ const updateUserSchema = yup.object().shape({
     .string()
     .required("* Email cannot be empty!")
     .email("* Email is required!"),
-  soDt: yup
+  soDT: yup
     .string()
     .required("* Phone cannot be empty!")
     .matches(/^[0-9]+$/),
-//   matKhau: yup
-//     .string()
-//     .min(6, "* Minimum 6 characters")
-//     .required("* Pasword cannot be empty!"),
-//   xacNhan: yup
-//     .string()
-//     .oneOf([yup.ref("matKhau")], "* Password's not match")
-//     .required("* Confirm cannot be empty!"),
+  //   matKhau: yup
+  //     .string()
+  //     .min(6, "* Minimum 6 characters")
+  //     .required("* Pasword cannot be empty!"),
+  //   xacNhan: yup
+  //     .string()
+  //     .oneOf([yup.ref("matKhau")], "* Password's not match")
+  //     .required("* Confirm cannot be empty!"),
 });
 
 export default function UserManagement(props) {
-  
-  let [dsNguoiDung, setDSNguoiDung] = useState([]);
-  
-  let [nguoiDung, setNguoiDung] = useState({});
+  let [userList, setUserList] = useState([]);
 
-  const userGroup = useSelector((state)=>state.UserReducer.group)
+  let [user, setUser] = useState({});
+
+  const userGroup = useSelector((state) => state.UserReducer.group);
 
   useEffect(() => {
-    userListAction(userGroup,setDSNguoiDung);
-  }, [dsNguoiDung]);
+    userListAction(userGroup, setUserList);
+  }, [userList, userGroup]);
 
   const handleSubmit = (values) => {
     console.log(values);
     handleInsertUserAction(values);
+    console.log(document.getElementById("insert").dataset.dismiss);
+    document.getElementById("insert").dataset.dismiss = false;
+    console.log(document.getElementById("insert").dataset.dismiss);
   };
 
   const handleDelete = (id) => {
@@ -77,58 +79,30 @@ export default function UserManagement(props) {
   const handleUpdate = (values) => {
     console.log(values);
     // dispatch({ type: update, userUpdate: values });
-    setNguoiDung(values);
-  };
-let handleChangeUpdate = (event) => {
-    let { name, value } = event.target;
-     console.log(name,value);
-    setNguoiDung({ ...nguoiDung, [name]: value });
+    accountInformation(setUser, values);
   };
   const handleSubmitUpdate = (values) => {
     console.log(values);
-  
+
     // values.preventDefault();
 
     handleUpdateUserAction(values);
   };
-  // const renderButton = (msg) => {
-  //   if (msg) {
-  //     return (
-  //       <button
-  //         type="submit"
-  //         className="btn--red btn--sign-up"
-  //         data-dismiss="modal"
-  //         disabled
-  //       >
-  //         Insert
-  //       </button>
-  //     );
-  //   } else {
-  //     return (
-  //       <button
-  //         type="submit"
-  //         className="btn--red btn--sign-up"
-  //         data-dismiss="modal"
-  //       >
-  //         Insert
-  //       </button>
-  //     );
-  //   }
-  // };
-  const renderTable = (nguoiDung, index) => {
+  
+  const renderTable = (user, index) => {
     if (index % 2 === 0) {
       return (
         <tr key={index}>
           <td>{index + 1}</td>
-          <td>{nguoiDung.taiKhoan}</td>
-          <td>{nguoiDung.hoTen}</td>
-          <td>{nguoiDung.email}</td>
-          <td>{nguoiDung.soDt}</td>
-          <td>{nguoiDung.maLoaiNguoiDung}</td>
+          <td>{user.taiKhoan}</td>
+          <td>{user.hoTen}</td>
+          <td>{user.email}</td>
+          <td>{user.soDT}</td>
+          <td>{user.maLoaiNguoiDung}</td>
           <td>
             <button
               className="btn btn-danger"
-              onClick={() => handleDelete(nguoiDung.taiKhoan)}
+              onClick={() => handleDelete(user.taiKhoan)}
             >
               X
             </button>
@@ -137,7 +111,7 @@ let handleChangeUpdate = (event) => {
               data-toggle="modal"
               data-target="#modelUpdateId"
               onClick={() => {
-                handleUpdate(nguoiDung);
+                handleUpdate(user);
               }}
             >
               Update
@@ -149,24 +123,24 @@ let handleChangeUpdate = (event) => {
       return (
         <tr key={index} className="bg-secondary text-light">
           <td>{index + 1}</td>
-          <td>{nguoiDung.taiKhoan}</td>
-          <td>{nguoiDung.hoTen}</td>
-          <td>{nguoiDung.email}</td>
-          <td>{nguoiDung.soDt}</td>
-          <td>{nguoiDung.maLoaiNguoiDung}</td>
+          <td>{user.taiKhoan}</td>
+          <td>{user.hoTen}</td>
+          <td>{user.email}</td>
+          <td>{user.soDT}</td>
+          <td>{user.maLoaiNguoiDung}</td>
           <td>
             <button
               className="btn btn-danger"
-              onClick={() => handleDelete(nguoiDung.taiKhoan)}
+              onClick={() => handleDelete(user.taiKhoan)}
             >
               X
             </button>
             <button
               className="btn btn-info"
               data-toggle="modal"
-            data-target="#modelUpdateId"
+              data-target="#modelUpdateId"
               onClick={() => {
-                handleUpdate(nguoiDung);
+                handleUpdate(user);
               }}
             >
               Update
@@ -213,7 +187,7 @@ let handleChangeUpdate = (event) => {
                     taiKhoan: "",
                     matKhau: "",
                     hoTen: "",
-                    soDt: "",
+                    soDT: "",
                     maNhom: "GP01",
                     email: "",
                     xacNhan: "",
@@ -232,12 +206,11 @@ let handleChangeUpdate = (event) => {
                           className="form-control"
                           placeholder="Username"
                           name="taiKhoan"
-                          // value={nguoiDung.taiKhoan}
                           onChange={handleChange}
                         />
                         <ErrorMessage name="taiKhoan"></ErrorMessage>
                       </div>
-                      
+
                       {/* Name */}
                       <div className="form-group">
                         <i className="fa fa-user" />
@@ -246,7 +219,6 @@ let handleChangeUpdate = (event) => {
                           className="form-control"
                           placeholder="Full Name"
                           name="hoTen"
-                          // value={nguoiDung.hoTen}
                           onChange={handleChange}
                         />
                         <ErrorMessage name="hoTen">
@@ -261,7 +233,6 @@ let handleChangeUpdate = (event) => {
                           className="form-control"
                           placeholder="Email"
                           name="email"
-                          // value={nguoiDung.email}
                           onChange={handleChange}
                         />
                         <ErrorMessage name="email">
@@ -275,11 +246,10 @@ let handleChangeUpdate = (event) => {
                           type="text"
                           className="form-control"
                           placeholder="Phone"
-                          name="soDt"
-                          // value={nguoiDung.soDt}
+                          name="soDT"
                           onChange={handleChange}
                         />
-                        <ErrorMessage name="soDt">
+                        <ErrorMessage name="soDT">
                           {/* {(msg) => renderMsg(msg)} */}
                         </ErrorMessage>
                       </div>
@@ -291,7 +261,6 @@ let handleChangeUpdate = (event) => {
                           className="form-control"
                           placeholder="Password"
                           name="matKhau"
-                          // value={nguoiDung.matKhau}
                           onChange={handleChange}
                         />
                         <ErrorMessage name="matKhau">
@@ -306,7 +275,6 @@ let handleChangeUpdate = (event) => {
                           className="form-control"
                           placeholder="Confirm Password"
                           name="xacNhan"
-                          // value={nguoiDung.matKhau}
                           onChange={handleChange}
                         />
                         <ErrorMessage name="xacNhan">
@@ -352,7 +320,7 @@ let handleChangeUpdate = (event) => {
                       <button
                         type="submit"
                         className="btn--red btn--sign-up"
-                        // data-dismiss="modal"
+                        // data-dismiss
                       >
                         Insert
                       </button>
@@ -364,8 +332,8 @@ let handleChangeUpdate = (event) => {
             </div>
           </div>
         </div>
-      {/*  */}
-      <div className="modal fade" id="modelUpdateId" aria-hidden="true">
+        {/*  */}
+        <div className="modal fade" id="modelUpdateId" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
               <div className="modal-header">
@@ -381,20 +349,21 @@ let handleChangeUpdate = (event) => {
               </div>
               <div className="modal-body form-main__content">
                 <Formik
+                  enableReinitialize={true}
                   initialValues={{
-                    taiKhoan: nguoiDung.taiKhoan,    
-                    hoTen: nguoiDung.hoTen,
-                    soDt: nguoiDung.soDt,
-                    maNhom: nguoiDung.maNhom,
-                    email:nguoiDung.email,
-                    maLoaiNguoiDung: nguoiDung.maLoaiNguoiDung,
-
+                    taiKhoan: user.taiKhoan,
+                    matKhau: user.matKhau,
+                    hoTen: user.hoTen,
+                    soDT: user.soDT,
+                    maNhom: userGroup,
+                    email: user.email,
+                    maLoaiNguoiDung: user.maLoaiNguoiDung,
                   }}
-                  // validationSchema={updateUserSchema}
+                  validationSchema={updateUserSchema}
                   onSubmit={handleSubmitUpdate}
                   // handleChange={handleChangeUpdate}
                 >
-                  {({handleChange}) => (
+                  {({ handleChange }) => (
                     <Form>
                       {/* ID */}
                       <div className="form-group">
@@ -404,14 +373,12 @@ let handleChangeUpdate = (event) => {
                           className="form-control"
                           placeholder="Username"
                           name="taiKhoan"
-                          // value={initialValues[taiKhoan]}
-                          // onChange={handleChangeUpdateUpdate}
                           readOnly
                           // disabled
                         />
                         <ErrorMessage name="taiKhoan"></ErrorMessage>
                       </div>
-                      
+
                       {/* Name */}
                       <div className="form-group">
                         <i className="fa fa-user" />
@@ -420,7 +387,6 @@ let handleChangeUpdate = (event) => {
                           className="form-control"
                           placeholder="Full Name"
                           name="hoTen"
-                          value={nguoiDung.hoTen}
                           onChange={handleChange}
                         />
                         <ErrorMessage name="hoTen">
@@ -435,7 +401,6 @@ let handleChangeUpdate = (event) => {
                           className="form-control"
                           placeholder="Email"
                           name="email"
-                          value={nguoiDung.email}
                           onChange={handleChange}
                         />
                         <ErrorMessage name="email">
@@ -449,15 +414,14 @@ let handleChangeUpdate = (event) => {
                           type="text"
                           className="form-control"
                           placeholder="Phone"
-                          name="soDt"
-                          // value={nguoiDung.soDt}
+                          name="soDT"
                           onChange={handleChange}
                         />
-                        <ErrorMessage name="soDt">
+                        <ErrorMessage name="soDT">
                           {/* {(msg) => renderMsg(msg)} */}
                         </ErrorMessage>
                       </div>
-                      
+
                       {/* Group */}
                       <div className="form-group">
                         <i className="fa fa-users"></i>
@@ -509,7 +473,6 @@ let handleChangeUpdate = (event) => {
             </div>
           </div>
         </div>
-      
       </div>
 
       <table className="table">
@@ -525,8 +488,8 @@ let handleChangeUpdate = (event) => {
           </tr>
         </thead>
         <tbody className="text-center">
-          {dsNguoiDung.map((nguoiDung, index) => {
-            return renderTable(nguoiDung, index);
+          {userList.map((user, index) => {
+            return renderTable(user, index);
           })}
         </tbody>
       </table>

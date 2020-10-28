@@ -30,7 +30,6 @@ export default function CourseList(props) {
   }
 
   let handleClickGroup=(event)=>{
-    console.log(event.target.innerHTML) 
     dispatch({
           type: setGroup,
           group: event.target.innerHTML,
@@ -150,22 +149,22 @@ export default function CourseList(props) {
             </a>
           </li>
         </ul>
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+        <div className="dropdown">
+          <button className="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
                 {propGroup}
               </button>
-          <div class="dropdown-menu" aria-labelledby="triggerId">
-            <a class="dropdown-item" onClick={handleClickGroup}>GP01</a>
-            <a class="dropdown-item" onClick={handleClickGroup}>GP02</a>
-            <a class="dropdown-item" onClick={handleClickGroup}>GP03</a>        
-            <a class="dropdown-item" onClick={handleClickGroup}>GP04</a>
-            <a class="dropdown-item" onClick={handleClickGroup}>GP05</a>
-            <a class="dropdown-item" onClick={handleClickGroup}>GP06</a>
-            <a class="dropdown-item" onClick={handleClickGroup}>GP07</a>        
-            <a class="dropdown-item" onClick={handleClickGroup}>GP08</a>
-            <a class="dropdown-item" onClick={handleClickGroup}>GP09</a>
-            <a class="dropdown-item" onClick={handleClickGroup}>GP10</a>
+          <div className="dropdown-menu" aria-labelledby="triggerId">
+            <div className="dropdown-item" onClick={handleClickGroup}>GP01</div>
+            <div className="dropdown-item" onClick={handleClickGroup}>GP02</div>
+            <div className="dropdown-item" onClick={handleClickGroup}>GP03</div>        
+            <div className="dropdown-item" onClick={handleClickGroup}>GP04</div>
+            <div className="dropdown-item" onClick={handleClickGroup}>GP05</div>
+            <div className="dropdown-item" onClick={handleClickGroup}>GP06</div>
+            <div className="dropdown-item" onClick={handleClickGroup}>GP07</div>        
+            <div className="dropdown-item" onClick={handleClickGroup}>GP08</div>
+            <div className="dropdown-item" onClick={handleClickGroup}>GP09</div>
+            <div className="dropdown-item" onClick={handleClickGroup}>GP10</div>
           </div>
         </div>
       </div>

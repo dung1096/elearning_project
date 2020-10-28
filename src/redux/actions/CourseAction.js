@@ -1,10 +1,10 @@
 import { courseService } from "../../services/CourseService";
+import { deleteCart } from "../types/CourseType";
 
-export const courseListAction = (setDSKhoaHoc, value,group) => {
+export const courseListAction = (setDSKhoaHoc, value, group) => {
   courseService
-    .layDanhSachKhoaHoc(value,group)
+    .layDanhSachKhoaHoc(value, group)
     .then((res) => {
-      console.log("dsKhoaHoc", res.data);
       setDSKhoaHoc(res.data);
     })
     .catch((err) => {
@@ -13,12 +13,10 @@ export const courseListAction = (setDSKhoaHoc, value,group) => {
   return setDSKhoaHoc;
 };
 
-export const courseCategoryAction = (setDSKhoaHoc,name,group) => {
-  console.log("dsKhoaHocDanhMuc",name,group);
+export const courseCategoryAction = (setDSKhoaHoc, name, group) => {
   courseService
-    .layKhoaHocTheoDanhMuc(name,group)
+    .layKhoaHocTheoDanhMuc(name, group)
     .then((res) => {
-      console.log("dsKhoaHoc", res.data);
       setDSKhoaHoc(res.data);
     })
     .catch((err) => {
@@ -31,7 +29,6 @@ export const courseDetailAction = (props, setChiTietKhoaHoc) => {
   courseService
     .layChiTietKhoaHoc(props.match.params.maKhoaHoc)
     .then((res) => {
-      console.log("chiTietKhoaHoc", res.data);
       setChiTietKhoaHoc(res.data);
     })
     .catch((err) => {
@@ -40,10 +37,24 @@ export const courseDetailAction = (props, setChiTietKhoaHoc) => {
   return setChiTietKhoaHoc;
 };
 
-export const handleRegisterCourseAction = (courseID,userID) => {
-  console.log(userID,courseID);
+export const handleRegisterCourseAction = (dispatch, maKhoaHoc, taiKhoan) => {
   return courseService
-    .dangKyKhoaHoc(courseID,userID)
+    .dangKyKhoaHoc({maKhoaHoc, taiKhoan})
+    .then((res) => {
+      console.log(res.data);
+      dispatch({
+      type: deleteCart,
+      cartID: maKhoaHoc,
+    });
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+};
+
+export const handleCancelRegisterCourseAction = ( maKhoaHoc, taiKhoan) => {
+  return courseService
+    .huyGhiDanh({maKhoaHoc, taiKhoan})
     .then((res) => {
       console.log(res.data);
     })
@@ -65,7 +76,6 @@ export const handleInsertCourseAction = (values) => {
 };
 
 export const handleDeleteCourseAction = (id) => {
-  console.log(id);
   return courseService
     .xoaKhoaHoc(id)
     .then((res) => {

@@ -36,7 +36,7 @@ export default function CourseManagement() {
 
   useEffect(() => {
     courseListAction(setDSKhoaHoc,"",propGroup);
-  }, [dsKhoaHoc]);
+  }, [dsKhoaHoc,propGroup]);
 
   const handleSubmit = (values) => {
     console.log(values);
