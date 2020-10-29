@@ -3,12 +3,12 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/types/CourseType";
 import "./DetailContent.scss";
 
-export default function DetailContent({ chiTietKhoaHoc }) {
+export default function DetailContent({ courseDetail }) {
   let dispatch = useDispatch();
   let handleAddToCart = () => {
     dispatch({
       type: addToCart,
-      cartItem: chiTietKhoaHoc,
+      cartItem: courseDetail,
     });
   };
   return (
@@ -18,7 +18,7 @@ export default function DetailContent({ chiTietKhoaHoc }) {
           <div className="col-sm-8">
             <div className="detai-content__description">
               <h1>Description</h1>
-              <h3 className="text-justify">{chiTietKhoaHoc.moTa}</h3>
+              <h3 className="text-justify">{courseDetail.moTa}</h3>
             </div>
 
             <div className="detai-content__requirement">

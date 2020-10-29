@@ -4,15 +4,15 @@ import DetailCover from "../../components/layout/DetailCover/DetailCover";
 import { courseDetailAction } from "../../redux/actions/CourseAction";
 
 export default function Detail(props) {
-  let [chiTietKhoaHoc, setChiTietKhoaHoc] = useState([]);
+  let [courseDetail, setCourseDetail] = useState([]);
   useEffect(() => {
-    courseDetailAction(props, setChiTietKhoaHoc);
+    courseDetailAction(props.match.params.maKhoaHoc, setCourseDetail);
   }, [props]);
 
   return (
     <div>
-      <DetailCover chiTietKhoaHoc={chiTietKhoaHoc} />
-      <DetailContent  chiTietKhoaHoc={chiTietKhoaHoc}/>
+      <DetailCover courseDetail={courseDetail} />
+      <DetailContent  courseDetail={courseDetail}/>
     </div>
   );
 }

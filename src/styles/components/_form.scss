@@ -26,6 +26,7 @@
       z-index: 2;
     }
     input,
+    textarea,
     select {
       @include size(100%, auto);
       @include text(fs("h5"), tc("textDarkGrey"), fw("fwRegular"), 0.02);

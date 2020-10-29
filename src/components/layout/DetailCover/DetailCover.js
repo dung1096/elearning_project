@@ -1,9 +1,9 @@
 import React from "react";
 import "./DetailCover.scss";
 
-export default function DetailCover({ chiTietKhoaHoc }) {
-  let nguoiTao = { ...chiTietKhoaHoc.nguoiTao };
-  let danhMucKhoaHoc = { ...chiTietKhoaHoc.danhMucKhoaHoc };
+export default function DetailCover({ courseDetail }) {
+  let nguoiTao = { ...courseDetail.nguoiTao };
+  let danhMucKhoaHoc = { ...courseDetail.danhMucKhoaHoc };
   return (
     <section className="detail-cover animate__animated animate__fadeIn wow">
       <div className="container">
@@ -11,11 +11,11 @@ export default function DetailCover({ chiTietKhoaHoc }) {
           <div className="col-8">
             <a href="/">{danhMucKhoaHoc.tenDanhMucKhoaHoc}</a>
             <i className="fa fa-angle-right" />
-            <a href="/">{chiTietKhoaHoc.tenKhoaHoc}</a>
+            <a href="/">{courseDetail.tenKhoaHoc}</a>
             {/* <i className="fa fa-angle-right" />
             <a href="/">JavaScript</a> */}
-            <h1>{chiTietKhoaHoc.tenKhoaHoc}</h1>
-            <h3 className="text-justify">{chiTietKhoaHoc.moTa}</h3>
+            <h1>{courseDetail.tenKhoaHoc}</h1>
+            <h3 className="text-justify">{courseDetail.moTa}</h3>
             <div className="d-flex">
               <button className="btn--pink mr-2">Hot &amp; New</button>
               <p className="rating">
@@ -24,8 +24,8 @@ export default function DetailCover({ chiTietKhoaHoc }) {
                 <i className="fa fa-star" />
                 <i className="fa fa-star" />
                 <i className="fa fa-star" />
-                <i className="fa fa-star" />({chiTietKhoaHoc.luotXem} view){" "}
-                {chiTietKhoaHoc.soLuongHocVien} students
+                <i className="fa fa-star" />({courseDetail.luotXem} view){" "}
+                {courseDetail.soLuongHocVien} students
               </p>
             </div>
             <p>
@@ -53,8 +53,8 @@ export default function DetailCover({ chiTietKhoaHoc }) {
           <div className="col-4 d-flex align-items-center">
             <img
               className="img-fluid"
-              src={chiTietKhoaHoc.hinhAnh}
-              alt={chiTietKhoaHoc.hinhAnh}
+              src={courseDetail.hinhAnh}
+              alt={courseDetail.hinhAnh}
             />
           </div>
         </div>
