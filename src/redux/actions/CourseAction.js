@@ -98,3 +98,4 @@ export const handleDeleteCourseAction = (id) => {
       console.log(err.response.data);
     });
 };
+
