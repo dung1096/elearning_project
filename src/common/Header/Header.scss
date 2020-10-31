@@ -94,6 +94,11 @@
       }
     }
   }
+  &__auth {
+    &__success {
+      @include text(fs("h6"), tc("textSecondary"), fw("fwBold"), 0.02);
+    }
+  }
   &__cart {
     i {
       @include fontIcon(fs("h6"), tc("textGrey"));

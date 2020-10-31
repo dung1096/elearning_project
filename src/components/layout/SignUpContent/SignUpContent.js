@@ -28,7 +28,7 @@ const signUpUserSchema = yup.object().shape({
     .oneOf([yup.ref("matKhau")], "* Password's not match")
     .required("* Confirm cannot be empty!"),
   // maNhom: yup.string().required("* Field is required!"),
-  checked: yup.boolean().oneOf([true], "* Password's not match"),
+  checked: yup.boolean().oneOf([true], "*"),
 });
 
 export const SignUpContent = () => {

@@ -1,6 +1,6 @@
 import { courseService } from "../../services/CourseService";
 
-export const courseList = (setDSKhoaHoc) => {
+export const courseListAction = (setDSKhoaHoc) => {
   courseService
     .layDanhSachKhoaHoc()
     .then((res) => {
@@ -13,7 +13,7 @@ export const courseList = (setDSKhoaHoc) => {
   return setDSKhoaHoc;
 };
 
-export const courseDetail = (props, setChiTietKhoaHoc) => {
+export const courseDetailAction = (props, setChiTietKhoaHoc) => {
   courseService
     .layChiTietKhoaHoc(props.match.params.maKhoaHoc)
     .then((res) => {

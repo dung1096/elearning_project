@@ -1,56 +1,40 @@
-// import React, { Component } from "react";
 import React from "react";
 import "./LoginContent.scss";
-// import { qlNguoiDungService } from "../../../services/QuanLyNguoiDungService";
+
 import { NavLink } from "react-router-dom";
-import { Formik, Form } from "formik";
-// import { loginAction } from "../../../redux/actions/UserAction";
+import { Formik, Form, ErrorMessage } from "formik";
+import * as yup from "yup";
+import { loginAction } from "../../../redux/actions/UserAction";
 // import { userService } from "../../../services/UserService";
 // import { login } from "../../../redux/types/UserType";
-// import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+
+const loginUserSchema = yup.object().shape({
+  taiKhoan: yup.string().required("* ID cannot be empty!"),
+  matKhau: yup.string().required("* Pasword cannot be empty!"),
+});
 
 export const LoginContent = () => {
-  // let [state, setUser] = useState({ taiKhoan: "", matKhau: "" });
+  let dispatch = useDispatch();
+  const history = useHistory();
 
-  // console.log(user);
-  // const propUser = useSelector((state) => state.UserReducer.user);
-  // console.log("new: ", state);
-  // let handleChange = (event) => {
-  //   let { name, value } = event.target;
-  //   setUser({ ...state, [name]: value });
-  //   console.log("new2: ", state);
-  // };
-  // console.log("new2: ", state);
+  const handleSubmit = (value) => {
+    console.log("submit: ", value);
+    // event.preventDefault();
 
-  // let dispatch = useDispatch();
-  // const handleSubmit = (value) => {
-  //   console.log("submit: ", value);
-  //   // event.preventDefault();
-  //   // console.log(user);
-  //   // qlNguoiDungService
-  //   //   .dangNhap(values)
-  //   //   .then((res) => {
-  //   //     console.log(res.data);
-  //   dispatch(loginAction(value));
-  //   // useEffect(() => {
-  //   // userService
-  //   //   .dangNhap(value)
-  //   //   .then((res) => {
-  //   //     console.log(res.data);
-  //   //     // dispatch({
-  //   //     //   type: login,
-  //   //     //   user: res.data,
-  //   //     // });
-  //   //   })
-  //   //   .catch((err) => {
-  //   //     console.log(err.response.data);
-  //   //   });
-  //   // }, []);
-  //   //   })
-  //   //   .catch((err) => {
-  //   //     console.log(err.response.data);
-  //   //   });
-  // };
+    dispatch(loginAction(value));
+
+    history.push("/home");
+  };
+
+  const renderMsg = (msg) => {
+    return (
+      <div className="text-danger" style={{ fontSize: "14px" }}>
+        {msg}
+      </div>
+    );
+  };
   return (
     <section className="form-main log-in container-fluid animate__animated animate__fadeIn wow">
       <div className="row">
@@ -63,7 +47,8 @@ export const LoginContent = () => {
           <div className="form-main__content log-in__form">
             <Formik
               initialValues={{ taiKhoan: "", matKhau: "" }}
-              // onSubmit={handleSubmit}
+              validationSchema={loginUserSchema}
+              onSubmit={handleSubmit}
             >
               {({ handleChange }) => (
                 <Form>
@@ -79,6 +64,9 @@ export const LoginContent = () => {
                       onChange={handleChange}
                     />
                   </div>
+                  <ErrorMessage name="taiKhoan">
+                    {(msg) => renderMsg(msg)}
+                  </ErrorMessage>
 
                   {/* Passwork */}
                   <div className="form-group">
@@ -92,6 +80,9 @@ export const LoginContent = () => {
                       onChange={handleChange}
                     />
                   </div>
+                  <ErrorMessage name="matKhau">
+                    {(msg) => renderMsg(msg)}
+                  </ErrorMessage>
 
                   <button type="submit" className="btn--red btn--sign-up">
                     Log In
@@ -120,22 +111,3 @@ export const LoginContent = () => {
 };
 
 export default LoginContent;
-// export default class LogInContent extends Component {
-//   handleSubmit = (values) => {
-//     qlNguoiDungService
-//       .dangNhap(values)
-//       .then((res) => {
-//         console.log(res.data);
-//       })
-//       .catch((err) => {
-//         console.log(err.response.data);
-//       });
-//   };
-//   render() {
-//     return (
-//       <div>
-
-//       </div>
-//     );
-//   }
-// }

@@ -5,12 +5,12 @@ import CourseItem from "../CourseItem/CourseItem";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./CourseList.scss";
-import { courseList } from "../../../redux/actions/CourseAction";
+import { courseListAction } from "../../../redux/actions/CourseAction";
 
 export default function CourseList() {
   let [dsKhoaHoc, setDSKhoaHoc] = useState([]);
   useEffect(() => {
-    courseList(setDSKhoaHoc);
+    courseListAction(setDSKhoaHoc);
   }, []);
 
   const settings = {
