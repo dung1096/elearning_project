@@ -1,8 +1,22 @@
 import { courseService } from "../../services/CourseService";
 
-export const courseListAction = (setDSKhoaHoc, value) => {
+export const courseListAction = (setDSKhoaHoc, value,group) => {
   courseService
-    .layDanhSachKhoaHoc(value)
+    .layDanhSachKhoaHoc(value,group)
+    .then((res) => {
+      console.log("dsKhoaHoc", res.data);
+      setDSKhoaHoc(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+  return setDSKhoaHoc;
+};
+
+export const courseCategoryAction = (setDSKhoaHoc,name,group) => {
+  console.log("dsKhoaHocDanhMuc",name,group);
+  courseService
+    .layKhoaHocTheoDanhMuc(name,group)
     .then((res) => {
       console.log("dsKhoaHoc", res.data);
       setDSKhoaHoc(res.data);
@@ -24,6 +38,18 @@ export const courseDetailAction = (props, setChiTietKhoaHoc) => {
       console.log(err.response.data);
     });
   return setChiTietKhoaHoc;
+};
+
+export const handleRegisterCourseAction = (courseID,userID) => {
+  console.log(userID,courseID);
+  return courseService
+    .dangKyKhoaHoc(courseID,userID)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
 };
 
 export const handleInsertCourseAction = (values) => {

@@ -18,37 +18,24 @@ export class UserService {
       data: { taiKhoan, matKhau },
     });
   };
-  thongTinTaiKhoan = (taiKhoan) => {
+  thongTinTaiKhoan = ({taiKhoan,matKhau}) => {
     return Axios({
       url: `${domain}/api/QuanLyNguoiDung/ThongTinTaiKhoan`,
       method: "POST",
-      data:taiKhoan,
+      data: {taiKhoan,matKhau},
       headers: { Authorization: `Bearer ${token}` },
     });
   };
-  dangKyKhoaHoc = ({taiKhoan,maKhoaHoc}) => {
-    return Axios({
-      url: `${domain}/api/QuanLyKhoaHoc/DangKyKhoaHoc`,
-      method: "POST",
-      data:{taiKhoan,maKhoaHoc},
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  };
-  huyGhiDanh = ({taiKhoan,maKhoaHoc}) => {
-    return Axios({
-      url: `${domain}/api/QuanLyKhoaHoc/HuyGhiDanh`,
-      method: "POST",
-      data:{taiKhoan,maKhoaHoc},
-      headers: { Authorization: `Bearer ${token}` },
-    });
-  };
+  
+  
 
-  layDanhSachNguoiDung = () => {
+  layDanhSachNguoiDung = (group) => {
     return Axios({
-      url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01`,
+      url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=${group}`,
       method: "GET",
     });
   };
+
   themNguoiDung = (values) => {
     return Axios({
       url: `${domain}/api/QuanLyNguoiDung/ThemNguoiDung`,
@@ -62,6 +49,7 @@ export class UserService {
       url: `${domain}/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
       method: "PUT",
       data: value,
+      headers: { Authorization: `Bearer ${token}` },
     });
   };
   xoaNguoiDung = (id) => {

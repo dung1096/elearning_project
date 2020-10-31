@@ -1,12 +1,12 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Slider from "react-slick";
-import { useSelector } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
 import CourseItem from "../CourseItem/CourseItem";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./CourseList.scss";
-import { courseListAction } from "../../../redux/actions/CourseAction";
+import { courseListAction, courseCategoryAction } from "../../../redux/actions/CourseAction";
+import { setGroup } from "../../../redux/types/CourseType";
 
 export default function CourseList(props) {
 
@@ -14,10 +14,28 @@ export default function CourseList(props) {
 
   let propSearch = useSelector((state) => state.CourseReducer.searchValue);
 
-  useEffect(() => {
-    courseListAction(setDSKhoaHoc,propSearch);
-  }, [propSearch]);
+  let propGroup = useSelector((state) => state.CourseReducer.group);
 
+  let dispatch=useDispatch();
+
+  useEffect(() => {
+    courseListAction(setDSKhoaHoc,propSearch,propGroup);
+  }, [propSearch,propGroup]);
+
+  let handleClick=(event)=>{
+    if(event.target.innerHTML==="All"){
+      courseListAction(setDSKhoaHoc,propSearch,propGroup);
+    } else 
+    courseCategoryAction(setDSKhoaHoc,event.target.innerHTML,propGroup)
+  }
+
+  let handleClickGroup=(event)=>{
+    console.log(event.target.innerHTML) 
+    dispatch({
+          type: setGroup,
+          group: event.target.innerHTML,
+        });
+  }
 
   const settings = {
     arrows: true,
@@ -30,18 +48,35 @@ export default function CourseList(props) {
   return (
     <Fragment>
       <section className="course container-fluid animate__animated animate__fadeIn wow">
+        <div className="d-flex justify-content-between">
         <ul className="nav nav-tabs" id="myTab" role="tablist">
           <li className="nav-item" role="presentation">
             <a
               className="nav-link active"
-              id="business-tab"
+              id="all-tab"
               data-toggle="tab"
-              href="#business"
+              href="#all"
               role="tab"
-              aria-controls="business"
+              aria-controls="all"
               aria-selected="true"
+               onClick={handleClick}
             >
-              Business
+              All
+            </a>
+          </li>
+          <li className="nav-item" role="presentation">
+            <a
+              className="nav-link"
+              id="backend-tab"
+              data-toggle="tab"
+              href="#backend"
+              role="tab"
+              aria-controls="backend"
+              aria-selected="false"
+              key="backend"
+              onClick={handleClick}
+            >
+              BackEnd
             </a>
           </li>
           <li className="nav-item" role="presentation">
@@ -53,82 +88,107 @@ export default function CourseList(props) {
               role="tab"
               aria-controls="design"
               aria-selected="false"
+               onClick={handleClick}
             >
               Design
             </a>
-          </li>
+          </li> 
           <li className="nav-item" role="presentation">
             <a
               className="nav-link"
-              id="photography-tab"
+              id="didong-tab"
               data-toggle="tab"
-              href="#photography"
+              href="#didong"
               role="tab"
-              aria-controls="photography"
+              aria-controls="didong"
               aria-selected="false"
+               onClick={handleClick}
             >
-              Photography
+              DiDong
             </a>
           </li>
           <li className="nav-item" role="presentation">
             <a
               className="nav-link"
-              id="development-tab"
+              id="frontEnd-tab"
               data-toggle="tab"
-              href="#development"
+              href="#frontEnd"
               role="tab"
-              aria-controls="development"
+              aria-controls="frontEnd"
               aria-selected="false"
+               onClick={handleClick}
             >
-              Development
+              FrontEnd
             </a>
           </li>
           <li className="nav-item" role="presentation">
             <a
               className="nav-link"
-              id="marketing-tab"
+              id="fullstack-tab"
               data-toggle="tab"
-              href="#marketing"
+              href="#fullstack"
               role="tab"
-              aria-controls="marketing"
+              aria-controls="fullstack"
               aria-selected="false"
+               onClick={handleClick}
             >
-              Marketing
+              FullStack
             </a>
           </li>
           <li className="nav-item" role="presentation">
             <a
               className="nav-link"
-              id="it-software-tab"
+              id="tuduy-tab"
               data-toggle="tab"
-              href="#it-software"
+              href="#tuduy"
               role="tab"
-              aria-controls="it-software"
+              aria-controls="tuduy"
               aria-selected="false"
+              onClick={handleClick}
             >
-              IT &amp; Software
-            </a>
-          </li>
-          <li className="nav-item" role="presentation">
-            <a
-              className="nav-link"
-              id="personal-tab"
-              data-toggle="tab"
-              href="#personal"
-              role="tab"
-              aria-controls="personal"
-              aria-selected="false"
-            >
-              Personal Development
+              TuDuy
             </a>
           </li>
         </ul>
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false">
+                {propGroup}
+              </button>
+          <div class="dropdown-menu" aria-labelledby="triggerId">
+            <a class="dropdown-item" onClick={handleClickGroup}>GP01</a>
+            <a class="dropdown-item" onClick={handleClickGroup}>GP02</a>
+            <a class="dropdown-item" onClick={handleClickGroup}>GP03</a>        
+            <a class="dropdown-item" onClick={handleClickGroup}>GP04</a>
+            <a class="dropdown-item" onClick={handleClickGroup}>GP05</a>
+            <a class="dropdown-item" onClick={handleClickGroup}>GP06</a>
+            <a class="dropdown-item" onClick={handleClickGroup}>GP07</a>        
+            <a class="dropdown-item" onClick={handleClickGroup}>GP08</a>
+            <a class="dropdown-item" onClick={handleClickGroup}>GP09</a>
+            <a class="dropdown-item" onClick={handleClickGroup}>GP10</a>
+          </div>
+        </div>
+      </div>
+
         <div className="tab-content" id="myTabContent">
           <div
             className="tab-pane fade show active "
-            id="business"
+            id="all"
             role="tabpanel"
-            aria-labelledby="business-tab"
+            aria-labelledby="all-tab"
+          >
+            <Slider {...settings}>
+              {dsKhoaHoc.map((khoaHoc, index) => {
+                console.log(khoaHoc, index);
+                return <CourseItem key={index} khoaHoc={khoaHoc} />;
+              })}
+            </Slider>
+          </div>
+          <div
+            className="tab-pane fade"
+            id="backend"
+            role="tabpanel"
+            aria-labelledby="backend-tab"
           >
             <Slider {...settings}>
               {dsKhoaHoc.map((khoaHoc, index) => {
@@ -142,37 +202,66 @@ export default function CourseList(props) {
             id="design"
             role="tabpanel"
             aria-labelledby="design-tab"
-          />
+          >
+            <Slider {...settings}>
+              {dsKhoaHoc.map((khoaHoc, index) => {
+                console.log(khoaHoc, index);
+                return <CourseItem key={index} khoaHoc={khoaHoc} />;
+              })}
+            </Slider>
+          </div>
           <div
             className="tab-pane fade"
-            id="photography"
+            id="didong"
             role="tabpanel"
-            aria-labelledby="photography-tab"
-          />
+            aria-labelledby="didong-tab"
+          >
+            <Slider {...settings}>
+              {dsKhoaHoc.map((khoaHoc, index) => {
+                console.log(khoaHoc, index);
+                return <CourseItem key={index} khoaHoc={khoaHoc} />;
+              })}
+            </Slider>
+          </div>
           <div
             className="tab-pane fade"
-            id="development"
+            id="frontend"
             role="tabpanel"
-            aria-labelledby="development-tab"
-          />
+            aria-labelledby="frontend-tab"
+          >
+            <Slider {...settings}>
+              {dsKhoaHoc.map((khoaHoc, index) => {
+                console.log(khoaHoc, index);
+                return <CourseItem key={index} khoaHoc={khoaHoc} />;
+              })}
+            </Slider>
+          </div>
           <div
             className="tab-pane fade"
-            id="marketing"
+            id="fullstack"
             role="tabpanel"
-            aria-labelledby="marketing-tab"
-          />
+            aria-labelledby="fullstack-tab"
+          >
+            <Slider {...settings}>
+              {dsKhoaHoc.map((khoaHoc, index) => {
+                console.log(khoaHoc, index);
+                return <CourseItem key={index} khoaHoc={khoaHoc} />;
+              })}
+            </Slider>
+          </div>
           <div
             className="tab-pane fade"
-            id="it-software"
+            id="tuduy"
             role="tabpanel"
-            aria-labelledby="it-software-tab"
-          />
-          <div
-            className="tab-pane fade"
-            id="personal"
-            role="tabpanel"
-            aria-labelledby="personal-tab"
-          />
+            aria-labelledby="tuduy-tab"
+          >
+            <Slider {...settings}>
+              {dsKhoaHoc.map((khoaHoc, index) => {
+                console.log(khoaHoc, index);
+                return <CourseItem key={index} khoaHoc={khoaHoc} />;
+              })}
+            </Slider>
+          </div>
         </div>
       </section>
 

@@ -1,11 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { handleRegisterCourseAction } from "../../../redux/actions/CourseAction";
 import { deleteCart } from "../../../redux/types/CourseType";
 import "./CartContent.scss";
 
 export default function CartContent() {
   const propCart = useSelector((state) => state.CourseReducer.cart);
-  console.log(propCart);
+ 
+  const propUser = useSelector((state) => state.UserReducer.userLogin);
+  console.log("user",propUser)
 
   let dispatch = useDispatch();
 
@@ -14,6 +17,14 @@ export default function CartContent() {
       type: deleteCart,
       cartItem: item,
     });
+  };
+
+  let handleRegister = (item) => {
+    handleRegisterCourseAction(item.maKhoaHoc,propUser.taiKhoan)
+    // dispatch({
+    //   type: deleteCart,
+    //   cartItem: item,
+    // });
   };
   return (
     <section className="cart-content">
@@ -48,9 +59,11 @@ export default function CartContent() {
                     </button>
                     <button
                       className="btn btn-primary"
-                      
+                      onClick={() => {
+                        handleRegister(cartItem);
+                      }}
                     >
-                      Ghi danh
+                      Register
                     </button>
                   </div>
                 </div>

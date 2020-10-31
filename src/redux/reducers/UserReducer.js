@@ -1,23 +1,26 @@
-import { login, logout } from "../types/UserType";
+import { login, logout,update,setGroup } from "../types/UserType";
 
 let userLogin = null;
 if (localStorage.getItem("userLogin")) {
   userLogin = JSON.parse(localStorage.getItem("userLogin"));
 }
 
-// let userChose = {
-//   taiKhoan: "",
-//   matKhau: "",
-//   hoTen: "",
-//   soDT: "",
-//   maNhom: "GP01",
-//   email: "",
-//   xacNhan: "",
-//   maLoaiNguoiDung: "HV",
-// };
+let userUpdate = {
+  taiKhoan: "",
+  matKhau: "",
+  hoTen: "",
+  soDT: "",
+  maNhom: "GP01",
+  email: "",
+  xacNhan: "",
+  maLoaiNguoiDung: "HV",
+};
+
+let group= "GP01"
 let initialState = {
   userLogin: userLogin,
-  // userChose: userChose,
+  userUpdate: userUpdate,
+  group:group,
 };
 
 const UserReducer = (state = initialState, action) => {
@@ -33,11 +36,16 @@ const UserReducer = (state = initialState, action) => {
       state.userLogin = null;
       return { ...state };
     }
-    // case chose: {
-    //   state.userChose = action.userChose;
-    //   console.log(state.userChose);
-    //   return { ...state };
-    // }
+    case update: {
+      state.userUpdate = action.userUpdate;
+      console.log(state.userUpdate);
+      return { ...state };
+    }
+    case setGroup: {
+      state.group = action.group;
+      return { ...state };
+    }
+
     default:
       return state;
   }
