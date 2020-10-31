@@ -1,0 +1,115 @@
+.item {
+  padding: 20px 5px;
+  position: relative;
+
+  &__show {
+    &__img {
+      position: relative;
+      img {
+        @include size(100%, 150px);
+        border: 1px solid bc("borderLightGrey");
+        border-radius: 5px;
+      }
+      .img__overlay {
+        @include size(100%, 100%);
+        @include positionAbsolute(0, auto, auto, 0);
+        background-color: c("dark");
+        opacity: 0;
+      }
+    }
+
+    h2 {
+      @include text(fs("subtitle"), tc("textPrimary"), fw("fwBlack"), 0.05);
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      margin-top: 10px;
+
+      span {
+        @include text(fs("body2"), tc("textGrey"), fw("fwExtraLight"), 0.05);
+        text-decoration: line-through;
+      }
+    }
+    p {
+      @include text(fs("body1"), tc("textGrey"), fw("fwExtraLight"), 0.05);
+      margin: 0;
+      span {
+        @include text(fs("body2"), tc("textYellow"), fw("fwBlack"), -0.1);
+        margin-right: 3px;
+      }
+      i {
+        @include fontIcon(10px, tc("textIconStar"));
+      }
+    }
+    &:hover {
+      .item__detail {
+        -webkit-animation: zoomUp 0.3s linear 0s;
+        animation: zoomUp 0.3s linear 0s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        display: block;
+      }
+      .img__overlay {
+        -webkit-animation: zoomUp 0.3s linear 0s;
+        animation: zoomUp 0.3s linear 0s;
+        opacity: 1;
+      }
+    }
+  }
+  &__detail {
+    @include positionAbsolute(-10%, auto, auto, 100%);
+    background-color: c("paper");
+    box-shadow: 0 0 10px c("dark");
+    width: 150%;
+    padding: 20px;
+    display: none;
+    z-index: 10;
+
+    h2 {
+      @include text(fs("h6"), tc("textPrimary"), fw("fwBlack"), 0.05);
+    }
+    > span {
+      @include text(fs("body1"), tc("textGreen"), fw("fwExtraLight"), 0.05);
+    }
+    h6 {
+      @include text(fs("body2"), tc("textGrey"), fw("fwExtraLight"), 0.05);
+      white-space: nowrap;
+    }
+
+    p {
+      @include text(fs("body2"), tc("textGrey"), fw("fwExtraLight"), 0.05);
+      line-height: 3rem;
+      span {
+        @include text(fs("body1"), tc("textGrey"), fw("fwExtraLight"), 0.05);
+        &:first-child::after,
+        &:nth-child(2)::after {
+          @include text(6px, tc("textGrey"), fw("fwExtraLight"), 0.05);
+          content: "\25CF";
+          margin-left: 3px;
+          vertical-align: middle;
+        }
+      }
+    }
+    .iconCheck {
+      @include fontIcon(fs("body1"), tc("textGrey"));
+      padding-top: 5px;
+      padding-right: 10px;
+    }
+
+    .iconHeart {
+      @include sizeIcon(50px, 50px, 50px);
+      @include fontIcon(fs("h5"), tc("textSecondary"));
+      @include button(c("paper"), bc("borderLightGrey"), 50%);
+      cursor: pointer;
+      margin-right: 15px;
+      &:hover {
+        @include fontIcon(fs("h5"), tc("textDarkBlue"));
+        @include button(c("paper"), bc("borderGrey"), 50%);
+      }
+    }
+  }
+  &:focus {
+    outline: none;
+  }
+}

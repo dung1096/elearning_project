@@ -1,0 +1,19 @@
+.panel-menu-parent {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  .panel-menu {
+    @include positionAbsolute(100%, 0, auto, auto);
+    @include text(fs("h6"), tc("textPrimary"), fw("fwBlack"), -0.05);
+    text-align: center;
+    background-color: c("paper");
+    width: 300px;
+    padding: 20px;
+    display: none;
+    z-index: 1000;
+  }
+  &:hover .panel-menu {
+    display: block;
+  }
+}

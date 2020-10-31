@@ -1,0 +1,88 @@
+// CREATE THEME
+// colors background
+$bgColor: (
+  "primary": #fbfbf8,
+  "secondary": #0f7c90,
+  "darkBlue": #094c59,
+  "darkBlue-2": #003640,
+  "paper": #ffffff,
+  "lightGrey": #f7f8fa,
+  "lightGrey-2": #dedfe0,
+  "grey": #8a92a3,
+  "darkGrey": #3c3b37,
+  "yellow": #ffe799,
+  "dark": rgba(0, 0, 20px, 0.16),
+  "dark-2": #1e1e1c,
+  "red": #ec5252,
+  "darkRed": #e61b1b,
+  "blackRed": #521818,
+  "purple": #6e1a52,
+  "pink": #f99,
+);
+
+// colors text
+$textColor: (
+  "textPrimary": #3c3b37,
+  "textSecondary": #0f7c90,
+  "textLightBlue": #8ed1dc,
+  "textDarkBlue": #094c59,
+  "textBlue": #007791,
+  "textWhite": #ffffff,
+  "textDarkGrey": #29303b,
+  "textGrey": #73726c,
+  "textLightGrey": #cacbcc,
+  "textYellow": #be5a0e,
+  "textDarkYellow": #593d00,
+  "textIconStar": #eb8a2f,
+  "textIconStar-2": #ffc48c,
+  "textGreen": #2d8643,
+  "textRed": #521818,
+);
+
+$borderColor: (
+  "borderSecondary": #0f7c90,
+  "borderBlue": #2896a9,
+  "borderBlue-2": #007791,
+  "borderDarkBlue": #094c59,
+  "borderDarkBlue-2": rgba(0, 119, 145, 0.5),
+  "borderLighrBlue": #76c5d6,
+  "borderGrey": #c3c0a6,
+  "borderGrey-2": #8a92a3,
+  "borderLightGrey": #dcdacb,
+  "borderLightGrey-2": #dedfe0,
+  "borderYellow": #ffe799,
+  "borderWhite": #fff,
+);
+
+// font size
+$fontSize: (
+  "body1": 1.2rem,
+  "body2": 1.4rem,
+  "subtitle": 1.5rem,
+  "h6": 1.6rem,
+  "h5": 1.8rem,
+  "h4": 2.5rem,
+  "h3": 3.2rem,
+  "h2": 3.8rem,
+  "h1": 4.8rem,
+);
+
+//fonts weight
+$fontWeight: (
+  "fwBlack": 900,
+  "fwBold": 700,
+  "fwMedium": 600,
+  "fwRegular": 500,
+  "fwExtraLight": 400,
+  "fwLight": 300,
+);
+
+//spacing
+$spacing: 10px;
+
+$breakPoint: (
+  "extraLarge": 1200px,
+  "large": 992px,
+  "medium": 768px,
+  "small": 576px,
+);

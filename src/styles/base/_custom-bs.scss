@@ -1,0 +1,103 @@
+.dropdown-toggle {
+  @include text(fs("subtitle"), tc("textGrey"), fw("fwLight"), 0.01);
+  @include button(c("paper"), bc("borderLightGrey"), 5px);
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  i {
+    @include fontIcon(fs("subtitle"), tc("textGrey"));
+    margin: 0 5px;
+  }
+  &:hover {
+    @include button(c("paper"), bc("borderGrey"), 5px);
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.dropdown-menu {
+  @include text(fs("subtitle"), tc("textGrey"), fw("fwLight"), 0.01);
+  width: 100%;
+  padding: 0;
+  border-radius: unset;
+
+  option {
+    border: 2px solid transparent;
+    padding-left: 40px;
+    &:hover {
+      @include text(fs("subtitle"), tc("textWhite"), fw("fwLight"), 0.01);
+      background-color: c(secondary);
+      border: 2px solid bc("borderYellow");
+    }
+  }
+}
+
+//slick
+
+.slick-arrow {
+  font-size: 0;
+  line-height: 45px;
+  z-index: 20;
+  max-height: 45px !important;
+
+  &.slick-prev {
+    @include positionAbsolute(30%, auto, auto, -1%);
+    @include size(45px, 45px);
+    @include button(c("paper"), transparent, 50%);
+    box-shadow: 0 0 10px c("dark");
+    font-size: 0px;
+
+    &::before {
+      content: "";
+    }
+
+    &::after {
+      content: "<";
+      @include text(fs("h4"), tc("textSecondary"), fw("fwBold"), 0.01);
+    }
+
+    &:hover {
+      &.slick-prev::after {
+        @include text(fs("h4"), tc("textDarkBlue"), fw("fwBold"), 0.01);
+      }
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  &.slick-next {
+    @include positionAbsolute(30%, -1%, auto, auto);
+    @include size(45px, 45px);
+    @include button(c("paper"), transparent, 50%);
+    box-shadow: 0 0 10px c("dark");
+    font-size: 0px;
+
+    &::before {
+      content: "";
+    }
+
+    &::after {
+      content: ">";
+      @include text(fs("h4"), tc("textSecondary"), fw("fwBold"), 0.01);
+    }
+
+    &:hover.slick-next::after {
+      @include text(fs("h4"), tc("textDarkBlue"), fw("fwBold"), 0.01);
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
+// .slick-track {
+//   display: flex;
+// }
+
+//row
+.row {
+  margin: 0;
+}

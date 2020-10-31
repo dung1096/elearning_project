@@ -1,0 +1,68 @@
+//MIXIN
+// font text
+@mixin text($fs, $c, $fw, $pc) {
+  font-size: $fs;
+  color: $c;
+  font-weight: $fw;
+  letter-spacing: spacing($pc);
+}
+// font icon
+@mixin fontIcon($fs, $c) {
+  font-size: $fs;
+  color: $c;
+}
+// size icon
+@mixin sizeIcon($w, $h, $lh) {
+  width: $w;
+  height: $h;
+  line-height: $lh;
+  text-align: center;
+}
+//position absolute
+@mixin positionAbsolute($t, $r, $b, $l) {
+  position: absolute;
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+}
+//position fixed
+@mixin positionFixed($t, $r, $b, $l) {
+  position: fixed;
+  top: $t;
+  right: $r;
+  bottom: $b;
+  left: $l;
+}
+//size
+@mixin size($w, $h) {
+  width: $w;
+  height: $h;
+}
+
+//button
+@mixin button($bg-color, $bd-color, $bd-radius) {
+  background-color: $bg-color;
+  border: 1px solid $bd-color;
+  border-radius: $bd-radius;
+}
+
+//reponsive
+@mixin responsive($breakpoint) {
+  @media screen and(max-width:$breakpoint) {
+    @content;
+  }
+}
+
+@mixin line() {
+  background: linear-gradient(
+    90deg,
+    rgb(100, 91, 83) 0%,
+    rgb(235, 82, 82) 18.23%,
+    rgb(247, 143, 47) 34.37%,
+    rgb(244, 193, 81) 48.96%,
+    rgb(82, 187, 118) 66.15%,
+    rgb(38, 165, 215) 82.29%,
+    rgb(224, 105, 183) 100%
+  );
+}

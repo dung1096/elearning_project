@@ -1,0 +1,29 @@
+@import "../../../styles//helpers/theme";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/function";
+// @import "../../styles/helpers/keyframe";
+@import "../../../styles/base/reset";
+@import "../../../styles/base/custom-bs";
+// @import "../../../styles/components/button";
+
+.recommend {
+  background: url(/img/purple-intersect.svg) repeat-x c("purple");
+  background-size: auto;
+  background-position: left center;
+  height: 200px;
+  color: tc("textWhite");
+  h1 {
+    @include text(fs("h3"), tc("textWhite"), fw("fwBold"), 0.05);
+  }
+  p {
+    @include text(fs("h5"), tc("textWhite"), fw("fwExtraLight"), 0.01);
+  }
+  button {
+    padding: 10px;
+    @include text(fs("subtitle"), tc("textWhite"), fw("fwMedium"), 0.01);
+    @include button(transparent, bc("borderLightGrey"), 5px);
+    &:hover {
+      @include button(transparent, bc("borderGrey"), 5px);
+    }
+  }
+}

@@ -1,0 +1,22 @@
+@import "../../../styles/helpers/theme";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/function";
+// @import "../../styles/helpers/keyframe";
+@import "../../../styles/base/reset";
+
+.intro {
+  padding-top: 50px;
+  padding-bottom: 30px;
+
+  &__content {
+    max-width: 600px;
+    h1 {
+      @include text(fs("h4"), tc("textPrimary"), fw("fwBold"), -0.1);
+      padding: 10px;
+    }
+    p {
+      @include text(fs("subtitle"), tc("textPrimary"), fw("fwLight"), 0.05);
+      padding: 0 10px;
+    }
+  }
+}
