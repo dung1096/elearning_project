@@ -1,0 +1,61 @@
+@import "../../../styles//helpers/theme";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/function";
+// @import "../../styles/helpers/keyframe";
+@import "../../../styles/base/reset";
+@import "../../../styles/base/custom-bs";
+// @import "../../../styles/components/button";
+
+.detail-cover {
+  padding-top: 3.2rem;
+  background-color: c("dark-2");
+  padding-bottom: 3.2rem;
+  a {
+    @include text(fs("body2"), tc("textLightBlue"), fw("fwBold"), -0.02);
+    line-height: 1.2;
+  }
+  i {
+    @include fontIcon(fs("body1"), tc("textWhite"));
+    margin: 0.8rem;
+  }
+  h1 {
+    @include text(fs("h3"), tc("textWhite"), fw("fwBold"), -0.02);
+    margin-bottom: 0.8rem;
+    line-height: 1.2;
+    max-width: 118.4rem;
+  }
+  h3 {
+    @include text(fs("h5"), tc("textWhite"), fw("fwExtraLight"), 0.02);
+    margin-bottom: 1.6rem;
+    line-height: 1.4;
+  }
+  .rating {
+    @include text(fs("body2"), tc("textWhite"), fw("fwExtraLight"), 0.05);
+    line-height: 1.4;
+    margin: 0;
+    span {
+      @include text(fs("body2"), tc("textIconStar-2"), fw("fwBold"), -0.1);
+      margin-right: 3px;
+    }
+    i {
+      @include fontIcon(10px, tc("textIconStar-2"));
+      margin: 2px;
+    }
+  }
+  p {
+    @include text(fs("body2"), tc("textWhite"), fw("fwExtraLight"), 0.05);
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+    margin-top: 0.8rem;
+    a {
+      @include text(
+        fs("body2"),
+        tc("textLightBlue"),
+        fw("fwExtraLight"),
+        -0.02
+      );
+      text-decoration: underline;
+      line-height: 1.4;
+    }
+  }
+}

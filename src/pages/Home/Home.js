@@ -5,7 +5,6 @@ import Intro from "../../components/layout/Intro/Intro";
 import Recommend from "../../components/layout/Recommend/Recommend";
 import Category from "../../components/layout/Category/Category";
 import CourseList from "../../components/layout/CourseList/CourseList";
-// import { qlKhoaHocService } from "../../services/QuanLyKhoaHocService";
 
 export default function Home() {
   return (

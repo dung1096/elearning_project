@@ -2,24 +2,15 @@ import React, { useState, useEffect, Fragment } from "react";
 import Slider from "react-slick";
 
 import CourseItem from "../CourseItem/CourseItem";
-import { courseService } from "../../../services/CourseService";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./CourseList.scss";
+import { courseList } from "../../../redux/actions/CourseAction";
 
-export default function CourseList(props) {
+export default function CourseList() {
   let [dsKhoaHoc, setDSKhoaHoc] = useState([]);
   useEffect(() => {
-    courseService
-      .layDanhSachKhoaHoc()
-      .then((res) => {
-        console.log("dsKhoaHoc", res.data);
-        setDSKhoaHoc(res.data);
-      })
-      .catch((err) => {
-        console.log(err.response.data);
-        // console.log(err.response.status);
-      });
+    courseList(setDSKhoaHoc);
   }, []);
 
   const settings = {
