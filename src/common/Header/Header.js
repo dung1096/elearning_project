@@ -1,10 +1,12 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/types/UserType";
+import { search } from "../../redux/types/CourseType";
 
 export default function Header() {
+  const [searchValue, setSearchValue] = useState([]);
   let dispatch = useDispatch();
   // const history = useHistory();
   const propUser = useSelector((state) => state.UserReducer.userLogin);
@@ -12,7 +14,15 @@ export default function Header() {
     dispatch({ type: logout });
     // history.push("/login");
   };
-  // const propUser = useSelector((state) => state.UserReducer.user);
+  let handleChange = (event) => {
+    let { value } = event.target;
+    setSearchValue({ ...searchValue, value });
+  };
+  let handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(searchValue.value);
+    dispatch({ type: search, searchValue: searchValue.value });
+  };
 
   return (
     <header className="header animate__animated animate__fadeIn wow">
@@ -24,12 +34,17 @@ export default function Header() {
       </div>
 
       {/* SEARCH */}
-      <div className="header__search d-none d-md-flex">
+      <form className="header__search d-none d-md-flex" onSubmit={handleSubmit}>
         <button className="btn" type="submit">
           <i className="fa fa-search"></i>
         </button>
-        <input type="text" placeholder="Search for anything" />
-      </div>
+        <input
+          type="text"
+          name="search"
+          placeholder="Search for anything"
+          onChange={handleChange}
+        />
+      </form>
 
       <nav className="header__nav d-flex justify-content-between align-items-center">
         <div className="panel-menu-parent d-none d-lg-flex">

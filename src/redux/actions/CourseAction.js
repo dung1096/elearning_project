@@ -1,9 +1,10 @@
 import { courseService } from "../../services/CourseService";
 
-export const courseListAction = (setDSKhoaHoc) => {
+export const courseListAction = (setDSKhoaHoc, value) => {
   courseService
-    .layDanhSachKhoaHoc()
+    .layDanhSachKhoaHoc(value)
     .then((res) => {
+      console.log("search", value);
       console.log("dsKhoaHoc", res.data);
       setDSKhoaHoc(res.data);
     })

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import Slider from "react-slick";
+import { useSelector } from "react-redux";
 
 import CourseItem from "../CourseItem/CourseItem";
 import "slick-carousel/slick/slick.css";
@@ -7,11 +8,17 @@ import "slick-carousel/slick/slick-theme.css";
 import "./CourseList.scss";
 import { courseListAction } from "../../../redux/actions/CourseAction";
 
-export default function CourseList() {
+export default function CourseList(props) {
+
   let [dsKhoaHoc, setDSKhoaHoc] = useState([]);
+
+  let propSearch = useSelector((state) => state.CourseReducer.searchValue);
+
   useEffect(() => {
-    courseListAction(setDSKhoaHoc);
-  }, []);
+    courseListAction(setDSKhoaHoc,propSearch);
+  }, [propSearch]);
+
+  console.log("propSearchValue");
 
   const settings = {
     arrows: true,
