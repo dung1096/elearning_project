@@ -24,14 +24,15 @@ export const loginAction = (user) => {
         localStorage.setItem("userLogin", JSON.stringify(res.data));
         //Lưu token vào localStorage
         localStorage.setItem("accessToken", res.data.accessToken);
-
+        // alert("successly");
         dispatch({
           type: login,
-          user: res.data,
+          userLogin: res.data,
         });
       })
       .catch((err) => {
         console.log(err.response.data);
+        // alert(err.response.data);
       });
   };
 };

@@ -94,9 +94,20 @@
       }
     }
   }
+
   &__auth {
     &__success {
       @include text(fs("h6"), tc("textSecondary"), fw("fwBold"), 0.02);
+      .panel-menu--config {
+        width: 150px;
+        padding: 10px;
+        a {
+          @include text(fs("h6"), tc("textPrimary"), fw("fwMedium"), -0.05);
+          &:hover {
+            @include text(fs("h6"), tc("textSecondary"), fw("fwMedium"), -0.05);
+          }
+        }
+      }
     }
   }
   &__cart {

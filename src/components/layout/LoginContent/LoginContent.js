@@ -25,7 +25,7 @@ export const LoginContent = () => {
 
     dispatch(loginAction(value));
 
-    history.push("/home");
+    history.replace("/home");
   };
 
   const renderMsg = (msg) => {
