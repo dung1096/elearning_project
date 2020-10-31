@@ -1,25 +1,26 @@
 import Axios from "axios";
-import { token } from "../redux/types/UserType";
+import { domain, token } from "../config/setting";
+
 
 export class UserService {
   // constructor() {}
   dangKy = (data) => {
     return Axios({
-      url: `https://elearning0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangKy`,
+      url: `${domain}/api/QuanLyNguoiDung/DangKy`,
       method: "POST",
       data,
     });
   };
   dangNhap = ({ taiKhoan, matKhau }) => {
     return Axios({
-      url: `https://elearning0706.cybersoft.edu.vn/api/QuanLyNguoiDung/DangNhap`,
+      url: `${domain}/api/QuanLyNguoiDung/DangNhap`,
       method: "POST",
       data: { taiKhoan, matKhau },
     });
   };
   thongTinTaiKhoan = (taiKhoan) => {
     return Axios({
-      url: `https://elearning0706.cybersoft.edu.vn/api/QuanLyNguoiDung/ThongTinTaiKhoan`,
+      url: `${domain}/api/QuanLyNguoiDung/ThongTinTaiKhoan`,
       method: "POST",
       data:taiKhoan,
       headers: { Authorization: `Bearer ${token}` },
@@ -27,7 +28,7 @@ export class UserService {
   };
   dangKyKhoaHoc = ({taiKhoan,maKhoaHoc}) => {
     return Axios({
-      url: `https://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/DangKyKhoaHoc`,
+      url: `${domain}/api/QuanLyKhoaHoc/DangKyKhoaHoc`,
       method: "POST",
       data:{taiKhoan,maKhoaHoc},
       headers: { Authorization: `Bearer ${token}` },
@@ -35,9 +36,38 @@ export class UserService {
   };
   huyGhiDanh = ({taiKhoan,maKhoaHoc}) => {
     return Axios({
-      url: `https://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/HuyGhiDanh`,
+      url: `${domain}/api/QuanLyKhoaHoc/HuyGhiDanh`,
       method: "POST",
       data:{taiKhoan,maKhoaHoc},
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  };
+
+  layDanhSachNguoiDung = () => {
+    return Axios({
+      url: `${domain}/api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP01`,
+      method: "GET",
+    });
+  };
+  themNguoiDung = (values) => {
+    return Axios({
+      url: `${domain}/api/QuanLyNguoiDung/ThemNguoiDung`,
+      method: "POST",
+      data: values,
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  };
+  capNhatThongTinNguoiDung = (value) => {
+    return Axios({
+      url: `${domain}/api/QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
+      method: "PUT",
+      data: value,
+    });
+  };
+  xoaNguoiDung = (id) => {
+    return Axios({
+      url: `${domain}/api/QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${id}`,
+      method: "DELETE",
       headers: { Authorization: `Bearer ${token}` },
     });
   };
