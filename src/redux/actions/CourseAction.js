@@ -4,7 +4,6 @@ export const courseListAction = (setDSKhoaHoc, value) => {
   courseService
     .layDanhSachKhoaHoc(value)
     .then((res) => {
-      console.log("search", value);
       console.log("dsKhoaHoc", res.data);
       setDSKhoaHoc(res.data);
     })
@@ -26,3 +25,5 @@ export const courseDetailAction = (props, setChiTietKhoaHoc) => {
     });
   return setChiTietKhoaHoc;
 };
+
+

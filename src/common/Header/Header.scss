@@ -111,6 +111,7 @@
     }
   }
   &__cart {
+    position: relative;
     i {
       @include fontIcon(fs("h6"), tc("textGrey"));
       cursor: pointer;
@@ -126,6 +127,14 @@
         @include text(fs("h6"), tc("textSecondary"), fw("fwLight"), -0.05);
         text-decoration: none;
       }
+    }
+    .cart-number {
+      @include positionAbsolute(50%, -50%, auto, auto);
+      @include text(fs("body1"), tc("textWhite"), fw("fwRegular"), 0.02);
+      @include size(16px, 16px);
+      background-color: c("darkRed");
+      text-align: center;
+      border-radius: 50%;
     }
   }
 

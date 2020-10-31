@@ -1,0 +1,15 @@
+@import "../../../styles//helpers/theme";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/function";
+// @import "../../styles/helpers/keyframe";
+@import "../../../styles/base/reset";
+@import "../../../styles/base/custom-bs";
+// @import "../../../styles/components/button";
+
+.detail-content {
+  padding-top: 40px;
+  h1 {
+    @include text(fs("h4"), tc("textPrimary"), fw("fwBold"), 0.1);
+    // padding: 10px;
+  }
+}

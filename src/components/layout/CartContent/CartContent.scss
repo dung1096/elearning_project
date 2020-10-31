@@ -1,0 +1,29 @@
+@import "../../../styles//helpers/theme";
+@import "../../../styles/helpers/mixin";
+@import "../../../styles/helpers/function";
+// @import "../../styles/helpers/keyframe";
+@import "../../../styles/base/reset";
+@import "../../../styles/base/custom-bs";
+// @import "../../../styles/components/button";
+.cart-content {
+  margin-top: 20px;
+  max-width: 100%;
+  h3 {
+    @include text(fs("h5"), tc("textPrimary"), fw("fwExtraLight"), 0.02);
+    margin: 0 0 10px;
+    line-height: 1.2;
+  }
+  &__list {
+    box-shadow: 0 0 2px bc("borderLightGrey-2");
+    margin-bottom: 30px;
+    padding: 10px;
+    text-align: center;
+  }
+  &__item {
+    padding: 10px;
+    border-bottom: 1px solid bc("borderLightGrey-2");
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
