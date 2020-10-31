@@ -65,6 +65,7 @@ export class CourseService {
       url: `${domain}/api/QuanLyKhoaHoc/CapNhatKhoaHoc`,
       method: "PUT",
       data: course,
+      headers: { Authorization: `Bearer ${token}` },
     });
   };
   xoaKhoaHoc = (id) => {

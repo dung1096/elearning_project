@@ -25,16 +25,17 @@ export const courseCategoryAction = (setDSKhoaHoc, name, group) => {
   return setDSKhoaHoc;
 };
 
-export const courseDetailAction = (props, setChiTietKhoaHoc) => {
+export const courseDetailAction = (id, setCourseDetail) => {
   courseService
-    .layChiTietKhoaHoc(props.match.params.maKhoaHoc)
+    .layChiTietKhoaHoc(id)
     .then((res) => {
-      setChiTietKhoaHoc(res.data);
+      setCourseDetail(res.data);
+      console.log(res.data)
     })
     .catch((err) => {
       console.log(err.response.data);
     });
-  return setChiTietKhoaHoc;
+  return setCourseDetail;
 };
 
 export const handleRegisterCourseAction = (dispatch, maKhoaHoc, taiKhoan) => {
@@ -75,6 +76,18 @@ export const handleInsertCourseAction = (values) => {
     });
 };
 
+export const handleUpdateCourseAction = (values) => {
+  console.log(values);
+  return courseService
+    .capNhatKhoaHoc(values)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+};
+
 export const handleDeleteCourseAction = (id) => {
   return courseService
     .xoaKhoaHoc(id)
@@ -85,3 +98,4 @@ export const handleDeleteCourseAction = (id) => {
       console.log(err.response.data);
     });
 };
+

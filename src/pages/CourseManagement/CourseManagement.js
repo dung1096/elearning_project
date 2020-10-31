@@ -1,6 +1,9 @@
 import React, { useState, useEffect, Fragment } from "react";
 import {
   courseListAction,
+  courseDetailAction,
+  handleInsertCourseAction,
+  handleUpdateCourseAction,
   handleDeleteCourseAction,
 } from "../../redux/actions/CourseAction";
 
@@ -16,6 +19,9 @@ const updateCourseSchema = yup.object().shape({
 
 export default function CourseManagement() {
   let [dsKhoaHoc, setDSKhoaHoc] = useState([]);
+  let [courseDetail, setCourseDetail] = useState({});
+  let category={...courseDetail.danhMucKhoaHoc};
+  let userCreate={...courseDetail.nguoiTao};
 
   const propUser = useSelector((state) => state.UserReducer.userLogin);
   const propGroup = useSelector((state) => state.CourseReducer.group);
@@ -36,14 +42,21 @@ export default function CourseManagement() {
 
   useEffect(() => {
     courseListAction(setDSKhoaHoc,"",propGroup);
-  }, [dsKhoaHoc,propGroup]);
+  }, [dsKhoaHoc,propGroup,courseDetail]);
 
   const handleSubmit = (values) => {
     console.log(values);
+     handleInsertCourseAction(values);
+  };
 
-    // values.preventDefault();
+  const handleUpdate=(id)=>{
+    courseDetailAction(id,setCourseDetail);
+   
+  }
 
-    //  handleInsertAction(values);
+  const handleSubmitUpdate = (values) => {
+    // console.log(values);
+     handleUpdateCourseAction(values);
   };
 
   const handleDelete = (id) => {
@@ -54,15 +67,18 @@ export default function CourseManagement() {
     <Fragment>
       <div>
         {/* Button trigger modal */}
+        <div className="d-flex justify-content-end m-5">
         <button
           type="button"
           className="btn btn-success btn-lg p-3 mb-5"
           style={{ fontSize: "14px" }}
           data-toggle="modal"
           data-target="#courseId"
+
         >
           Insert
         </button>
+        </div>
         {/* Modal */}
         <div className="modal fade" id="courseId" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -107,7 +123,6 @@ export default function CourseManagement() {
                               className="form-control"
                               placeholder="ID"
                               name="maKhoaHoc"
-                              // value={nguoiDung.hoTen}
                               onChange={handleChange}
                             />
                             <ErrorMessage name="maKhoaHoc">
@@ -118,13 +133,12 @@ export default function CourseManagement() {
                         <div className="col-6 pr-0 pl-1">
                           {/* Aliases */}
                           <div className="form-group">
-                            <i className="fa fa-envelope" />
+                            <i class="fab fa-pied-piper-hat"></i>
                             <Field
                               type="text"
                               className="form-control"
                               placeholder="Aliases"
                               name="biDanh"
-                              // value={nguoiDung.email}
                               onChange={handleChange}
                             />
                             <ErrorMessage name="biDanh">
@@ -136,13 +150,12 @@ export default function CourseManagement() {
 
                       {/* Course Name */}
                       <div className="form-group">
-                        <i className="fa fa-phone" />
+                        <i className="fa fa-user" />
                         <Field
                           type="text"
                           className="form-control"
                           placeholder="Course Name"
                           name="tenKhoaHoc"
-                          // value={nguoiDung.soDt}
                           onChange={handleChange}
                         />
                         <ErrorMessage name="tenKhoaHoc">
@@ -152,7 +165,7 @@ export default function CourseManagement() {
 
                       {/* Description */}
                       <div className="form-group">
-                        <i className="fa fa-phone" />
+                        <i class="fa fa-file-alt"></i>
                         <Field
                           component="textarea"
                           type="text"
@@ -168,13 +181,12 @@ export default function CourseManagement() {
 
                       {/* Picture */}
                       <div className="form-group">
-                        <i className="fa fa-lock" />
+                        <i class="fa fa-file-image"></i>
                         <Field
                           type="text"
                           className="form-control"
                           placeholder="Picture"
                           name="hinhAnh"
-                          // value={nguoiDung.matKhau}
                           onChange={handleChange}
                         />
                         <ErrorMessage name="hinhAnh">
@@ -210,14 +222,14 @@ export default function CourseManagement() {
                         <div className="col-6 pr-0 pl-1">
                           {/*Date*/}
                           <div className="form-group">
-                            <i className="fa fa-lock" />
+                            <i class="fa fa-calendar-alt"></i>
                             <Field
-                              type="password"
+                              type="text"
                               className="form-control"
                               placeholder="Date"
                               name="ngayTao"
-                              // value={nguoiDung.matKhau}
                               onChange={handleChange}
+                              readOnly
                             />
                             <ErrorMessage name="ngayTao">
                               {/* {(msg) => renderMsg(msg)} */}
@@ -228,7 +240,7 @@ export default function CourseManagement() {
 
                       {/* Category */}
                       <div className="form-group">
-                        <i className="fa fa-user"></i>
+                        <i class="fa fa-list-ol"></i>
                         <Field
                           type="text"
                           className="form-control"
@@ -247,7 +259,195 @@ export default function CourseManagement() {
                       >
                         Insert
                       </button>
-                      {/* {renderButton()} */}
+                    </Form>
+                  )}
+                </Formik>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/*  */}
+        <div className="modal fade" id="courseUpdateId" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h3 className="modal-title form-main__title">Update</h3>
+                <button
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div className="modal-body form-main__content">
+                <Formik
+                  enableReinitialize={true}
+                  initialValues={{
+                    maKhoaHoc: courseDetail.maKhoaHoc,
+                    biDanh: courseDetail.biDanh,
+                    tenKhoaHoc: courseDetail.tenKhoaHoc,
+                    moTa: courseDetail.moTa,
+                    luotXem: courseDetail.luotXem,
+                    danhGia: 0,
+                    hinhAnh: courseDetail.hinhAnh,
+                    maNhom: courseDetail.maNhom,
+                    ngayTao: courseDetail.ngayTao,
+                    maDanhMucKhoaHoc: category.maDanhMucKhoahoc,
+                    taiKhoanNguoiTao: userCreate.taiKhoan,
+                  }}
+                  validationSchema={updateCourseSchema}
+                  onSubmit={handleSubmitUpdate}
+                >
+                  {({ handleChange }) => (
+                    <Form>
+                      <div className="row">
+                        <div className="col-6 pl-0 pr-1">
+                          {/* ID */}
+                          <div className="form-group">
+                            <i className="fa fa-user" />
+                            <Field
+                              type="text"
+                              className="form-control"
+                              placeholder="ID"
+                              name="maKhoaHoc"
+                              onChange={handleChange}
+                              readOnly
+                            />
+                            <ErrorMessage name="maKhoaHoc">
+                              {/* {(msg) => renderMsg(msg)} */}
+                            </ErrorMessage>
+                          </div>
+                        </div>
+                        <div className="col-6 pr-0 pl-1">
+                          {/* Aliases */}
+                          <div className="form-group">
+                           <i class="fab fa-pied-piper-hat"></i>
+                            <Field
+                              type="text"
+                              className="form-control"
+                              placeholder="Aliases"
+                              name="biDanh"
+                              onChange={handleChange}
+                            />
+                            <ErrorMessage name="biDanh">
+                              {/* {(msg) => renderMsg(msg)} */}
+                            </ErrorMessage>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Course Name */}
+                      <div className="form-group">
+                        <i className="fa fa-user" />
+                        <Field
+                          type="text"
+                          className="form-control"
+                          placeholder="Course Name"
+                          name="tenKhoaHoc"
+                          onChange={handleChange}
+                        />
+                        <ErrorMessage name="tenKhoaHoc">
+                          {/* {(msg) => renderMsg(msg)} */}
+                        </ErrorMessage>
+                      </div>
+
+                      {/* Description */}
+                      <div className="form-group">
+                        <i class="fa fa-file-alt"></i>
+                        <Field
+                          component="textarea"
+                          type="text"
+                          className="form-control"
+                          placeholder="Description"
+                          name="moTa"
+                          onChange={handleChange}
+                        />
+                        <ErrorMessage name="moTa">
+                          {/* {(msg) => renderMsg(msg)} */}
+                        </ErrorMessage>
+                      </div>
+
+                      {/* Picture */}
+                      <div className="form-group">
+                       <i class="fa fa-file-image"></i>
+                        <Field
+                          type="text"
+                          className="form-control"
+                          placeholder="Picture"
+                          name="hinhAnh"
+                          onChange={handleChange}
+                        />
+                        <ErrorMessage name="hinhAnh">
+                          {/* {(msg) => renderMsg(msg)} */}
+                        </ErrorMessage>
+                      </div>
+
+                      <div className="row">
+                        <div className="col-6 pl-0 pr-1">
+                          {/* Group */}
+                          <div className="form-group">
+                            <i className="fa fa-users"></i>
+                            <Field
+                              component="select"
+                              type="text"
+                              className="form-control"
+                              name="maNhom"
+                              onChange={handleChange}
+                            >
+                              <option>GP01</option>
+                              <option>GP02</option>
+                              <option>GP03</option>
+                              <option>GP04</option>
+                              <option>GP05</option>
+                              <option>GP06</option>
+                              <option>GP07</option>
+                              <option>GP08</option>
+                              <option>GP09</option>
+                              <option>GP10</option>
+                            </Field>
+                          </div>
+                        </div>
+                        <div className="col-6 pr-0 pl-1">
+                          {/*Date*/}
+                          <div className="form-group">
+                            <i class="fa fa-calendar-alt"></i>
+                            <Field
+                              type="text"
+                              className="form-control"
+                              placeholder="Date"
+                              name="ngayTao"
+                              onChange={handleChange}
+                              readOnly
+                            />
+                            <ErrorMessage name="ngayTao">
+                              {/* {(msg) => renderMsg(msg)} */}
+                            </ErrorMessage>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Category */}
+                      <div className="form-group">
+                        <i class="fa fa-list-ol"></i>
+                        <Field
+                          type="text"
+                          className="form-control"
+                          placeholder="Category"
+                          name="maDanhMucKhoaHoc"
+                          onChange={handleChange}
+                        />
+                        <ErrorMessage name="maDanhMucKhoaHoc">
+                          {/* {(msg) => renderMsg(msg)} */}
+                        </ErrorMessage>
+                      </div>
+                      <button
+                        type="submit"
+                        className="btn--red btn--sign-up"
+                        // data-dismiss="modal"
+                      >
+                        Update
+                      </button>
                     </Form>
                   )}
                 </Formik>
@@ -273,13 +473,13 @@ export default function CourseManagement() {
                     {khoaHoc.tenKhoaHoc}
                   </h4>
                   <p className="card-text font-weight-bolder">
-                    Course code:{" "}
+                    Course ID:{" "}
                     <span className="font-weight-normal">
                       {khoaHoc.maKhoaHoc}
                     </span>
                   </p>
                   <p className="card-text font-weight-bolder">
-                    {" "}
+                    Aliases:{" "}
                     <span className="font-weight-normal">{khoaHoc.biDanh}</span>
                   </p>
                   <p className="card-text font-weight-bolder">
@@ -323,11 +523,15 @@ export default function CourseManagement() {
 
                 <div>
                   <button
-                    className="btn btn-primary ml-3 mb-3"
-                    style={{ fontSize: "14px" }}
-                  >
-                    Update
-                  </button>
+          type="button"
+          className="btn btn-primary ml-3 mb-3"
+          style={{ fontSize: "14px" }}
+          data-toggle="modal"
+          data-target="#courseUpdateId"
+          onClick={() => handleUpdate(khoaHoc.maKhoaHoc)}
+        >
+          Update
+        </button>
                   <button
                     className="btn btn-danger ml-3 mb-3"
                     style={{ fontSize: "14px" }}
