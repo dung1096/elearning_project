@@ -1,9 +1,9 @@
 import React, { useState, useEffect, Fragment } from "react";
-// import {
-//   handleDeleteUserAction,
-//   handleInsertUserAction,
-//   userListAction,
-// } from "../../redux/actions/UserAction";
+import {
+  handleDeleteUserAction,
+  handleInsertUserAction,
+  userListAction,
+} from "../../redux/actions/UserAction";
 import { useDispatch } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
@@ -32,68 +32,68 @@ const updateUserSchema = yup.object().shape({
 });
 
 export default function UserManagement() {
-  // let [dsNguoiDung, setDSNguoiDung] = useState([]);
+  let [dsNguoiDung, setDSNguoiDung] = useState([]);
 
-  // // let [nguoiDung, setNguoiDung] = useState({ values });
+  // let [nguoiDung, setNguoiDung] = useState({ values });
 
-  // let dispatch = useDispatch();
-  // // let valid = true;
+  let dispatch = useDispatch();
+  // let valid = true;
 
-  // // let propUser = useSelector((state) => state.UseReducer.userChose);
+  // let propUser = useSelector((state) => state.UseReducer.userChose);
 
-  // useEffect(() => {
-  //   userListAction(setDSNguoiDung);
-  // }, [dsNguoiDung]);
+  useEffect(() => {
+    userListAction(setDSNguoiDung);
+  }, [dsNguoiDung]);
 
-  // // let handleChange = (event) => {
-  // //   let { name, value } = event.target;
-  // //   setNguoiDung({ ...nguoiDung, [name]: value });
-  // // };
-
-  // const handleSubmit = (values) => {
-  //   console.log(values);
-  //   // values.preventDefault();
-
-  //   handleInsertUserAction(values);
+  // let handleChange = (event) => {
+  //   let { name, value } = event.target;
+  //   setNguoiDung({ ...nguoiDung, [name]: value });
   // };
 
-  // const handleDelete = (id) => {
-  //   console.log(id);
-  //   handleDeleteUserAction(id);
-  // };
+  const handleSubmit = (values) => {
+    console.log(values);
+    // values.preventDefault();
 
-  // const handleUpdate = (values) => {
-  //   console.log(values);
-  //   dispatch({ type: chose, userChose: values });
+    handleInsertUserAction(values);
+  };
 
-  //   // setNguoiDung(values);
-  //   // valid = false;
-  //   // handleDeleteAction(values);
+  const handleDelete = (id) => {
+    console.log(id);
+    handleDeleteUserAction(id);
+  };
+
+  const handleUpdate = (values) => {
+    console.log(values);
+    dispatch({ type: chose, userChose: values });
+
+    // setNguoiDung(values);
+    // valid = false;
+    // handleDeleteAction(values);
+  };
+  // const renderButton = (msg) => {
+  //   if (msg) {
+  //     return (
+  //       <button
+  //         type="submit"
+  //         className="btn--red btn--sign-up"
+  //         data-dismiss="modal"
+  //         disabled
+  //       >
+  //         Insert
+  //       </button>
+  //     );
+  //   } else {
+  //     return (
+  //       <button
+  //         type="submit"
+  //         className="btn--red btn--sign-up"
+  //         data-dismiss="modal"
+  //       >
+  //         Insert
+  //       </button>
+  //     );
+  //   }
   // };
-  // // const renderButton = (msg) => {
-  // //   if (msg) {
-  // //     return (
-  // //       <button
-  // //         type="submit"
-  // //         className="btn--red btn--sign-up"
-  // //         data-dismiss="modal"
-  // //         disabled
-  // //       >
-  // //         Insert
-  // //       </button>
-  // //     );
-  // //   } else {
-  // //     return (
-  // //       <button
-  // //         type="submit"
-  // //         className="btn--red btn--sign-up"
-  // //         data-dismiss="modal"
-  // //       >
-  // //         Insert
-  // //       </button>
-  // //     );
-  // //   }
-  // // };
   const renderTable = (nguoiDung, index) => {
     if (index % 2 === 0) {
       return (
@@ -107,7 +107,7 @@ export default function UserManagement() {
           <td>
             <button
               className="btn btn-danger"
-              // onClick={() => handleDelete(nguoiDung.taiKhoan)}
+              onClick={() => handleDelete(nguoiDung.taiKhoan)}
             >
               X
             </button>
@@ -115,9 +115,9 @@ export default function UserManagement() {
               className="btn btn-info"
               data-toggle="modal"
               data-target="#modelId"
-              // onClick={() => {
-              //   handleUpdate(nguoiDung);
-              // }}
+              onClick={() => {
+                handleUpdate(nguoiDung);
+              }}
             >
               Update
             </button>
@@ -136,15 +136,15 @@ export default function UserManagement() {
           <td>
             <button
               className="btn btn-danger"
-              // onClick={() => handleDelete(nguoiDung.taiKhoan)}
+              onClick={() => handleDelete(nguoiDung.taiKhoan)}
             >
               X
             </button>
             <button
               className="btn btn-info"
-              // onClick={() => {
-              //   handleUpdate(nguoiDung);
-              // }}
+              onClick={() => {
+                handleUpdate(nguoiDung);
+              }}
             >
               Update
             </button>
@@ -201,7 +201,7 @@ export default function UserManagement() {
                     maLoaiNguoiDung: "HV",
                   }}
                   validationSchema={updateUserSchema}
-                  // onSubmit={handleSubmit}
+                  onSubmit={handleSubmit}
                 >
                   {({ handleChange }) => (
                     <Form>
@@ -387,9 +387,9 @@ export default function UserManagement() {
           </tr>
         </thead>
         <tbody className="text-center">
-          {/* {dsNguoiDung.map((nguoiDung, index) => {
+          {dsNguoiDung.map((nguoiDung, index) => {
             return renderTable(nguoiDung, index);
-          })} */}
+          })}
         </tbody>
       </table>
     </Fragment>
