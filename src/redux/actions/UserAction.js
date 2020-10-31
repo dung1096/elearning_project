@@ -38,12 +38,10 @@ export const loginAction = (user) => {
 };
 
 export const accountInformation = (setUserInfo,user) => {
-  console.log(user.taiKhoan);
-  // console.log(user.matKhau);
   userService
     .thongTinTaiKhoan(user)
     .then((res) => {
-      console.log("info",res.data);
+      console.log(res.data);
      setUserInfo(res.data);
    
     })
@@ -59,7 +57,7 @@ export const userListAction = (group,setDSNguoiDung) => {
   userService
     .layDanhSachNguoiDung(group)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setDSNguoiDung(res.data);
     })
     .catch((err) => {

@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { NavLink, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import "antd/dist/antd.css";
-import { Layout, Menu, Breadcrumb } from "antd";
+import { Layout, Menu} from "antd";
 import { setGroup } from "../../redux/types/UserType";
 
 import {
@@ -59,7 +59,7 @@ const AdminComponent = (props) => {
               mode="inline"
               defaultSelectedKeys={["1"]}
               defaultOpenKeys={["sub1"]}
-              style={{ height: "100%", borderRight: 0 }}
+              style={{ height: "100%", borderRight:0 }}
             >
               <SubMenu key="sub1" icon={<UserOutlined />} title="Group">
                 <Menu.Item key="1" id="1" onClick={handleClick}>GP01</Menu.Item>

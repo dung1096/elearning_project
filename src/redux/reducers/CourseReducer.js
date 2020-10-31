@@ -46,12 +46,11 @@ const CourseReducer = (state = initialState, action) => {
     }
 
     case deleteCart: {
-      console.log(state.cart);
 
       let cartUpdate = [...state.cart];
 
       cartUpdate.map((cartItem, index) => {
-        if (cartItem.maKhoaHoc === action.cartItem.maKhoaHoc) {
+        if (cartItem.maKhoaHoc === action.cartID) {
           cartUpdate.splice(index, 1);
         }
         return cartUpdate;

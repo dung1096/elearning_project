@@ -11,13 +11,6 @@ export class CourseService {
     });
   };
 
-  // timKiemKhoaHoc = () => {
-  //   return Axios({
-  //     url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc={tenKhoaHoc}&MaNhom=GP01`,
-  //     method: "GET",
-  //   });
-  // };
-
   layChiTietKhoaHoc = (maKhoaHoc) => {
     return Axios({
       url: `${domain}/api/QuanLyKhoaHoc/LayThongTinKhoaHoc?maKhoaHoc=${maKhoaHoc}`,
@@ -40,6 +33,7 @@ export class CourseService {
   };
 
   dangKyKhoaHoc = ({maKhoaHoc,taiKhoan}) => {
+    console.log({maKhoaHoc,taiKhoan})
     return Axios({
       url: `${domain}/api/QuanLyKhoaHoc/DangKyKhoaHoc`,
       method: "POST",
@@ -48,11 +42,11 @@ export class CourseService {
     });
   };
   
-  huyGhiDanh = ({taiKhoan,maKhoaHoc}) => {
+  huyGhiDanh = ({maKhoaHoc,taiKhoan}) => {
     return Axios({
       url: `${domain}/api/QuanLyKhoaHoc/HuyGhiDanh`,
       method: "POST",
-      data:{taiKhoan,maKhoaHoc},
+      data:{maKhoaHoc,taiKhoan},
       headers: { Authorization: `Bearer ${token}` },
     });
   };
@@ -65,6 +59,7 @@ export class CourseService {
       headers: { Authorization: `Bearer ${token}` },
     });
   };
+  
   capNhatKhoaHoc = (course) => {
     return Axios({
       url: `${domain}/api/QuanLyKhoaHoc/CapNhatKhoaHoc`,

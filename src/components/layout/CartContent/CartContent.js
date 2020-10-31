@@ -8,23 +8,18 @@ export default function CartContent() {
   const propCart = useSelector((state) => state.CourseReducer.cart);
  
   const propUser = useSelector((state) => state.UserReducer.userLogin);
-  console.log("user",propUser)
 
   let dispatch = useDispatch();
 
-  let handleDeleteCart = (item) => {
+  let handleDeleteCart = (id) => {
     dispatch({
       type: deleteCart,
-      cartItem: item,
+      cartID: id,
     });
   };
 
-  let handleRegister = (item) => {
-    handleRegisterCourseAction(item.maKhoaHoc,propUser.taiKhoan)
-    // dispatch({
-    //   type: deleteCart,
-    //   cartItem: item,
-    // });
+  let handleRegister = (courseID) => {
+    handleRegisterCourseAction(dispatch, courseID,propUser.taiKhoan)
   };
   return (
     <section className="cart-content">
@@ -52,7 +47,7 @@ export default function CartContent() {
                     <button
                       className="btn btn-danger"
                       onClick={() => {
-                        handleDeleteCart(cartItem);
+                        handleDeleteCart(cartItem.maKhoaHoc);
                       }}
                     >
                       Remove
@@ -60,7 +55,7 @@ export default function CartContent() {
                     <button
                       className="btn btn-primary"
                       onClick={() => {
-                        handleRegister(cartItem);
+                        handleRegister(cartItem.maKhoaHoc);
                       }}
                     >
                       Register
