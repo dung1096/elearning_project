@@ -24,11 +24,26 @@
   &__category {
     padding: 0 20px;
 
-    span {
-      @include text(fs("body2"), tc("textPrimary"), fw("fwLight"), 0.05);
-      cursor: pointer;
-      &:hover {
-        @include text(fs("body2"), tc("textSecondary"), fw("fwLight"), 0.05);
+    button {
+      outline: none;
+      border: none;
+      span {
+        @include text(fs("body2"), tc("textPrimary"), fw("fwLight"), 0.05);
+        cursor: pointer;
+        &:hover {
+          @include text(fs("body2"), tc("textSecondary"), fw("fwLight"), 0.05);
+        }
+        &:hover::after {
+          @include text(fs("body2"), tc("textSecondary"), fw("fwLight"), 0.05);
+        }
+      }
+      &:hover,
+      &:active,
+      &:focus {
+        outline: none !important;
+        border: none !important;
+        background: none !important;
+        box-shadow: none !important;
       }
     }
   }

@@ -1,25 +1,23 @@
 import { userService } from "../../services/UserService";
-import { login } from "../types/UserType";
+import { login } from "../types/UserType"
+
 
 export const signUpAction = (values) => {
   return userService
     .dangKy(values)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
     })
     .catch((err) => {
       console.log(err.response.data);
     });
 };
 
-export const loginAction = (user) => {
-  console.log(user.taiKhoan);
-  console.log(user.matKhau);
+export const loginAction = (user,history) => {
   return (dispatch) => {
     userService
       .dangNhap(user)
       .then((res) => {
-        console.log(res.data);
         //Lưu thông tin vào localStorage
         localStorage.setItem("userLogin", JSON.stringify(res.data));
         //Lưu token vào localStorage
@@ -29,10 +27,11 @@ export const loginAction = (user) => {
           type: login,
           userLogin: res.data,
         });
+        history.replace("/home");
       })
       .catch((err) => {
         console.log(err.response.data);
-        // alert(err.response.data);
+        // setMess(err.response.data);
       });
   };
 };
@@ -41,7 +40,6 @@ export const accountInformation = (setUserInfo,user) => {
   userService
     .thongTinTaiKhoan(user)
     .then((res) => {
-      console.log(res.data);
      setUserInfo(res.data);
    
     })
@@ -57,7 +55,6 @@ export const userListAction = (group,setDSNguoiDung) => {
   userService
     .layDanhSachNguoiDung(group)
     .then((res) => {
-      // console.log(res.data);
       setDSNguoiDung(res.data);
     })
     .catch((err) => {
@@ -71,7 +68,7 @@ export const handleInsertUserAction = (values) => {
   return userService
     .themNguoiDung(values)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
     })
     .catch((err) => {
       console.log(err.response.data);
@@ -83,7 +80,7 @@ export const handleDeleteUserAction = (id) => {
   return userService
     .xoaNguoiDung(id)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
     })
     .catch((err) => {
       console.log(err.response.data);
@@ -95,9 +92,33 @@ export const handleUpdateUserAction = (values) => {
   return userService
     .capNhatThongTinNguoiDung(values)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
     })
     .catch((err) => {
       console.log(err.response.data);
     });
+};
+
+export const unregisteredCourseList = (taiKhoan,setUnregistered) => {
+  userService
+    .layDanhSachKhoaHocChoXetDuyet({taiKhoan})
+    .then((res) => {
+      setUnregistered(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+ return setUnregistered;
+};
+
+export const registeredCourseList = (taiKhoan,setRegistered) => {
+userService
+    .layDanhSachKhoaHocDaXetDuyet({taiKhoan})
+    .then((res) => {
+      setRegistered(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+ return setRegistered;
 };

@@ -5,6 +5,8 @@ import {
   handleInsertUserAction,
   handleUpdateUserAction,
   userListAction,
+  unregisteredCourseList,
+  registeredCourseList,
 } from "../../redux/actions/UserAction";
 import { useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -52,10 +54,14 @@ const updateUserSchema = yup.object().shape({
   //     .required("* Confirm cannot be empty!"),
 });
 
-export default function UserManagement(props) {
+export default function UserManagement() {
   let [userList, setUserList] = useState([]);
 
   let [user, setUser] = useState({});
+
+  let [unregistered, setUnregistered] = useState([]);
+
+  let [registered, setRegistered] = useState([]);
 
   const userGroup = useSelector((state) => state.UserReducer.group);
 
@@ -81,6 +87,7 @@ export default function UserManagement(props) {
     // dispatch({ type: update, userUpdate: values });
     accountInformation(setUser, values);
   };
+
   const handleSubmitUpdate = (values) => {
     console.log(values);
 
@@ -88,7 +95,12 @@ export default function UserManagement(props) {
 
     handleUpdateUserAction(values);
   };
-  
+
+  const handleRegister = (values) => {
+    console.log(values.taiKhoan);
+    unregisteredCourseList(values.taiKhoan, setUnregistered);
+    registeredCourseList(values.taiKhoan, setRegistered);
+  };
   const renderTable = (user, index) => {
     if (index % 2 === 0) {
       return (
@@ -100,6 +112,17 @@ export default function UserManagement(props) {
           <td>{user.soDT}</td>
           <td>{user.maLoaiNguoiDung}</td>
           <td>
+            <button
+              type="button"
+              className="btn btn-warning ml-3 mb-3"
+              data-toggle="modal"
+              data-target="#modalRegisterId"
+              onClick={() => {
+                handleRegister(user);
+              }}
+            >
+              Register
+            </button>
             <button
               className="btn btn-danger"
               onClick={() => handleDelete(user.taiKhoan)}
@@ -130,6 +153,17 @@ export default function UserManagement(props) {
           <td>{user.maLoaiNguoiDung}</td>
           <td>
             <button
+              type="button"
+              className="btn btn-warning ml-3 mb-3"
+              data-toggle="modal"
+              data-target="#modalRegisterId"
+              onClick={() => {
+                handleRegister(user);
+              }}
+            >
+              Register
+            </button>
+            <button
               className="btn btn-danger"
               onClick={() => handleDelete(user.taiKhoan)}
             >
@@ -144,6 +178,60 @@ export default function UserManagement(props) {
               }}
             >
               Update
+            </button>
+          </td>
+        </tr>
+      );
+    }
+  };
+
+  const renderTableModal = (course, index) => {
+    if (index % 2 === 0) {
+      return (
+        <tr key={index}>
+          <td>{index + 1}</td>
+          <td>{course.tenKhoaHoc}</td>
+          <td>
+            <button
+              type="button"
+              className="btn btn-primary ml-3"
+              // onClick={() =>{handleRegister(course);}}
+            >
+              Accept
+            </button>
+
+            <button
+              className="btn btn-danger"
+              // onClick={() => {
+              //   handleUpdate(user);
+              // }}
+            >
+              Cancel
+            </button>
+          </td>
+        </tr>
+      );
+    } else {
+      return (
+        <tr key={index} className="bg-secondary text-light">
+          <td>{index + 1}</td>
+          <td>{course.tenKhoaHoc}</td>
+          <td>
+            <button
+              type="button"
+              className="btn btn-primary ml-3"
+              // onClick={() =>{handleRegister(course);}}
+            >
+              Accept
+            </button>
+
+            <button
+              className="btn btn-danger"
+              // onClick={() => {
+              //   handleUpdate(user);
+              // }}
+            >
+              Cancel
             </button>
           </td>
         </tr>
@@ -166,6 +254,60 @@ export default function UserManagement(props) {
           </button>
         </div>
 
+        {/* Modal */}
+        <div className="modal fade" id="modalRegisterId" aria-hidden="true">
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h3 className="modal-title form-main__title">Register</h3>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">×</span>
+                </button>
+              </div>
+              <div className="modal-body form-main__content">
+
+                <h3>The course is waiting for validation</h3>
+                <table className="table">
+                  <thead className="text-center">
+                    <tr>
+                      <th>No.</th>
+                      <th>Course name</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-center">
+                    {unregistered.map((course, index) => {
+                      return renderTableModal(course, index);
+                    })}
+                  </tbody>
+                </table>
+
+                <h3>The course has been verified</h3>
+                <table className="table">
+                  <thead className="text-center">
+                    <tr>
+                      <th>No.</th>
+                      <th>Course name</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody className="text-center">
+                    {registered.map((course, index) => {
+                      return renderTableModal(course, index);
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/*  */}
         {/* Modal */}
         <div className="modal fade" id="modelId" aria-hidden="true">
           <div className="modal-dialog" role="document">
@@ -333,6 +475,7 @@ export default function UserManagement(props) {
           </div>
         </div>
         {/*  */}
+        {/* Modal */}
         <div className="modal fade" id="modelUpdateId" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">

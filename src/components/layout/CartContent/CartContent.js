@@ -2,11 +2,12 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { handleRegisterCourseAction } from "../../../redux/actions/CourseAction";
 import { deleteCart } from "../../../redux/types/CourseType";
+import { NavLink } from "react-router-dom";
 import "./CartContent.scss";
 
 export default function CartContent() {
   const propCart = useSelector((state) => state.CourseReducer.cart);
- 
+
   const propUser = useSelector((state) => state.UserReducer.userLogin);
 
   let dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function CartContent() {
   };
 
   let handleRegister = (courseID) => {
-    handleRegisterCourseAction(dispatch, courseID,propUser.taiKhoan)
+    handleRegisterCourseAction(dispatch, courseID, propUser.taiKhoan);
   };
   return (
     <section className="cart-content">
@@ -38,14 +39,26 @@ export default function CartContent() {
                     ></img>
                   </div>
 
-                  <div className="col-sm-7  d-flex align-items-center justify-content-center flex-column">
+                  <div className="col-sm-6  d-flex align-items-center justify-content-center flex-column">
                     <h3>{cartItem.tenKhoaHoc}</h3>
-                     <p>{cartItem.moTa}</p>
+                    <p>{cartItem.moTa}</p>
                   </div>
 
-                  <div className="col-sm-2  d-flex align-items-center">
+                  <div className="col-sm-3  d-flex align-items-center">
                     <button
-                      className="btn btn-danger"
+                      className="btn btn-success mx-2"
+                      style={{ fontSize: "14px" }}
+                    >
+                      <NavLink
+                        className="text-light"
+                        to={`/detail/${cartItem.maKhoaHoc}`}
+                      >
+                        Detail
+                      </NavLink>
+                    </button>
+                    <button
+                      className="btn btn-danger mx-2"
+                      style={{ fontSize: "14px" }}
                       onClick={() => {
                         handleDeleteCart(cartItem.maKhoaHoc);
                       }}
@@ -53,7 +66,8 @@ export default function CartContent() {
                       Remove
                     </button>
                     <button
-                      className="btn btn-primary"
+                      className="btn btn-primary mx-2"
+                      style={{ fontSize: "14px" }}
                       onClick={() => {
                         handleRegister(cartItem.maKhoaHoc);
                       }}

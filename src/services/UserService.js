@@ -59,6 +59,24 @@ export class UserService {
       headers: { Authorization: `Bearer ${token}` },
     });
   };
+
+  layDanhSachKhoaHocChoXetDuyet = ({taiKhoan}) => {
+    return Axios({
+      url: `${domain}/api/QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet`,
+      method: "POST",
+      data: {taiKhoan},
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  };
+
+  layDanhSachKhoaHocDaXetDuyet = ({taiKhoan}) => {
+    return Axios({
+      url: `${domain}/api/QuanLyNguoiDung/LayDanhSachKhoaHocDaXetDuyet`,
+      method: "POST",
+      data: {taiKhoan},
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  };
 }
 
 export const userService = new UserService();

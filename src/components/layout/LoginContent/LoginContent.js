@@ -1,13 +1,13 @@
-import React from "react";
+import React,{useState} from "react";
 import "./LoginContent.scss";
 import { NavLink } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
 import * as yup from "yup";
 import { loginAction } from "../../../redux/actions/UserAction";
-// import { userService } from "../../../services/UserService";
-// import { login } from "../../../redux/types/UserType";
-import { useHistory } from "react-router-dom";
+
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { message } from 'antd';
 
 const loginUserSchema = yup.object().shape({
   taiKhoan: yup.string().required("* ID cannot be empty!"),
@@ -17,22 +17,23 @@ const loginUserSchema = yup.object().shape({
 export const LoginContent = () => {
   let dispatch = useDispatch();
   const history = useHistory();
+  const [mess, setMess] = useState();
 
   const handleSubmit = (value) => {
-    console.log("submit: ", value);
-    // event.preventDefault();
-    dispatch(loginAction(value));
-    // dispatch(accountInformation(value));
-
-    history.replace("/home");
+    dispatch(loginAction(value,history));
   };
 
-  const renderMsg = (msg) => {
+    const renderMsg = (msg) => {
     return (
       <div className="text-danger" style={{ fontSize: "14px" }}>
         {msg}
       </div>
     );
+  };
+
+  const renderMessage = (msg) => {
+    if(msg) return message.error(msg);
+    return;
   };
   return (
     <section className="form-main log-in container-fluid animate__animated animate__fadeIn wow">
@@ -83,7 +84,7 @@ export const LoginContent = () => {
                     {(msg) => renderMsg(msg)}
                   </ErrorMessage>
 
-                  <button type="submit" className="btn--red btn--sign-up">
+                  <button onClick={renderMessage(mess)} type="submit" className="btn--red btn--sign-up">
                     Log In
                   </button>
                 </Form>
@@ -105,6 +106,7 @@ export const LoginContent = () => {
         </div>
         <div className="col-4"></div>
       </div>
+      
     </section>
   );
 };

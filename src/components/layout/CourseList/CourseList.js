@@ -8,7 +8,7 @@ import "./CourseList.scss";
 import { courseListAction, courseCategoryAction } from "../../../redux/actions/CourseAction";
 import { setGroup } from "../../../redux/types/CourseType";
 
-export default function CourseList(props) {
+export default function CourseList() {
 
   let [dsKhoaHoc, setDSKhoaHoc] = useState([]);
 
@@ -46,6 +46,16 @@ export default function CourseList(props) {
   };
   return (
     <Fragment>
+      {/* <section className="student-course container-fluid animate__animated animate__fadeIn wow">
+        <h1>Students are viewing</h1>
+        <Slider {...settings}>
+              {dsKhoaHoc.map((khoaHoc, index) => {
+                return <CourseItem key={index} khoaHoc={khoaHoc} />;
+              })}
+            </Slider>
+      </section> */}
+
+
       <section className="course container-fluid animate__animated animate__fadeIn wow">
         <div className="d-flex justify-content-between">
         <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -149,7 +159,7 @@ export default function CourseList(props) {
             </a>
           </li>
         </ul>
-        <div className="dropdown">
+        <div className="dropdown mr-5">
           <button className="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
                 {propGroup}
@@ -178,7 +188,6 @@ export default function CourseList(props) {
           >
             <Slider {...settings}>
               {dsKhoaHoc.map((khoaHoc, index) => {
-                console.log(khoaHoc, index);
                 return <CourseItem key={index} khoaHoc={khoaHoc} />;
               })}
             </Slider>
@@ -191,7 +200,6 @@ export default function CourseList(props) {
           >
             <Slider {...settings}>
               {dsKhoaHoc.map((khoaHoc, index) => {
-                console.log(khoaHoc, index);
                 return <CourseItem key={index} khoaHoc={khoaHoc} />;
               })}
             </Slider>
@@ -204,7 +212,6 @@ export default function CourseList(props) {
           >
             <Slider {...settings}>
               {dsKhoaHoc.map((khoaHoc, index) => {
-                console.log(khoaHoc, index);
                 return <CourseItem key={index} khoaHoc={khoaHoc} />;
               })}
             </Slider>
@@ -217,7 +224,6 @@ export default function CourseList(props) {
           >
             <Slider {...settings}>
               {dsKhoaHoc.map((khoaHoc, index) => {
-                console.log(khoaHoc, index);
                 return <CourseItem key={index} khoaHoc={khoaHoc} />;
               })}
             </Slider>
@@ -230,7 +236,6 @@ export default function CourseList(props) {
           >
             <Slider {...settings}>
               {dsKhoaHoc.map((khoaHoc, index) => {
-                console.log(khoaHoc, index);
                 return <CourseItem key={index} khoaHoc={khoaHoc} />;
               })}
             </Slider>
@@ -243,7 +248,6 @@ export default function CourseList(props) {
           >
             <Slider {...settings}>
               {dsKhoaHoc.map((khoaHoc, index) => {
-                console.log(khoaHoc, index);
                 return <CourseItem key={index} khoaHoc={khoaHoc} />;
               })}
             </Slider>
@@ -256,7 +260,6 @@ export default function CourseList(props) {
           >
             <Slider {...settings}>
               {dsKhoaHoc.map((khoaHoc, index) => {
-                console.log(khoaHoc, index);
                 return <CourseItem key={index} khoaHoc={khoaHoc} />;
               })}
             </Slider>
@@ -264,14 +267,7 @@ export default function CourseList(props) {
         </div>
       </section>
 
-      <section className="student-course container-fluid animate__animated animate__fadeIn wow">
-        <h1>Students are viewing</h1>
-        {/* <Slider {...settings}>
-          {dsKhoaHoc.map((khoaHoc, index) => {
-            return <CourseItem key={index} khoaHoc={khoaHoc} />;
-          })}
-        </Slider> */}
-      </section>
+      
     </Fragment>
   );
 }

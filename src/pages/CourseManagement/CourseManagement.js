@@ -10,6 +10,7 @@ import {
 import { useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
+import { values } from "lodash";
 
 const updateCourseSchema = yup.object().shape({
   maKhoaHoc: yup.string().required("* ID cannot be empty!"),
@@ -18,13 +19,16 @@ const updateCourseSchema = yup.object().shape({
 });
 
 export default function CourseManagement() {
-  let [dsKhoaHoc, setDSKhoaHoc] = useState([]);
+  let [courseList, setCourseList] = useState([]);
   let [courseDetail, setCourseDetail] = useState({});
   let category={...courseDetail.danhMucKhoaHoc};
   let userCreate={...courseDetail.nguoiTao};
 
   const propUser = useSelector((state) => state.UserReducer.userLogin);
   const propGroup = useSelector((state) => state.CourseReducer.group);
+
+ let frm = new FormData();
+
   const parsedDate = () => {
     let today = new Date();
     let dd = today.getDate();
@@ -41,12 +45,17 @@ export default function CourseManagement() {
   };
 
   useEffect(() => {
-    courseListAction(setDSKhoaHoc,"",propGroup);
-  }, [dsKhoaHoc,propGroup,courseDetail]);
+    courseListAction(setCourseList,"",propGroup);
+  }, [courseList,propGroup,courseDetail]);
 
   const handleSubmit = (values) => {
     console.log(values);
-     handleInsertCourseAction(values);
+     
+     frm.append('hinhAnh',values.hinhAnh);
+        frm.append('tenKhoaHoc',values.tenKhoaHoc);
+     console.log('tenKhoaHoc',values.tenKhoaHoc)
+     console.log('hinhAnh',values.hinhAnh)
+    handleInsertCourseAction(values);
   };
 
   const handleUpdate=(id)=>{
@@ -133,7 +142,7 @@ export default function CourseManagement() {
                         <div className="col-6 pr-0 pl-1">
                           {/* Aliases */}
                           <div className="form-group">
-                            <i class="fab fa-pied-piper-hat"></i>
+                            <i className="fab fa-pied-piper-hat"></i>
                             <Field
                               type="text"
                               className="form-control"
@@ -165,7 +174,7 @@ export default function CourseManagement() {
 
                       {/* Description */}
                       <div className="form-group">
-                        <i class="fa fa-file-alt"></i>
+                        <i className="fa fa-file-alt"></i>
                         <Field
                           component="textarea"
                           type="text"
@@ -181,9 +190,10 @@ export default function CourseManagement() {
 
                       {/* Picture */}
                       <div className="form-group">
-                        <i class="fa fa-file-image"></i>
+                        <i className="fa fa-file-image"></i>
                         <Field
-                          type="text"
+                        
+                          type="file"
                           className="form-control"
                           placeholder="Picture"
                           name="hinhAnh"
@@ -222,7 +232,7 @@ export default function CourseManagement() {
                         <div className="col-6 pr-0 pl-1">
                           {/*Date*/}
                           <div className="form-group">
-                            <i class="fa fa-calendar-alt"></i>
+                            <i className="fa fa-calendar-alt"></i>
                             <Field
                               type="text"
                               className="form-control"
@@ -240,7 +250,7 @@ export default function CourseManagement() {
 
                       {/* Category */}
                       <div className="form-group">
-                        <i class="fa fa-list-ol"></i>
+                        <i className="fa fa-list-ol"></i>
                         <Field
                           type="text"
                           className="form-control"
@@ -267,6 +277,7 @@ export default function CourseManagement() {
           </div>
         </div>
         {/*  */}
+        {/* Modal */}
         <div className="modal fade" id="courseUpdateId" aria-hidden="true">
           <div className="modal-dialog" role="document">
             <div className="modal-content">
@@ -322,7 +333,7 @@ export default function CourseManagement() {
                         <div className="col-6 pr-0 pl-1">
                           {/* Aliases */}
                           <div className="form-group">
-                           <i class="fab fa-pied-piper-hat"></i>
+                           <i className="fab fa-pied-piper-hat"></i>
                             <Field
                               type="text"
                               className="form-control"
@@ -354,7 +365,7 @@ export default function CourseManagement() {
 
                       {/* Description */}
                       <div className="form-group">
-                        <i class="fa fa-file-alt"></i>
+                        <i className="fa fa-file-alt"></i>
                         <Field
                           component="textarea"
                           type="text"
@@ -370,7 +381,7 @@ export default function CourseManagement() {
 
                       {/* Picture */}
                       <div className="form-group">
-                       <i class="fa fa-file-image"></i>
+                       <i className="fa fa-file-image"></i>
                         <Field
                           type="text"
                           className="form-control"
@@ -411,7 +422,7 @@ export default function CourseManagement() {
                         <div className="col-6 pr-0 pl-1">
                           {/*Date*/}
                           <div className="form-group">
-                            <i class="fa fa-calendar-alt"></i>
+                            <i className="fa fa-calendar-alt"></i>
                             <Field
                               type="text"
                               className="form-control"
@@ -429,7 +440,7 @@ export default function CourseManagement() {
 
                       {/* Category */}
                       <div className="form-group">
-                        <i class="fa fa-list-ol"></i>
+                        <i className="fa fa-list-ol"></i>
                         <Field
                           type="text"
                           className="form-control"
@@ -458,7 +469,7 @@ export default function CourseManagement() {
       </div>
 
       <div className="row">
-        {dsKhoaHoc.map((khoaHoc, index) => {
+        {courseList.map((khoaHoc, index) => {
           return (
             <div className="col-sm-4 mb-5" key={index}>
               <div className="card">
@@ -523,15 +534,15 @@ export default function CourseManagement() {
 
                 <div>
                   <button
-          type="button"
-          className="btn btn-primary ml-3 mb-3"
-          style={{ fontSize: "14px" }}
-          data-toggle="modal"
-          data-target="#courseUpdateId"
-          onClick={() => handleUpdate(khoaHoc.maKhoaHoc)}
-        >
-          Update
-        </button>
+                    type="button"
+                    className="btn btn-primary ml-3 mb-3"
+                    style={{ fontSize: "14px" }}
+                    data-toggle="modal"
+                    data-target="#courseUpdateId"
+                    onClick={() => handleUpdate(khoaHoc.maKhoaHoc)}
+                  >
+                    Update
+                  </button>
                   <button
                     className="btn btn-danger ml-3 mb-3"
                     style={{ fontSize: "14px" }}
