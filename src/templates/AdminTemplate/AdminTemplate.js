@@ -1,17 +1,24 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { NavLink, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import "antd/dist/antd.css";
 import { Layout, Menu} from "antd";
 import { setGroup } from "../../redux/types/UserType";
+// import { courseCategoryListAction } from "../../redux/actions/CourseAction";
 
 import {
-  UserOutlined,
+  GroupOutlined,
+  // UnorderedListOutlined
 } from "@ant-design/icons";
 
 const AdminComponent = (props) => {
   const { SubMenu } = Menu;
   const { Header, Content, Sider } = Layout;
+  // const [category, setCategory] = useState([]);
+
+  // useEffect(() => {
+  //    courseCategoryListAction(setCategory);
+  // }, [])
 
   let dispatch=useDispatch();
   let handleClick=(event)=>{
@@ -26,7 +33,7 @@ const AdminComponent = (props) => {
         <Header className="header">
           <div
             className="logo"
-          ><NavLink to={"/admin"}><img src="/img/logo-coral.svg"/></NavLink></div>
+          ><NavLink to={"/admin"}><img src="/img/logo-coral.svg" alt="logo"/></NavLink></div>
           <Menu theme="dark" mode="horizontal">
             <Menu.Item key="1">
               <NavLink to={"/admin/user"}>User Management</NavLink>
@@ -44,11 +51,11 @@ const AdminComponent = (props) => {
                 background: "#fff",
               }}
               mode="inline"
-              defaultSelectedKeys={["1"]}
-              defaultOpenKeys={["sub1"]}
-              style={{ height: "100%", borderRight:0 }}
+              // defaultSelectedKeys={["1"]}
+              // defaultOpenKeys={["sub1"]}
+              style={{ borderRight:0 }}
             >
-              <SubMenu key="sub1" icon={<UserOutlined />} title="Group">
+              <SubMenu key="sub1" icon={<GroupOutlined />} title="Group">
                 <Menu.Item key="1" id="1" onClick={handleClick}>GP01</Menu.Item>
                 <Menu.Item key="2" id="2" onClick={handleClick}>GP02</Menu.Item>
                 <Menu.Item key="3" id="3" onClick={handleClick}>GP03</Menu.Item>
@@ -60,6 +67,11 @@ const AdminComponent = (props) => {
                 <Menu.Item key="9" id="9" onClick={handleClick}>GP09</Menu.Item>
                 <Menu.Item key="10" id="10" onClick={handleClick}>GP10</Menu.Item>
               </SubMenu>
+              {/* <SubMenu key="sub2" icon={< UnorderedListOutlined />} title="Category">
+                {category.map((item,index)=>{
+                  return <Menu.Item key={index} id={item.maDanhMuc} onClick={handleClick}>{item.tenDanhMuc}</Menu.Item>
+                })}
+              </SubMenu> */}
               
             </Menu>
           </Sider>

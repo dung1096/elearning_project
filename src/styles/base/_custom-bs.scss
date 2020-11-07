@@ -20,9 +20,9 @@
 }
 .dropdown-menu {
   @include text(fs("subtitle"), tc("textGrey"), fw("fwLight"), 0.01);
-  width: 100%;
   padding: 0;
   border-radius: unset;
+  width: max-content;
 
   option {
     border: 2px solid transparent;

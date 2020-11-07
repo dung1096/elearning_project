@@ -179,7 +179,7 @@ export default function ProfileContent() {
                         <h3>Password: </h3>
                         <div className="form-group">
                           <Field
-                            type="text"
+                            type="password"
                             name="currentPwd"
                             className="form-control"
                             placeholder="Enter Current Password"
@@ -192,7 +192,7 @@ export default function ProfileContent() {
 
                         <div className="form-group">
                           <Field
-                            type="text"
+                            type="password"
                             name="newPwd"
                             className="form-control"
                             placeholder="Enter New Password"
@@ -205,7 +205,7 @@ export default function ProfileContent() {
 
                         <div className="form-group">
                           <Field
-                            type="text"
+                            type="password"
                             name="reNewPwd"
                             className="form-control"
                             placeholder="Re-type New Password"
@@ -310,7 +310,7 @@ export default function ProfileContent() {
                                         );
                                       }}
                                     >
-                                      Cancel
+                                      Remove
                                     </button>
                                   </div>
                                 </div>

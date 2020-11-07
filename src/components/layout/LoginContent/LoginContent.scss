@@ -1,11 +1,11 @@
 @import "../../../styles//helpers/theme";
 @import "../../../styles/helpers/mixin";
 @import "../../../styles/helpers/function";
-// @import "../../styles/helpers/keyframe";
 @import "../../../styles/base/reset";
 @import "../../../styles/base/custom-bs";
 // @import "../../../styles/components/button";
 @import "../../../styles/components/form";
+@import "../../../styles/components/alert";
 
 .log-in {
   &__text {

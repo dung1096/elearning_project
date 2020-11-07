@@ -1,12 +1,14 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import "./Header.scss";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../redux/types/UserType";
 import { search } from "../../redux/types/CourseType";
+import { courseCategoryListAction } from "../../redux/actions/CourseAction";
 
 export default function Header() {
   const [searchValue, setSearchValue] = useState([]);
+  const [category, setCategory] = useState([]);
   let dispatch = useDispatch();
   // const history = useHistory();
   const propUser = useSelector((state) => state.UserReducer.userLogin);
@@ -24,13 +26,31 @@ export default function Header() {
     dispatch({ type: search, searchValue: searchValue.value });
   };
 
+  useEffect(() => {
+     courseCategoryListAction(setCategory);
+  }, [])
+
   return (
+    <Fragment>
     <header className="header animate__animated animate__fadeIn wow">
       <NavLink to="/home">
         <img src="/img/logo-coral.svg" alt="logo" />
       </NavLink>
+
+      {/* CATEGORY */}
       <div className="header__category d-none d-md-flex">
-        <span>Categories</span>
+        
+        <div className="dropdown">
+  <button className="btn btn-secondary dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span>Categories</span>
+  </button>
+  <div className="dropdown-menu" aria-labelledby="triggerId">
+    {category.map((item,index)=>{
+      return <div className="dropdown-item" key={index}>{item.tenDanhMuc}</div>
+    })}
+  </div>
+</div>
+
       </div>
 
       {/* SEARCH */}
@@ -76,7 +96,7 @@ export default function Header() {
           <div className="cart-number">{propCart.length}</div>
         </NavLink>
         <div className="panel-menu header__cart__content">
-          {propCart ? (<Fragment>
+          {propCart.length!==0 ? (<Fragment>
             {propCart.map((cartItem, index) => {
             return (
               <div key={index} className="cart-content__item">
@@ -136,5 +156,6 @@ export default function Header() {
         )}
       </div>
     </header>
+    </Fragment>
   );
 }
