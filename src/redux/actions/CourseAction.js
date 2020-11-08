@@ -65,11 +65,22 @@ export const handleRegisterCourseAction = (dispatch, maKhoaHoc, taiKhoan) => {
     });
 };
 
+export const handleAcceptRegisterCourseAction = (maKhoaHoc, taiKhoan) => {
+  return courseService
+    .ghiDanhKhoaHoc({ maKhoaHoc, taiKhoan })
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+};
+
 export const handleCancelRegisterCourseAction = (maKhoaHoc, taiKhoan) => {
   return courseService
     .huyGhiDanh({ maKhoaHoc, taiKhoan })
     .then((res) => {
-      // console.log(res.data);
+      console.log(res.data);
     })
     .catch((err) => {
       console.log(err.response.data);

@@ -49,8 +49,6 @@ export const accountInformation = (setUserInfo,user) => {
     return setUserInfo;
 };
 
-
-
 export const userListAction = (group,setDSNguoiDung) => {
   userService
     .layDanhSachNguoiDung(group)
@@ -99,11 +97,25 @@ export const handleUpdateUserAction = (values) => {
     });
 };
 
+export const notRegisteredCourseList = (taiKhoan,setNotRegistered) => {
+  userService
+    .layDanhSachKhoaHocChuaGhiDanh({taiKhoan})
+    .then((res) => {
+      setNotRegistered(res.data);
+     console.log(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+ return setNotRegistered;
+};
+
 export const unregisteredCourseList = (taiKhoan,setUnregistered) => {
   userService
     .layDanhSachKhoaHocChoXetDuyet({taiKhoan})
     .then((res) => {
       setUnregistered(res.data);
+     
     })
     .catch((err) => {
       console.log(err.response.data);
@@ -116,6 +128,7 @@ userService
     .layDanhSachKhoaHocDaXetDuyet({taiKhoan})
     .then((res) => {
       setRegistered(res.data);
+    
     })
     .catch((err) => {
       console.log(err.response.data);
