@@ -11,13 +11,13 @@ export class CourseService {
     });
   };
 
-  timKiemKhoaHoc = (data,group) => {
-    return Axios({
-      url:
-        `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${data}&MaNhom=${group}`,
-      method: "GET",
-    });
-  };
+  // timKiemKhoaHoc = (data,group) => {
+  //   return Axios({
+  //     url:
+  //       `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${data}&MaNhom=${group}`,
+  //     method: "GET",
+  //   });
+  // };
 
   layChiTietKhoaHoc = (maKhoaHoc) => {
     return Axios({
@@ -50,6 +50,15 @@ export class CourseService {
     });
   };
   
+  ghiDanhKhoaHoc = ({maKhoaHoc,taiKhoan}) => {
+    return Axios({
+      url: `${domain}/api/QuanLyKhoaHoc/GhiDanhKhoaHoc`,
+      method: "POST",
+      data:{maKhoaHoc,taiKhoan},
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  };
+
   huyGhiDanh = ({maKhoaHoc,taiKhoan}) => {
     return Axios({
       url: `${domain}/api/QuanLyKhoaHoc/HuyGhiDanh`,

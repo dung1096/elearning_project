@@ -60,6 +60,15 @@ export class UserService {
     });
   };
 
+  layDanhSachKhoaHocChuaGhiDanh = ({taiKhoan}) => {
+    return Axios({
+      url: `${domain}/api/QuanLyNguoiDung/LayDanhSachKhoaHocChuaGhiDanh`,
+      method: "POST",
+      data: {taiKhoan},
+      headers: { Authorization: `Bearer ${token}` },
+    });
+  };
+
   layDanhSachKhoaHocChoXetDuyet = ({taiKhoan}) => {
     return Axios({
       url: `${domain}/api/QuanLyNguoiDung/LayDanhSachKhoaHocChoXetDuyet`,

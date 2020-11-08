@@ -10,7 +10,6 @@ import {
 import { useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { values } from "lodash";
 
 const updateCourseSchema = yup.object().shape({
   maKhoaHoc: yup.string().required("* ID cannot be empty!"),

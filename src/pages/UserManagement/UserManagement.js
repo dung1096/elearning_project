@@ -7,11 +7,14 @@ import {
   userListAction,
   unregisteredCourseList,
   registeredCourseList,
+  notRegisteredCourseList,
 } from "../../redux/actions/UserAction";
 import { useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 import "./UserManagement.scss";
+import { handleAcceptRegisterCourseAction,handleCancelRegisterCourseAction } from "../../redux/actions/CourseAction";
+
 
 const insertUserSchema = yup.object().shape({
   taiKhoan: yup.string().required("* Username cannot be empty!"),
@@ -59,6 +62,10 @@ export default function UserManagement() {
 
   let [user, setUser] = useState({});
 
+  let [course, setCourse] = useState({tenKhoaHoc:"Khóa Học"});
+
+  let [notRegistered, setNotRegistered] = useState([]);
+
   let [unregistered, setUnregistered] = useState([]);
 
   let [registered, setRegistered] = useState([]);
@@ -90,17 +97,40 @@ export default function UserManagement() {
 
   const handleSubmitUpdate = (values) => {
     console.log(values);
-
-    // values.preventDefault();
-
     handleUpdateUserAction(values);
   };
 
+  let handleClickCourse=(course)=>{
+    console.log(course)
+    setCourse(course);
+    // setCourse(event.target.innerHTML);
+    // dispatch({
+    //       type: setGroup,
+    //       group: document.getElementById(event.key).innerHTML,
+    //     });
+  }
+
   const handleRegister = (values) => {
     console.log(values.taiKhoan);
+    accountInformation(setUser, values);
+    notRegisteredCourseList(values.taiKhoan,setNotRegistered);
     unregisteredCourseList(values.taiKhoan, setUnregistered);
     registeredCourseList(values.taiKhoan, setRegistered);
+    
   };
+
+  const handleAcceptRegister=(course)=>{
+    console.log(user)
+    console.log(course)
+    handleAcceptRegisterCourseAction(course.maKhoaHoc,user.taiKhoan)
+  }
+
+  const handleCancelRegister=(course)=>{
+     console.log(user)
+    console.log(course)
+    handleCancelRegisterCourseAction(course.maKhoaHoc,user.taiKhoan)
+  }
+
   const renderTable = (user, index) => {
     if (index % 2 === 0) {
       return (
@@ -185,26 +215,26 @@ export default function UserManagement() {
     }
   };
 
-  const renderTableModal = (course, index) => {
+  const renderTableRegister = (course, index,bool) => {
     if (index % 2 === 0) {
       return (
         <tr key={index}>
           <td>{index + 1}</td>
           <td>{course.tenKhoaHoc}</td>
-          <td>
-            <button
+          <td className="d-flex justify-content-end">
+            {bool===true? (<button
               type="button"
               className="btn btn-primary ml-3"
-              // onClick={() =>{handleRegister(course);}}
+              onClick={() =>{handleAcceptRegister(course);}}
             >
               Accept
-            </button>
+            </button>) :
+            (<div></div>)}
+            
 
             <button
               className="btn btn-danger"
-              // onClick={() => {
-              //   handleUpdate(user);
-              // }}
+               onClick={() =>{handleCancelRegister(course);}}
             >
               Cancel
             </button>
@@ -216,20 +246,19 @@ export default function UserManagement() {
         <tr key={index} className="bg-secondary text-light">
           <td>{index + 1}</td>
           <td>{course.tenKhoaHoc}</td>
-          <td>
-            <button
+          <td className="d-flex justify-content-end">
+            {bool===true? (<button
               type="button"
               className="btn btn-primary ml-3"
-              // onClick={() =>{handleRegister(course);}}
+              onClick={() =>{handleAcceptRegister(course);}}
             >
               Accept
-            </button>
+            </button>) :
+            (<div></div>)}
 
             <button
               className="btn btn-danger"
-              // onClick={() => {
-              //   handleUpdate(user);
-              // }}
+              onClick={() =>{handleCancelRegister(course);}}
             >
               Cancel
             </button>
@@ -241,7 +270,7 @@ export default function UserManagement() {
 
   return (
     <Fragment>
-      <div>
+ 
         {/* Button trigger modal */}
         <div className="d-flex justify-content-end mb-5">
           <button
@@ -270,8 +299,33 @@ export default function UserManagement() {
                 </button>
               </div>
               <div className="modal-body form-main__content">
+              <div className="d-flex justify-content-between">
+                
+                <div className="dropdown">
+                  <button className="dropdown-toggle" id="triggerId" data-toggle="dropdown" 
+                     >
+                       {course.tenKhoaHoc}
+                      </button>
+                  <div className="dropdown-menu" aria-labelledby="triggerId">
+                    {notRegistered.map((course, index) => {
+                      return <div  key={index} className="dropdown-item" onClick={()=>{handleClickCourse(course)}} >
+                        {course.tenKhoaHoc}
+                        
+                        </div>
+                    })}
+                  </div>
+                </div>
 
-                <h3>The course is waiting for validation</h3>
+                <button
+              type="button"
+              className="btn btn-primary ml-3"
+              onClick={() =>{handleAcceptRegister(course);}}
+            >
+              Register
+            </button>
+              </div>
+{/*  */}
+                <h4>The course is waiting for validation</h4>
                 <table className="table">
                   <thead className="text-center">
                     <tr>
@@ -282,12 +336,12 @@ export default function UserManagement() {
                   </thead>
                   <tbody className="text-center">
                     {unregistered.map((course, index) => {
-                      return renderTableModal(course, index);
+                      return renderTableRegister(course, index,true);
                     })}
                   </tbody>
                 </table>
-
-                <h3>The course has been verified</h3>
+{/*  */}
+                <h4>The course has been verified</h4>
                 <table className="table">
                   <thead className="text-center">
                     <tr>
@@ -298,7 +352,7 @@ export default function UserManagement() {
                   </thead>
                   <tbody className="text-center">
                     {registered.map((course, index) => {
-                      return renderTableModal(course, index);
+                      return renderTableRegister(course, index,false);
                     })}
                   </tbody>
                 </table>
@@ -517,7 +571,6 @@ export default function UserManagement() {
                           placeholder="Username"
                           name="taiKhoan"
                           readOnly
-                          // disabled
                         />
                         <ErrorMessage name="taiKhoan"></ErrorMessage>
                       </div>
@@ -616,7 +669,7 @@ export default function UserManagement() {
             </div>
           </div>
         </div>
-      </div>
+   
 
       <table className="table">
         <thead className="text-center">
