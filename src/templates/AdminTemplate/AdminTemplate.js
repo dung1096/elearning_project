@@ -53,7 +53,7 @@ const AdminComponent = (props) => {
               mode="inline"
               // defaultSelectedKeys={["1"]}
               // defaultOpenKeys={["sub1"]}
-              style={{ borderRight:0 }}
+              style={{ borderRight:"0" }}
             >
               <SubMenu key="sub1" icon={<GroupOutlined />} title="Group">
                 <Menu.Item key="1" id="1" onClick={handleClick}>GP01</Menu.Item>
