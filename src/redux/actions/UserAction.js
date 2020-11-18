@@ -49,16 +49,28 @@ export const accountInformation = (setUserInfo,user) => {
     return setUserInfo;
 };
 
-export const userListAction = (group,setDSNguoiDung) => {
+export const userListAction = (group,setUserList) => {
   userService
     .layDanhSachNguoiDung(group)
     .then((res) => {
-      setDSNguoiDung(res.data);
+      setUserList(res.data);
     })
     .catch((err) => {
       console.log(err.response.data);
     });
-  return setDSNguoiDung;
+  return setUserList;
+};
+
+export const userListAction_pagination = (group,page,setUserListPage) => {
+  userService
+    .layDanhSachNguoiDung_PhanTrang(group,page)
+    .then((res) => {
+      setUserListPage(res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.data);
+    });
+  return setUserListPage;
 };
 
 export const handleInsertUserAction = (values) => {

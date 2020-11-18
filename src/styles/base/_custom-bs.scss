@@ -93,9 +93,11 @@
     }
   }
 }
-// .slick-track {
-//   display: flex;
-// }
+//table
+.table td,
+.table thead th {
+  vertical-align: middle;
+}
 
 //row
 .row {
