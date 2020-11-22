@@ -1,25 +1,38 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
+  courseCategoryListAction,
   handleInsertCourseAction,
   handleUpdateCourseAction,
 } from "../../../../redux/actions/CourseAction";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
 
-const updateCourseSchema = yup.object().shape({
+const insertCourseSchema = yup.object().shape({
   maKhoaHoc: yup.string().required("* ID cannot be empty!"),
   biDanh: yup.string().required("* Aliases cannot be empty!"),
   tenKhoaHoc: yup.string().required("* Course Name cannot be empty!"),
 });
+const updateCourseSchema = yup.object().shape({
+ 
+  biDanh: yup.string().required("* Aliases cannot be empty!"),
+  tenKhoaHoc: yup.string().required("* Course Name cannot be empty!"),
+});
 
-export default function CourseModal({courseDetail,courseList}) {
-  let frm = new FormData();
+export default function CourseModal({courseDetail}) {
+ 
 
   let category = { ...courseDetail.danhMucKhoaHoc };
   let userCreate = { ...courseDetail.nguoiTao };
 
+  const [cate, setCategory] = useState([]);
+
   const propUser = useSelector((state) => state.UserReducer.userLogin);
+
+  useEffect(() => {
+     courseCategoryListAction(setCategory);
+   
+  }, [])
 
   const parsedDate = () => {
     let today = new Date();
@@ -38,17 +51,23 @@ export default function CourseModal({courseDetail,courseList}) {
 
   const handleSubmit = (values) => {
     console.log(values);
-    frm.append("hinhAnh", values.hinhAnh);
-    frm.append("tenKhoaHoc", values.tenKhoaHoc);
-    console.log("tenKhoaHoc", values.tenKhoaHoc);
-    console.log("hinhAnh", values.hinhAnh);
+   
     handleInsertCourseAction(values);
   };
 
   const handleSubmitUpdate = (values) => {
-    // console.log(values);
+    console.log(values);
     handleUpdateCourseAction(values);
   };
+
+  const renderMsg = (msg) => {
+    return (
+      <div className="text-danger" style={{ fontSize: "14px" }}>
+        {msg}
+      </div>
+    );
+  };
+
   return (
     <Fragment>
       {/* Modal */}
@@ -73,10 +92,10 @@ export default function CourseModal({courseDetail,courseList}) {
                   hinhAnh: "",
                   maNhom: "GP01",
                   ngayTao: parsedDate(),
-                  maDanhMucKhoaHoc: "",
+                  maDanhMucKhoaHoc: "BackEnd",
                   taiKhoanNguoiTao: `${propUser.taiKhoan}`,
                 }}
-                validationSchema={updateCourseSchema}
+                validationSchema={insertCourseSchema}
                 onSubmit={handleSubmit}
               >
                 {({ handleChange }) => (
@@ -94,7 +113,7 @@ export default function CourseModal({courseDetail,courseList}) {
                             onChange={handleChange}
                           />
                           <ErrorMessage name="maKhoaHoc">
-                            {/* {(msg) => renderMsg(msg)} */}
+                            {(msg) => renderMsg(msg)}
                           </ErrorMessage>
                         </div>
                       </div>
@@ -110,7 +129,7 @@ export default function CourseModal({courseDetail,courseList}) {
                             onChange={handleChange}
                           />
                           <ErrorMessage name="biDanh">
-                            {/* {(msg) => renderMsg(msg)} */}
+                            {(msg) => renderMsg(msg)}
                           </ErrorMessage>
                         </div>
                       </div>
@@ -127,7 +146,7 @@ export default function CourseModal({courseDetail,courseList}) {
                         onChange={handleChange}
                       />
                       <ErrorMessage name="tenKhoaHoc">
-                        {/* {(msg) => renderMsg(msg)} */}
+                        {(msg) => renderMsg(msg)}
                       </ErrorMessage>
                     </div>
 
@@ -142,9 +161,6 @@ export default function CourseModal({courseDetail,courseList}) {
                         name="moTa"
                         onChange={handleChange}
                       />
-                      <ErrorMessage name="moTa">
-                        {/* {(msg) => renderMsg(msg)} */}
-                      </ErrorMessage>
                     </div>
 
                     {/* Picture */}
@@ -157,9 +173,6 @@ export default function CourseModal({courseDetail,courseList}) {
                         name="hinhAnh"
                         onChange={handleChange}
                       />
-                      <ErrorMessage name="hinhAnh">
-                        {/* {(msg) => renderMsg(msg)} */}
-                      </ErrorMessage>
                     </div>
 
                     <div className="row">
@@ -199,9 +212,6 @@ export default function CourseModal({courseDetail,courseList}) {
                             onChange={handleChange}
                             readOnly
                           />
-                          <ErrorMessage name="ngayTao">
-                            {/* {(msg) => renderMsg(msg)} */}
-                          </ErrorMessage>
                         </div>
                       </div>
                     </div>
@@ -210,15 +220,20 @@ export default function CourseModal({courseDetail,courseList}) {
                     <div className="form-group">
                       <i className="fa fa-list-ol"></i>
                       <Field
+                       component="select"
                         type="text"
                         className="form-control"
-                        placeholder="Category"
+                    
                         name="maDanhMucKhoaHoc"
                         onChange={handleChange}
-                      />
-                      <ErrorMessage name="maDanhMucKhoaHoc">
-                        {/* {(msg) => renderMsg(msg)} */}
-                      </ErrorMessage>
+                      >
+                      {
+                        cate.map((item,index)=>{
+                          return <option key={index}>{item.maDanhMuc}</option>
+                        })
+                      }
+                       </Field>
+                     
                     </div>
                     <button
                       type="submit"
@@ -279,9 +294,6 @@ export default function CourseModal({courseDetail,courseList}) {
                             onChange={handleChange}
                             readOnly
                           />
-                          <ErrorMessage name="maKhoaHoc">
-                            {/* {(msg) => renderMsg(msg)} */}
-                          </ErrorMessage>
                         </div>
                       </div>
                       <div className="col-6 pr-0 pl-1">
@@ -296,7 +308,7 @@ export default function CourseModal({courseDetail,courseList}) {
                             onChange={handleChange}
                           />
                           <ErrorMessage name="biDanh">
-                            {/* {(msg) => renderMsg(msg)} */}
+                            {(msg) => renderMsg(msg)}
                           </ErrorMessage>
                         </div>
                       </div>
@@ -313,7 +325,7 @@ export default function CourseModal({courseDetail,courseList}) {
                         onChange={handleChange}
                       />
                       <ErrorMessage name="tenKhoaHoc">
-                        {/* {(msg) => renderMsg(msg)} */}
+                        {(msg) => renderMsg(msg)}
                       </ErrorMessage>
                     </div>
 
@@ -328,9 +340,7 @@ export default function CourseModal({courseDetail,courseList}) {
                         name="moTa"
                         onChange={handleChange}
                       />
-                      <ErrorMessage name="moTa">
-                        {/* {(msg) => renderMsg(msg)} */}
-                      </ErrorMessage>
+                     
                     </div>
 
                     {/* Picture */}
@@ -343,9 +353,7 @@ export default function CourseModal({courseDetail,courseList}) {
                         name="hinhAnh"
                         onChange={handleChange}
                       />
-                      <ErrorMessage name="hinhAnh">
-                        {/* {(msg) => renderMsg(msg)} */}
-                      </ErrorMessage>
+                    
                     </div>
 
                     <div className="row">
@@ -385,9 +393,7 @@ export default function CourseModal({courseDetail,courseList}) {
                             onChange={handleChange}
                             readOnly
                           />
-                          <ErrorMessage name="ngayTao">
-                            {/* {(msg) => renderMsg(msg)} */}
-                          </ErrorMessage>
+                         
                         </div>
                       </div>
                     </div>
@@ -396,15 +402,20 @@ export default function CourseModal({courseDetail,courseList}) {
                     <div className="form-group">
                       <i className="fa fa-list-ol"></i>
                       <Field
+                      component="select"
                         type="text"
                         className="form-control"
                         placeholder="Category"
                         name="maDanhMucKhoaHoc"
                         onChange={handleChange}
-                      />
-                      <ErrorMessage name="maDanhMucKhoaHoc">
-                        {/* {(msg) => renderMsg(msg)} */}
-                      </ErrorMessage>
+                      >
+                        {
+                        cate.map((item,index)=>{
+                          return <option key={index}>{item.maDanhMuc}</option>
+                        })
+                      }
+                       </Field>
+                    
                     </div>
                     <button
                       type="submit"

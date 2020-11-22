@@ -11,6 +11,13 @@ export class CourseService {
     });
   };
 
+  layDanhSachKhoaHoc_PhanTrang = (group,page) => {
+    return Axios({
+      url: `${domain}/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc_PhanTrang?page=${page}&pageSize=6&MaNhom=${group}`,
+      method: "GET",
+    });
+  };
+
   // timKiemKhoaHoc = (data,group) => {
   //   return Axios({
   //     url:
@@ -94,11 +101,11 @@ export class CourseService {
     });
   };
 
-  uploadHinhAnhKhoaHoc = ({form}) => {
+  uploadHinhAnhKhoaHoc = (form) => {
     return Axios({
       url: `${domain}/api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc`,
       method: "POST",
-      data:{form},
+      data:form,
       
     });
   };

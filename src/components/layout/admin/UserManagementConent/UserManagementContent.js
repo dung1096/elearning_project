@@ -31,7 +31,7 @@ export default function UserManagementContent() {
     // userListAction(userGroup, setUserList);
     userListAction_pagination(userGroup,page, setUserListPage);
     setUserList(userListPage.items)
-  }, [userGroup,userListPage]);
+  }, [userGroup,userListPage,page]);
   
   const handleDelete = (id) => {
     console.log(id);

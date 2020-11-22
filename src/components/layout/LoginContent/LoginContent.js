@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import "./LoginContent.scss";
 import { NavLink } from "react-router-dom";
 import { Formik, Form, ErrorMessage } from "formik";
@@ -7,7 +7,7 @@ import { loginAction } from "../../../redux/actions/UserAction";
 
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { message } from 'antd';
+// import { message } from 'antd';
 
 const loginUserSchema = yup.object().shape({
   taiKhoan: yup.string().required("* ID cannot be empty!"),
@@ -17,7 +17,11 @@ const loginUserSchema = yup.object().shape({
 export const LoginContent = () => {
   let dispatch = useDispatch();
   const history = useHistory();
-  const [mess, setMess] = useState();
+ 
+
+  // useEffect(() => {
+  //  console.log("")
+  // }, [mess]);
 
   const handleSubmit = (value) => {
     dispatch(loginAction(value,history));
@@ -29,11 +33,6 @@ export const LoginContent = () => {
         {msg}
       </div>
     );
-  };
-
-  const renderMessage = (msg) => {
-    if(msg) return message.error(msg);
-    return;
   };
   return (
     <section className="form-main log-in container-fluid animate__animated animate__fadeIn wow">
@@ -84,7 +83,7 @@ export const LoginContent = () => {
                     {(msg) => renderMsg(msg)}
                   </ErrorMessage>
 
-                  <button onClick={renderMessage(mess)} type="submit" className="btn--red btn--sign-up">
+                  <button type="submit" className="btn--red btn--sign-up">
                     Log In
                   </button>
                 </Form>
