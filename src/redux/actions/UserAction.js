@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { userService } from "../../services/UserService";
 import { login } from "../types/UserType"
 
@@ -6,18 +7,22 @@ export const signUpAction = (values) => {
   return userService
     .dangKy(values)
     .then((res) => {
-      // console.log(res.data);
+      message.success("Đăng ký thành công");
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
 };
 
 export const loginAction = (user,history) => {
+  let logged = JSON.parse(localStorage.getItem("userLogin"));
+
   return (dispatch) => {
+    
     userService
       .dangNhap(user)
       .then((res) => {
+        //  message.success(res.data);
         //Lưu thông tin vào localStorage
         localStorage.setItem("userLogin", JSON.stringify(res.data));
         //Lưu token vào localStorage
@@ -27,11 +32,16 @@ export const loginAction = (user,history) => {
           type: login,
           userLogin: res.data,
         });
-        history.replace("/home");
+        message.success("Đăng nhập thành công");
+
+        setTimeout(() => {
+  history.replace("/home");
+}, 1000);
       })
       .catch((err) => {
-        console.log(err.response.data);
-        // setMess(err.response.data);
+        //  message.error(err.response.data);
+        if(!logged)  message.error(err.response.data); 
+  
       });
   };
 };
@@ -44,7 +54,7 @@ export const accountInformation = (setUserInfo,user) => {
    
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
     return setUserInfo;
 };
@@ -56,7 +66,7 @@ export const userListAction = (group,setUserList) => {
       setUserList(res.data);
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
   return setUserList;
 };
@@ -68,7 +78,7 @@ export const userListAction_pagination = (group,page,setUserListPage) => {
       setUserListPage(res.data);
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
   return setUserListPage;
 };
@@ -78,10 +88,10 @@ export const handleInsertUserAction = (values) => {
   return userService
     .themNguoiDung(values)
     .then((res) => {
-      // console.log(res.data);
+     message.success("Thêm người dùng thành công");
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
 };
 
@@ -90,10 +100,10 @@ export const handleDeleteUserAction = (id) => {
   return userService
     .xoaNguoiDung(id)
     .then((res) => {
-      // console.log(res.data);
+      message.success("Xóa người dùng thành công");
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
 };
 
@@ -102,10 +112,10 @@ export const handleUpdateUserAction = (values) => {
   return userService
     .capNhatThongTinNguoiDung(values)
     .then((res) => {
-      // console.log(res.data);
+      message.success("Cập nhật người dùng thành công");
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
 };
 
@@ -117,7 +127,7 @@ export const notRegisteredCourseList = (taiKhoan,setNotRegistered) => {
      console.log(res.data);
     })
     .catch((err) => {
-      console.log(err.response.data);
+      message.error(err.response.data); 
     });
  return setNotRegistered;
 };
@@ -130,7 +140,7 @@ export const unregisteredCourseList = (taiKhoan,setUnregistered) => {
      
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
  return setUnregistered;
 };
@@ -143,7 +153,7 @@ userService
     
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
  return setRegistered;
 };

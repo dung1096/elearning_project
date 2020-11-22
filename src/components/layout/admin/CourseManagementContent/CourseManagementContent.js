@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect, Fragment } from "react";
 import {
-  courseListAction,
+  // courseListAction,
+  courseListAction_pagination,
   courseDetailAction,
   handleDeleteCourseAction,
 } from "../../../../redux/actions/CourseAction";
@@ -10,27 +11,43 @@ import { useSelector } from "react-redux";
 import CourseModal from "../../../../components/layout/admin/CourseModal/CourseModal";
 
 export default function CourseManagementContent() {
+let [page, setPage] = useState(1);
+
     let [courseList, setCourseList] = useState([]);
+
+    let [courseListPage, setCourseListPage] = useState([]);
   
-  const propGroup = useSelector((state) => state.CourseReducer.group);
+  const courseGroup = useSelector((state) => state.CourseReducer.group);
   let [courseDetail, setCourseDetail] = useState({});
 
 
   useEffect(() => {
-    courseListAction(setCourseList,"",propGroup);
-  }, [courseList,propGroup,courseDetail]);
+    // courseListAction(setCourseList,"",courseGroup);
+    courseListAction_pagination(courseGroup,page, setCourseListPage);
+    setCourseList(courseListPage.items)
+  }, [courseGroup,courseListPage,page]);
 
   
 
   const handleUpdate=(id)=>{
     courseDetailAction(id,setCourseDetail);
-   
   }
-
-  
 
   const handleDelete = (id) => {
     handleDeleteCourseAction(id);
+  };
+
+  const handleClickPage =(event)=>
+  {
+   setPage(event.target.innerHTML)
+  }
+
+  const renderPages = () => {
+    let content = [];
+    for (let index = 1; index <= courseListPage.totalPages; index++) {
+      content.push(<button key={index} onClick={handleClickPage}>{index}</button>);
+    }
+    return content;
   };
     return (
         <Fragment>
@@ -55,7 +72,7 @@ export default function CourseManagementContent() {
 
 
       <div className="row">
-        {courseList.map((khoaHoc, index) => {
+        {courseList?.map((khoaHoc, index) => {
           return (
             <div className="col-sm-4 mb-5" key={index}>
               <div className="card">
@@ -142,6 +159,8 @@ export default function CourseManagementContent() {
           );
         })}
       </div>
+
+       {renderPages()}
     </Fragment>
     )
 }

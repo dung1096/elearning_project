@@ -3,7 +3,7 @@ import { login, logout,update,setGroup } from "../types/UserType";
 let userLogin = null;
 if (localStorage.getItem("userLogin")) {
   userLogin = JSON.parse(localStorage.getItem("userLogin"));
-}
+} else userLogin = null;
 
 let userUpdate = {
   taiKhoan: "",

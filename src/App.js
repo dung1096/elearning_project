@@ -19,7 +19,7 @@ function App() {
   let dispatch = useDispatch();
 
   const userFromLocal = localStorage.getItem("userLogin");
-  console.log(userFromLocal);
+
   if (userFromLocal) {
     dispatch(loginAction(JSON.parse(userFromLocal)));
   }

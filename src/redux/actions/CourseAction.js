@@ -1,3 +1,4 @@
+import { message } from "antd";
 import { courseService } from "../../services/CourseService";
 import { deleteCart } from "../types/CourseType";
 
@@ -8,9 +9,21 @@ export const courseListAction = (setCourseList, value, group) => {
       setCourseList(res.data);
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
   return setCourseList;
+};
+
+export const courseListAction_pagination = (group,page,setCourseListPage) => {
+ courseService
+    .layDanhSachKhoaHoc_PhanTrang(group,page)
+    .then((res) => {
+      setCourseListPage(res.data);
+    })
+    .catch((err) => {
+       message.error(err.response.data); 
+    });
+  return setCourseListPage;
 };
 
 export const courseCategoryListAction = (setCategory) => {
@@ -21,7 +34,7 @@ export const courseCategoryListAction = (setCategory) => {
       setCategory(res.data);
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
    return setCategory;
 };
@@ -33,7 +46,7 @@ export const courseCategoryAction = (setCourseList, name, group) => {
       setCourseList(res.data);
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
   return setCourseList;
 };
@@ -45,7 +58,7 @@ export const courseDetailAction = (id, setCourseDetail) => {
       setCourseDetail(res.data);
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
   return setCourseDetail;
 };
@@ -54,14 +67,14 @@ export const handleRegisterCourseAction = (dispatch, maKhoaHoc, taiKhoan) => {
   return courseService
     .dangKyKhoaHoc({ maKhoaHoc, taiKhoan })
     .then((res) => {
-      // console.log(res.data);
+     message.success("Đăng ký khóa học thành công");
       dispatch({
         type: deleteCart,
         cartID: maKhoaHoc,
       });
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
 };
 
@@ -69,10 +82,10 @@ export const handleAcceptRegisterCourseAction = (maKhoaHoc, taiKhoan) => {
   return courseService
     .ghiDanhKhoaHoc({ maKhoaHoc, taiKhoan })
     .then((res) => {
-      console.log(res.data);
+      message.success("Ghi danh khóa học thành công");
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
 };
 
@@ -80,34 +93,36 @@ export const handleCancelRegisterCourseAction = (maKhoaHoc, taiKhoan) => {
   return courseService
     .huyGhiDanh({ maKhoaHoc, taiKhoan })
     .then((res) => {
-      console.log(res.data);
+      message.success("Hủy ghi danh thành công");
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
 };
 
 export const handleInsertCourseAction = (values) => {
-  console.log(values);
-    console.log("tenKhoaHoc", values.tenKhoaHoc);
-  console.log("hinhAnh", values.hinhAnh);
+   console.log("tenKhoaHoc", values.tenKhoaHoc);
+   console.log("hinhAnh", values.hinhAnh);
+  
+ let frm = new FormData();
+  frm.append("hinhAnh", values.hinhAnh);
+  frm.append("tenKhoaHoc", values.tenKhoaHoc);
   return courseService
     .themKhoaHoc(values)
     .then((res) => {
       // console.log(res.data);
-      
       courseService
-        .uploadHinhAnhKhoaHoc(values.hinhAnh)
+        .uploadHinhAnhKhoaHoc(frm)
         .then((res) => {
-          res.setHeader("Access-Control-Allow-Origin", "*");
+          // res.setHeader("Access-Control-Allow-Origin", "*");
           console.log(res.data);
         })
         .catch((err) => {
-          console.log(err.response.data);
+           message.error(err.response.data); 
         });
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
 };
 
@@ -120,7 +135,7 @@ export const handleUpdateCourseAction = (values) => {
       // courseService.themKhoaHocUploadHinh()
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
 };
 
@@ -128,10 +143,10 @@ export const handleDeleteCourseAction = (id) => {
   return courseService
     .xoaKhoaHoc(id)
     .then((res) => {
-      console.log(res.data);
+      message.success("Xóa khóa học thành công");
     })
     .catch((err) => {
-      console.log(err.response.data);
+       message.error(err.response.data); 
     });
 };
 
