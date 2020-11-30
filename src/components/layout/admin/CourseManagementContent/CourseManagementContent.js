@@ -21,13 +21,13 @@ let [page, setPage] = useState(1);
   let [courseDetail, setCourseDetail] = useState({});
 
 
-  useEffect(() => {
-    // courseListAction(setCourseList,"",courseGroup);
-    courseListAction_pagination(courseGroup,page, setCourseListPage);
+  useEffect( () => {
+      // courseListAction(setCourseList,"",courseGroup);
+     courseListAction_pagination(courseGroup,page, setCourseListPage);
     setCourseList(courseListPage.items)
   }, [courseGroup,courseListPage,page]);
 
-  
+  const propImg = useSelector((state) => state.CourseReducer.img);
 
   const handleUpdate=(id)=>{
     courseDetailAction(id,setCourseDetail);
@@ -67,21 +67,25 @@ let [page, setPage] = useState(1);
         </button>
         </div>
 
-
-        
-
-
       <div className="row">
         {courseList?.map((khoaHoc, index) => {
           return (
             <div className="col-sm-4 mb-5" key={index}>
               <div className="card">
+                {/* {propImg === khoaHoc.hinhAnh ? <img
+                  className="card-img-top"
+                  style={{ height: "200px" }} 
+                  src={propImg}
+                  alt="img"
+                /> :  */}
                 <img
                   className="card-img-top"
-                  style={{ height: "200px" }}
+                  style={{ height: "200px" }} 
                   src={khoaHoc.hinhAnh}
                   alt="img"
                 />
+                 {/* } */}
+                
                 <div className="card-body">
                   <h4 className="card-title text-primary font-weight-bold">
                     {khoaHoc.tenKhoaHoc}

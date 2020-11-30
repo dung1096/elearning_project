@@ -1,4 +1,4 @@
-import React, { Fragment,useState } from 'react';
+import React, { Fragment, useState} from "react";
 import { useSelector } from "react-redux";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
@@ -43,48 +43,38 @@ const updateUserSchema = yup.object().shape({
     .string()
     .required("* Phone cannot be empty!")
     .matches(/^[0-9]+$/),
-  //   matKhau: yup
-  //     .string()
-  //     .min(6, "* Minimum 6 characters")
-  //     .required("* Pasword cannot be empty!"),
-  //   xacNhan: yup
-  //     .string()
-  //     .oneOf([yup.ref("matKhau")], "* Password's not match")
-  //     .required("* Confirm cannot be empty!"),
 });
 
-export default function UserModal({notRegistered,unregistered,registered,user}) {
-    let [course, setCourse] = useState({ tenKhoaHoc: "Khóa Học" });
+export default function UserModal({
+  notRegistered,
+  unregistered,
+  registered,
+  user,
+}) {
+  let [course, setCourse] = useState({ tenKhoaHoc: "Khóa Học" });
 
-    const userGroup = useSelector((state) => state.UserReducer.group);
+  const userGroup = useSelector((state) => state.UserReducer.group);
 
-    const handleSubmit = (values) => {
-    console.log(values);
+  const handleSubmit = (values) => {
     handleInsertUserAction(values);
-    console.log(document.getElementById("insert").dataset.dismiss);
+    // console.log(document.getElementById("insert").dataset.dismiss);
     document.getElementById("insert").dataset.dismiss = false;
-    console.log(document.getElementById("insert").dataset.dismiss);
+    // console.log(document.getElementById("insert").dataset.dismiss);
   };
 
-    let handleClickCourse = (course) => {
-    console.log(course);
+  let handleClickCourse = (course) => {
     setCourse(course);
   };
 
   const handleSubmitUpdate = (values) => {
-    console.log(values);
     handleUpdateUserAction(values);
   };
 
   const handleAcceptRegister = (course) => {
-    console.log(user);
-    console.log(course);
     handleAcceptRegisterCourseAction(course.maKhoaHoc, user.taiKhoan);
   };
 
   const handleCancelRegister = (course) => {
-    console.log(user);
-    console.log(course);
     handleCancelRegisterCourseAction(course.maKhoaHoc, user.taiKhoan);
   };
 
@@ -95,8 +85,10 @@ export default function UserModal({notRegistered,unregistered,registered,user}) 
       </div>
     );
   };
+  
 
   const renderTableRegister = (course, index, bool) => {
+  
     if (index % 2 === 0) {
       return (
         <tr key={index}>
@@ -161,9 +153,9 @@ export default function UserModal({notRegistered,unregistered,registered,user}) 
       );
     }
   };
-    return (
-        <Fragment>
-            {/* Modal */}
+  return (
+    <Fragment>
+      {/* Modal */}
       <div className="modal fade" id="modalRegisterId" aria-hidden="true">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
@@ -296,7 +288,7 @@ export default function UserModal({notRegistered,unregistered,registered,user}) 
                         onChange={handleChange}
                       />
                       <ErrorMessage name="taiKhoan">
-                          {(msg) => renderMsg(msg)}
+                        {(msg) => renderMsg(msg)}
                       </ErrorMessage>
                     </div>
 
@@ -314,7 +306,7 @@ export default function UserModal({notRegistered,unregistered,registered,user}) 
                         {(msg) => renderMsg(msg)}
                       </ErrorMessage>
                     </div>
-                    
+
                     {/* Email */}
                     <div className="form-group">
                       <i className="fa fa-envelope" />
@@ -447,13 +439,13 @@ export default function UserModal({notRegistered,unregistered,registered,user}) 
               <Formik
                 enableReinitialize={true}
                 initialValues={{
-                  taiKhoan: user.taiKhoan,
-                  matKhau: user.matKhau,
-                  hoTen: user.hoTen,
-                  soDT: user.soDT,
+                  taiKhoan: `${user.taiKhoan}`,
+                  matKhau: `${user.matKhau}`,
+                  hoTen: `${user.hoTen}`,
+                  soDT: `${user.soDT}`,
                   maNhom: userGroup,
-                  email: user.email,
-                  maLoaiNguoiDung: user.maLoaiNguoiDung,
+                  maLoaiNguoiDung: `${user.maLoaiNguoiDung}`,
+                  email: `${user.email}`,
                 }}
                 validationSchema={updateUserSchema}
                 onSubmit={handleSubmitUpdate}
@@ -567,6 +559,6 @@ export default function UserModal({notRegistered,unregistered,registered,user}) 
           </div>
         </div>
       </div>
-        </Fragment>
-    )
+    </Fragment>
+  );
 }

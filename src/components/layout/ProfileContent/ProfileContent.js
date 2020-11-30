@@ -65,7 +65,7 @@ export default function ProfileContent() {
       <div className="row">
         <div className="col-3 profile__nav">
           <div className="profile__avt text-center">
-            <img className="img-fluid" src={userInfo.hinhAnh} alt="avt" />
+            <img className="img-fluid" src="/img/kh1.jpg" alt="avt" />
             <h4>{userInfo.taiKhoan}</h4>
           </div>
 
@@ -100,19 +100,7 @@ export default function ProfileContent() {
                 Contact
               </a>
             </li>
-            <li className="nav-item" role="presentation">
-              <a
-                className="nav-link"
-                id="pills-photo-tab"
-                data-toggle="pill"
-                href="#pills-photo"
-                role="tab"
-                aria-controls="pills-photo"
-                aria-selected="false"
-              >
-                Photo
-              </a>
-            </li>
+
             <li className="nav-item" role="presentation">
               <a
                 className="nav-link"
@@ -134,13 +122,13 @@ export default function ProfileContent() {
             <Formik
               enableReinitialize={true}
               initialValues={{
-                taiKhoan: userInfo.taiKhoan,
-                matKhau: userInfo.matKhau,
-                hoTen: userInfo.hoTen,
-                soDT: userInfo.soDT,
-                maLoaiNguoiDung: userInfo.maLoaiNguoiDung,
-                maNhom: userInfo.maNhom,
-                email: userInfo.email,
+                taiKhoan: `${userInfo.taiKhoan}`,
+                matKhau: `${userInfo.matKhau}`,
+                hoTen: `${userInfo.hoTen}`,
+                soDT: `${userInfo.soDT}`,
+                maLoaiNguoiDung: `${userInfo.maLoaiNguoiDung}`,
+                maNhom: `${userInfo.maNhom}`,
+                email: `${userInfo.email}`,
                 currentPwd: "",
                 newPwd: "",
                 reNewPwd: "",
@@ -257,6 +245,46 @@ export default function ProfileContent() {
                             onChange={handleChange}
                           />
                         </div>
+
+                        <h3>Password: </h3>
+                        <div className="form-group">
+                          <Field
+                            type="password"
+                            name="currentPwd"
+                            className="form-control"
+                            placeholder="Enter Current Password"
+                            onChange={handleChange}
+                          />
+                          <ErrorMessage name="currentPwd">
+                            {(msg) => renderMsg(msg)}
+                          </ErrorMessage>
+                        </div>
+
+                        <div className="form-group">
+                          <Field
+                            type="password"
+                            name="newPwd"
+                            className="form-control"
+                            placeholder="Enter New Password"
+                            onChange={handleChange}
+                          />
+                          <ErrorMessage name="newPwd">
+                            {(msg) => renderMsg(msg)}
+                          </ErrorMessage>
+                        </div>
+
+                        <div className="form-group">
+                          <Field
+                            type="password"
+                            name="reNewPwd"
+                            className="form-control"
+                            placeholder="Re-type New Password"
+                            onChange={handleChange}
+                          />
+                          <ErrorMessage name="reNewPwd">
+                            {(msg) => renderMsg(msg)}
+                          </ErrorMessage>
+                        </div>
                         <div className="profile__footer d-flex justify-content-center">
                           <button type="submit" className="btn--red">
                             Save
@@ -319,9 +347,6 @@ export default function ProfileContent() {
                           }
                         )}
                       </div>
-                    </div>
-                    <div className="profile__footer d-flex justify-content-center">
-                      <button className="btn--red">Save</button>
                     </div>
                   </div>
                 </Fragment>

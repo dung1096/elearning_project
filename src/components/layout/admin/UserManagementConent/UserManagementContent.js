@@ -27,27 +27,34 @@ export default function UserManagementContent() {
 
   const userGroup = useSelector((state) => state.UserReducer.group);
 
-  useEffect(() => {
+  useEffect( () => {
     // userListAction(userGroup, setUserList);
     userListAction_pagination(userGroup,page, setUserListPage);
     setUserList(userListPage.items)
   }, [userGroup,userListPage,page]);
+
+  // useEffect(()=>{
+  //   notRegisteredCourseList(user.taiKhoan, setNotRegistered);
+  //   unregisteredCourseList(user.taiKhoan, setUnregistered);
+  //   registeredCourseList(user.taiKhoan, setRegistered);
+  // },[ notRegistered,
+  // unregistered,
+  // registered,])
   
   const handleDelete = (id) => {
-    console.log(id);
     handleDeleteUserAction(id);
   };
 
   const handleUpdate = (values) => {
-    console.log(values);
     accountInformation(setUser, values);
   };
 
-  const handleRegister = (values) => {
-    accountInformation(setUser, values);
-    notRegisteredCourseList(values.taiKhoan, setNotRegistered);
-    unregisteredCourseList(values.taiKhoan, setUnregistered);
-    registeredCourseList(values.taiKhoan, setRegistered);
+  const  handleRegister =  (values) => {
+
+     accountInformation(setUser, values);
+      notRegisteredCourseList(values.taiKhoan, setNotRegistered);
+      unregisteredCourseList(values.taiKhoan, setUnregistered);
+      registeredCourseList(values.taiKhoan, setRegistered);
   };
 
   const handleClickPage =(event)=>
