@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/types/CourseType";
@@ -10,6 +11,7 @@ export default function DetailContent({ courseDetail }) {
       type: addToCart,
       cartItem: courseDetail,
     });
+   
   };
   return (
     <section className="detail-content animate__animated animate__fadeIn wow">
@@ -38,7 +40,6 @@ export default function DetailContent({ courseDetail }) {
             <button className="btn--red" onClick={handleAddToCart}>
               Add to cart
             </button>
-            <button className="btn--blue">Buy now</button>
           </div>
         </div>
       </div>

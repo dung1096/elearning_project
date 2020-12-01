@@ -14,14 +14,11 @@ const insertCourseSchema = yup.object().shape({
   tenKhoaHoc: yup.string().required("* Course Name cannot be empty!"),
 });
 const updateCourseSchema = yup.object().shape({
- 
   biDanh: yup.string().required("* Aliases cannot be empty!"),
   tenKhoaHoc: yup.string().required("* Course Name cannot be empty!"),
 });
 
-export default function CourseModal({courseDetail}) {
- 
-
+export default function CourseModal({ courseDetail }) {
   let category = { ...courseDetail.danhMucKhoaHoc };
   let userCreate = { ...courseDetail.nguoiTao };
 
@@ -30,9 +27,8 @@ export default function CourseModal({courseDetail}) {
   const propUser = useSelector((state) => state.UserReducer.userLogin);
 
   useEffect(() => {
-     courseCategoryListAction(setCategory);
-   
-  }, [])
+    courseCategoryListAction(setCategory);
+  }, []);
 
   const parsedDate = () => {
     let today = new Date();
@@ -51,7 +47,7 @@ export default function CourseModal({courseDetail}) {
 
   const handleSubmit = (values) => {
     console.log(values);
-   
+
     handleInsertCourseAction(values);
   };
 
@@ -220,20 +216,16 @@ export default function CourseModal({courseDetail}) {
                     <div className="form-group">
                       <i className="fa fa-list-ol"></i>
                       <Field
-                       component="select"
+                        component="select"
                         type="text"
                         className="form-control"
-                    
                         name="maDanhMucKhoaHoc"
                         onChange={handleChange}
                       >
-                      {
-                        cate.map((item,index)=>{
-                          return <option key={index}>{item.maDanhMuc}</option>
-                        })
-                      }
-                       </Field>
-                     
+                        {cate.map((item, index) => {
+                          return <option key={index}>{item.maDanhMuc}</option>;
+                        })}
+                      </Field>
                     </div>
                     <button
                       type="submit"
@@ -264,17 +256,17 @@ export default function CourseModal({courseDetail}) {
               <Formik
                 enableReinitialize={true}
                 initialValues={{
-                  maKhoaHoc: courseDetail.maKhoaHoc,
-                  biDanh: courseDetail.biDanh,
-                  tenKhoaHoc: courseDetail.tenKhoaHoc,
-                  moTa: courseDetail.moTa,
-                  luotXem: courseDetail.luotXem,
+                  maKhoaHoc: `${courseDetail.maKhoaHoc}`,
+                  biDanh: `${courseDetail.biDanh}`,
+                  tenKhoaHoc: `${courseDetail.tenKhoaHoc}`,
+                  moTa: `${courseDetail.moTa}`,
+                  luotXem: `${courseDetail.luotXem}`,
                   danhGia: 0,
-                  hinhAnh: courseDetail.hinhAnh,
-                  maNhom: courseDetail.maNhom,
-                  ngayTao: courseDetail.ngayTao,
-                  maDanhMucKhoaHoc: category.maDanhMucKhoahoc,
-                  taiKhoanNguoiTao: userCreate.taiKhoan,
+                  hinhAnh: `${courseDetail.hinhAnh}`,
+                  maNhom: `${courseDetail.maNhom}`,
+                  ngayTao: `${courseDetail.ngayTao}`,
+                  maDanhMucKhoaHoc: `${category.maDanhMucKhoahoc}`,
+                  taiKhoanNguoiTao: `${userCreate.taiKhoan}`,
                 }}
                 validationSchema={updateCourseSchema}
                 onSubmit={handleSubmitUpdate}
@@ -340,7 +332,6 @@ export default function CourseModal({courseDetail}) {
                         name="moTa"
                         onChange={handleChange}
                       />
-                     
                     </div>
 
                     {/* Picture */}
@@ -353,7 +344,6 @@ export default function CourseModal({courseDetail}) {
                         name="hinhAnh"
                         onChange={handleChange}
                       />
-                    
                     </div>
 
                     <div className="row">
@@ -393,7 +383,6 @@ export default function CourseModal({courseDetail}) {
                             onChange={handleChange}
                             readOnly
                           />
-                         
                         </div>
                       </div>
                     </div>
@@ -402,20 +391,17 @@ export default function CourseModal({courseDetail}) {
                     <div className="form-group">
                       <i className="fa fa-list-ol"></i>
                       <Field
-                      component="select"
+                        component="select"
                         type="text"
                         className="form-control"
                         placeholder="Category"
                         name="maDanhMucKhoaHoc"
                         onChange={handleChange}
                       >
-                        {
-                        cate.map((item,index)=>{
-                          return <option key={index}>{item.maDanhMuc}</option>
-                        })
-                      }
-                       </Field>
-                    
+                        {cate.map((item, index) => {
+                          return <option key={index}>{item.maDanhMuc}</option>;
+                        })}
+                      </Field>
                     </div>
                     <button
                       type="submit"

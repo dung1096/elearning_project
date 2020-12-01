@@ -1,6 +1,6 @@
 import { message } from "antd";
 import { courseService } from "../../services/CourseService";
-import { deleteCart } from "../types/CourseType";
+import { deleteCart, addImg } from "../types/CourseType";
 
 export const courseListAction = (setCourseList, value, group) => {
   courseService
@@ -9,34 +9,34 @@ export const courseListAction = (setCourseList, value, group) => {
       setCourseList(res.data);
     })
     .catch((err) => {
-       message.error(err.response.data); 
+      message.error(err.response.data);
     });
   return setCourseList;
 };
 
-export const courseListAction_pagination = (group,page,setCourseListPage) => {
- courseService
-    .layDanhSachKhoaHoc_PhanTrang(group,page)
+export const courseListAction_pagination = (group, page, setCourseListPage) => {
+  courseService
+    .layDanhSachKhoaHoc_PhanTrang(group, page)
     .then((res) => {
       setCourseListPage(res.data);
     })
     .catch((err) => {
-       message.error(err.response.data); 
+      message.error(err.response.data);
     });
   return setCourseListPage;
 };
 
 export const courseCategoryListAction = (setCategory) => {
-   courseService
+  courseService
     .layDanhMucKhoaHoc()
     .then((res) => {
       // setDSKhoaHoc(res.data);
       setCategory(res.data);
     })
     .catch((err) => {
-       message.error(err.response.data); 
+      message.error(err.response.data);
     });
-   return setCategory;
+  return setCategory;
 };
 
 export const courseCategoryAction = (setCourseList, name, group) => {
@@ -46,7 +46,7 @@ export const courseCategoryAction = (setCourseList, name, group) => {
       setCourseList(res.data);
     })
     .catch((err) => {
-       message.error(err.response.data); 
+      message.error(err.response.data);
     });
   return setCourseList;
 };
@@ -58,7 +58,7 @@ export const courseDetailAction = (id, setCourseDetail) => {
       setCourseDetail(res.data);
     })
     .catch((err) => {
-       message.error(err.response.data); 
+      message.error(err.response.data);
     });
   return setCourseDetail;
 };
@@ -67,14 +67,14 @@ export const handleRegisterCourseAction = (dispatch, maKhoaHoc, taiKhoan) => {
   return courseService
     .dangKyKhoaHoc({ maKhoaHoc, taiKhoan })
     .then((res) => {
-     message.success("Đăng ký khóa học thành công");
+      message.success("Đăng ký khóa học thành công");
       dispatch({
         type: deleteCart,
         cartID: maKhoaHoc,
       });
     })
     .catch((err) => {
-       message.error(err.response.data); 
+      message.error(err.response.data);
     });
 };
 
@@ -85,7 +85,7 @@ export const handleAcceptRegisterCourseAction = (maKhoaHoc, taiKhoan) => {
       message.success("Ghi danh khóa học thành công");
     })
     .catch((err) => {
-       message.error(err.response.data); 
+      message.error(err.response.data);
     });
 };
 
@@ -96,33 +96,42 @@ export const handleCancelRegisterCourseAction = (maKhoaHoc, taiKhoan) => {
       message.success("Hủy ghi danh thành công");
     })
     .catch((err) => {
-       message.error(err.response.data); 
+      message.error(err.response.data);
     });
 };
 
 export const handleInsertCourseAction = (values) => {
-   console.log("tenKhoaHoc", values.tenKhoaHoc);
-   console.log("hinhAnh", values.hinhAnh);
-  
- let frm = new FormData();
+  console.log("tenKhoaHoc", values.tenKhoaHoc);
+  console.log("hinhAnh", values.hinhAnh);
+  let frm = new FormData();
   frm.append("hinhAnh", values.hinhAnh);
   frm.append("tenKhoaHoc", values.tenKhoaHoc);
-  return courseService
+  courseService
     .themKhoaHoc(values)
     .then((res) => {
-      // console.log(res.data);
-      courseService
-        .uploadHinhAnhKhoaHoc(frm)
-        .then((res) => {
-          // res.setHeader("Access-Control-Allow-Origin", "*");
-          console.log(res.data);
-        })
-        .catch((err) => {
-           message.error(err.response.data); 
-        });
+      console.log(res.data);
+      return async (dispatch) => {
+        console.log("abc");
+        await courseService
+          .uploadHinhAnhKhoaHoc(frm)
+          .then((res) => {
+            console.log(res.data);
+            dispatch({
+              type: addImg,
+              img: res.data,
+            });
+            // res.setHeader("Access-Control-Allow-Origin", "*");
+            console.log(res.data);
+          })
+          .catch((err) => {
+            console.log(err.response.data);
+            message.error(err.response.data);
+          });
+      };
     })
     .catch((err) => {
-       message.error(err.response.data); 
+      console.log(err.response.data);
+      message.error(err.response.data);
     });
 };
 
@@ -135,7 +144,7 @@ export const handleUpdateCourseAction = (values) => {
       // courseService.themKhoaHocUploadHinh()
     })
     .catch((err) => {
-       message.error(err.response.data); 
+      message.error(err.response.data);
     });
 };
 
@@ -146,8 +155,6 @@ export const handleDeleteCourseAction = (id) => {
       message.success("Xóa khóa học thành công");
     })
     .catch((err) => {
-       message.error(err.response.data); 
+      message.error(err.response.data);
     });
 };
-
-

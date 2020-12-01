@@ -106,7 +106,6 @@ export class CourseService {
       url: `${domain}/api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc`,
       method: "POST",
       data:form,
-      
     });
   };
 }
