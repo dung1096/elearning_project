@@ -101,48 +101,58 @@ export const handleCancelRegisterCourseAction = (maKhoaHoc, taiKhoan) => {
 };
 
 export const handleInsertCourseAction = (values) => {
-  console.log("tenKhoaHoc", values.tenKhoaHoc);
-  console.log("hinhAnh", values.hinhAnh);
   let frm = new FormData();
   frm.append("hinhAnh", values.hinhAnh);
   frm.append("tenKhoaHoc", values.tenKhoaHoc);
-  courseService
+  return courseService
     .themKhoaHoc(values)
     .then((res) => {
-      console.log(res.data);
       return async (dispatch) => {
-        console.log("abc");
         await courseService
           .uploadHinhAnhKhoaHoc(frm)
           .then((res) => {
-            console.log(res.data);
+            // console.log(res.data);
             dispatch({
               type: addImg,
               img: res.data,
             });
             // res.setHeader("Access-Control-Allow-Origin", "*");
-            console.log(res.data);
           })
           .catch((err) => {
-            console.log(err.response.data);
             message.error(err.response.data);
           });
       };
     })
     .catch((err) => {
-      console.log(err.response.data);
       message.error(err.response.data);
     });
 };
 
 export const handleUpdateCourseAction = (values) => {
-  console.log(values);
+  let frm = new FormData();
+  frm.append("hinhAnh", values.hinhAnh);
+  frm.append("tenKhoaHoc", values.tenKhoaHoc);
   return courseService
     .capNhatKhoaHoc(values)
+
     .then((res) => {
-      // console.log(res.data);
-      // courseService.themKhoaHocUploadHinh()
+      return async (dispatch) => {
+        await courseService
+          .uploadHinhAnhKhoaHoc(frm)
+          .then((res) => {
+            // console.log(res.data);
+            dispatch({
+              type: addImg,
+              img: res.data,
+            });
+            // res.setHeader("Access-Control-Allow-Origin", "*");
+          })
+          .catch((err) => {
+            message.error(err.response.data);
+          });
+      };
     })
+
     .catch((err) => {
       message.error(err.response.data);
     });

@@ -46,13 +46,10 @@ export default function CourseModal({ courseDetail }) {
   };
 
   const handleSubmit = (values) => {
-    console.log(values);
-
     handleInsertCourseAction(values);
   };
 
   const handleSubmitUpdate = (values) => {
-    console.log(values);
     handleUpdateCourseAction(values);
   };
 
