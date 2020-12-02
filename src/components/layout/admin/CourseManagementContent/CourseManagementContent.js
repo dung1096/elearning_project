@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, Fragment } from "react";
 import {
   // courseListAction,
@@ -11,61 +10,60 @@ import { useSelector } from "react-redux";
 import CourseModal from "../../../../components/layout/admin/CourseModal/CourseModal";
 
 export default function CourseManagementContent() {
-let [page, setPage] = useState(1);
+  let [page, setPage] = useState(1);
 
-    let [courseList, setCourseList] = useState([]);
+  let [courseList, setCourseList] = useState([]);
 
-    let [courseListPage, setCourseListPage] = useState([]);
-  
+  let [courseListPage, setCourseListPage] = useState([]);
+
   const courseGroup = useSelector((state) => state.CourseReducer.group);
   let [courseDetail, setCourseDetail] = useState({});
 
+  useEffect(() => {
+    // courseListAction(setCourseList,"",courseGroup);
+    courseListAction_pagination(courseGroup, page, setCourseListPage);
+    setCourseList(courseListPage.items);
+  }, [courseGroup, courseListPage, page]);
 
-  useEffect( () => {
-      // courseListAction(setCourseList,"",courseGroup);
-     courseListAction_pagination(courseGroup,page, setCourseListPage);
-    setCourseList(courseListPage.items)
-  }, [courseGroup,courseListPage,page]);
-
-  const propImg = useSelector((state) => state.CourseReducer.img);
-
-  const handleUpdate=(id)=>{
-    courseDetailAction(id,setCourseDetail);
-  }
+  const handleUpdate = (id) => {
+    courseDetailAction(id, setCourseDetail);
+  };
 
   const handleDelete = (id) => {
     handleDeleteCourseAction(id);
   };
 
-  const handleClickPage =(event)=>
-  {
-   setPage(event.target.innerHTML)
-  }
+  const handleClickPage = (event) => {
+    setPage(event.target.innerHTML);
+  };
 
   const renderPages = () => {
     let content = [];
     for (let index = 1; index <= courseListPage.totalPages; index++) {
-      content.push(<button key={index} onClick={handleClickPage}>{index}</button>);
+      content.push(
+        <button key={index} onClick={handleClickPage}>
+          {index}
+        </button>
+      );
     }
     return content;
   };
-    return (
-        <Fragment>
-      <CourseModal courseDetail={courseDetail} courseList={courseList}/>
+  return (
+    <Fragment>
+      <CourseModal courseDetail={courseDetail} courseList={courseList} />
 
-        {/* Button trigger modal */}
-        <div className="d-flex justify-content-end m-5">
+      {/* Button trigger modal */}
+      <div className="d-flex justify-content-end m-5">
         <button
           type="button"
           className="btn btn-success btn-lg p-3 mb-5"
           style={{ fontSize: "14px" }}
           data-toggle="modal"
           data-target="#courseId"
-
         >
           Insert
         </button>
-        </div>
+      </div>
 
       <div className="row">
         {courseList?.map((khoaHoc, index) => {
@@ -80,12 +78,12 @@ let [page, setPage] = useState(1);
                 /> :  */}
                 <img
                   className="card-img-top"
-                  style={{ height: "200px" }} 
+                  style={{ height: "200px" }}
                   src={khoaHoc.hinhAnh}
                   alt="img"
                 />
-                 {/* } */}
-                
+                {/* } */}
+
                 <div className="card-body">
                   <h4 className="card-title text-primary font-weight-bold">
                     {khoaHoc.tenKhoaHoc}
@@ -164,7 +162,7 @@ let [page, setPage] = useState(1);
         })}
       </div>
 
-       {renderPages()}
+      {renderPages()}
     </Fragment>
-    )
+  );
 }
